@@ -6,10 +6,61 @@ using System.Threading.Tasks;
 
 namespace OrientacionObjetos
 {
+
+    class Perro
+    {
+        public string raza;
+        public string nombre;
+        private int edad;
+
+        public int Edad
+        {
+            set
+            {
+                this.edad = value;
+            }
+            get
+            {
+                return edad;
+            }
+        }
+
+        public int getEdad()
+        {
+            return edad;
+        }
+        public void setEdad(int edad)
+        {
+            this.edad = edad;
+        }
+
+
+
+        public Perro()
+        {
+            this.setEdad(0);
+            this.raza = "";
+            this.nombre = "";
+        }
+        ~Perro()
+        {
+            Console.WriteLine("Finalizado el perro");
+        }
+    }
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
+            Perro objPerro;
+            objPerro = new Perro();
+            objPerro.raza = "Mastín";
+            objPerro.nombre = "Laika";
+            objPerro.setEdad(5);
+            Console.WriteLine(objPerro.getEdad());
+            objPerro = null;
+            Console.ReadKey();
+            GC.Collect();
+            Console.ReadLine();
         }
     }
 }
