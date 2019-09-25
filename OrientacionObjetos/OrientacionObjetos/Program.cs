@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace OrientacionObjetos
 {
-
-    class Perro
+    interface ICorredor
+    {
+        void correr();
+    }
+    class Perro:ICorredor
     {
         public string raza;
         public string nombre;
@@ -34,7 +37,10 @@ namespace OrientacionObjetos
             this.edad = edad;
         }
 
+        public void correr()
+        {
 
+        }
 
         public Perro()
         {
