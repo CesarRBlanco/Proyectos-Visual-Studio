@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E339C42C-56C2-4F81-962D-CF41C5EED5A9}</ProjectGuid>
+    <ProjectGuid>{8F62FD8E-27E2-4F0B-931E-B5E69C54ABA4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Test_Repo</RootNamespace>
-    <AssemblyName>Test Repo</AssemblyName>
+    <RootNamespace>Ejercicio3NT</RootNamespace>
+    <AssemblyName>Ejercicio3NT</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -54,6 +54,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

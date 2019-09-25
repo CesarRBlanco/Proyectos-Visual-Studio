@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Test_Repo.Properties
+namespace Ejercicio3NT.Properties
 {
 
 
