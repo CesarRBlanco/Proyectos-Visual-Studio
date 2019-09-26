@@ -172,5 +172,9 @@ namespace Ej1_4_Tema2
         {
             return Irpf * Salary / 100;
         }
+        public Empleado(String name, string surname, string dni, int age,string phone,double salary,double irpf) 
+        {
+            
+        }
     }
 }
