@@ -33,8 +33,6 @@ namespace Ejercicio4NT
             Console.WriteLine("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
             Console.WriteLine();
         }
-
-
         public static void game2()
         {
             Random rNumber = new Random();
@@ -61,38 +59,49 @@ namespace Ejercicio4NT
             Console.WriteLine("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
             Console.WriteLine();
         }
-
-
         public static void game3()
         {
+            int cont = 0;
             Random rNumber = new Random();
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 14; i++)
             {
+                cont++;
                 int poolNum = rNumber.Next(1, 101);
-                //getPoolResults(poolNum);
+                Console.Write(getPoolResults(poolNum));
+                if (cont == 5)
+                {
+                    Console.WriteLine();
+                    cont = 0;
+                }
             }
-
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
+            Console.WriteLine();
         }
+        public static char getPoolResults(int poolNum)
+        {
 
-        //public static void getPoolResults(int poolNum)
-        //{
-        //    switch (poolNum)
-        //    {
-        //        case 15:
-        //            break;
-        //        case 15 40:
-        //            break;
-        //        case 40 100:
-        //            break;
-        //    }
-        //}
+            switch (poolNum)
+            {
+                case int n when (n <= 15):
+                    return '2';
+                case int n when ((n > 15) && (n <= 40)):
+                    return 'x';
+                case int n when (n > 40):
+                    return '1';
+            }
+            return '0';
+        }
 
 
         static void Main(string[] args)
         {
+            bool allG;
             String option;
             do
             {
+                allG = false;
                 Console.WriteLine("Menu");
                 Console.WriteLine("-------");
                 Console.WriteLine("1. Dices");
@@ -109,10 +118,18 @@ namespace Ejercicio4NT
                 {
                     case "1":
                         game1();
+                        if (allG)
+                        {
+                            goto case "2";
+                        }
                         break;
 
                     case "2":
                         game2();
+                        if (allG)
+                        {
+                            goto case "3";
+                        }
                         break;
 
                     case "3":
@@ -120,7 +137,8 @@ namespace Ejercicio4NT
                         break;
 
                     case "4":
-
+                        allG = true;
+                        goto case "1";
                         break;
 
                     case "5":
