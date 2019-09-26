@@ -88,10 +88,10 @@ namespace Ej1_4_Tema2
             : this("", "", "", 0)
         {
         }
-        abstract double hacienda()
-        {
-            return;
-        }
+        //abstract double hacienda()
+        //{
+        //    return;
+        //}
 
     }
 
@@ -168,10 +168,10 @@ namespace Ej1_4_Tema2
             Console.WriteLine(selectData);
 
         }
-        abstract double hacienda()
-        {
-            return Irpf * Salary / 100;
-        }
+        //abstract double hacienda()
+        //{
+        //    return Irpf * Salary / 100;
+        //}
         public Empleado(String name, string surname, string dni, int age,string phone,double salary,double irpf) 
         {
             
