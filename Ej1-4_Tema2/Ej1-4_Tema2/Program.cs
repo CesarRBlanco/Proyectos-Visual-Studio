@@ -15,10 +15,10 @@ namespace Ej1_4_Tema2
         }
     }
 
-    class Persona
+    abstract class Person
     {
         int age, dniNum;
-        String dni, name, surname, dniLet = "TRWAGMYFPDXBNJZSQVHLCKE";
+        String dni, surname, dniLet = "TRWAGMYFPDXBNJZSQVHLCKE";
 
         public int Age
         {
@@ -43,29 +43,29 @@ namespace Ej1_4_Tema2
             set
             {
 
-                if ((dni.Length == 8) && (Int32.TryParse(value, out this.dniNum)))
+                if (dni.Length == 8 && Int32.TryParse(value, out this.dniNum))
                 {
                     this.dni = value;
                 }
                 else
                 {
-                    Console.WriteLine("DNI is invalid. Please, try again.");
+                    // Mejor lanzar excepción
                 }
             }
             get
             {
                 int dniCal = dniNum % 23;
-                dni = (dniNum.ToString() + dniLet.ElementAt(dniCal));
+                dni = dniNum.ToString() + dniLet.ElementAt(dniCal);
                 return dni;
             }
         }
         public String Name { set; get; }
         public String Surname { set; get; }
-        public void showInfo()
+        public virtual void showInfo()
         {
             Console.WriteLine("Name: {0},Surname: {1},Age: {2},DNI: {4}.", Name, Surname, Age, Dni);
         }
-        public void modInfo()
+        public virtual void modInfo()
         {
             Console.Write("Insert name: ");
             this.Name = Console.ReadLine();
@@ -77,31 +77,26 @@ namespace Ej1_4_Tema2
             this.Dni = Console.ReadLine();
 
         }
-        public Persona(String name, string surname, string dni, int age)
+        public Person(string name, string surname, string dni, int age)
         {
-            this.name = name;
-            this.surname = surname;
-            this.dni = dni;
-            this.age = age;
+            this.Name = name;
+            this.Surname = surname;
+            this.Dni = dni;
+            this.Age = age;
         }
-        public Persona()
+        public Person()
             : this("", "", "", 0)
         {
         }
-        //abstract double hacienda()
-        //{
-        //    return;
-        //}
-
+        public abstract double hacienda();
     }
 
-    class Empleado : Persona
+    class Employee : Person
     {
         double salary, irpf;
         string phone;
 
-        public double Salary { set; get; }
-        private double Irpf
+        public double Salary
         {
             set
             {
@@ -109,7 +104,7 @@ namespace Ej1_4_Tema2
                 {
                     irpf = 7;
                 }
-                if ((salary > 600) || (salary <= 3000))
+                if (salary > 600 && salary <= 3000)
                 {
                     irpf = 15;
                 }
@@ -118,6 +113,14 @@ namespace Ej1_4_Tema2
                     irpf = 20;
                 }
             }
+            get
+            {
+                return salary;
+            }
+        }
+        private double Irpf
+        {
+            set { }
             get
             {
                 return irpf;
@@ -131,16 +134,18 @@ namespace Ej1_4_Tema2
             }
             get
             {
-                return ("+34" + phone);
+                return "+34" + phone;
             }
         }
-        public void showEInfo()
+        public override void showInfo()
         {
-            Console.WriteLine("Name: {0}, Surname: {1}, Age: {2}, Dni: {3}, Phone: {4}, Salary: {5}, IRPF: {6}",this.Name,this.Surname,this.Age,this.Dni,Phone,Salary,Irpf);
+            base.showInfo();
+            Console.WriteLine("Phone: {0}, Salary: {1}, IRPF: {2}", Phone, Salary, Irpf);
+
         }
-        public void showEInfo(int select)
+        public void showInfo(int select)
         {
-            String selectData="Invalid selection";
+            String selectData = "Invalid selection";
             switch (select)
             {
                 case 0:
@@ -168,13 +173,42 @@ namespace Ej1_4_Tema2
             Console.WriteLine(selectData);
 
         }
-        //abstract double hacienda()
-        //{
-        //    return Irpf * Salary / 100;
-        //}
-        public Empleado(String name, string surname, string dni, int age,string phone,double salary,double irpf) 
+        public override double hacienda()
         {
-            
+            return Irpf * Salary / 100;
+        }
+        public Employee(String name, string surname, string dni, int age, string phone, double salary) : base(name, surname, dni, age)
+        {
+            this.salary = salary;
+            this.phone = phone;
+        }
+        public Employee() : this("", "", "", 0, "", 0)
+        {
+
+        }
+    }
+
+    class Directive : Person
+    {
+        String department;
+        int benfits, numEmployes;
+
+        public string Department { set; get; }
+        public int NumEmployes
+        {
+            set
+            {
+                if(NumEmployes)
+            }
+            get
+            {
+                return NumEmployes;
+            }
+        }
+        public int Benefits { set; get; }
+        public override double hacienda()
+        {
+            throw new NotImplementedException();
         }
     }
 }
