@@ -188,25 +188,60 @@ namespace Ej1_4_Tema2
         }
     }
 
-    class Directive : Person
+    interface iPastaGansa
+    {
+        void ganarPasta();
+    }
+
+    class Directive : Person, iPastaGansa
     {
         String department;
-        int benfits, numEmployes;
-
+        int numEmployes;
+        double benfits;
         public string Department { set; get; }
         public int NumEmployes
         {
             set
             {
-                if(NumEmployes)
+                if (NumEmployes <= 10)
+                {
+                    Benefits = 2;
+                }
+                if (NumEmployes > 10 && NumEmployes<=50)
+                {
+                    Benefits = 3.5;
+                }
+                if (NumEmployes > 50)
+                {
+                    Benefits = 4;
+                }
+
             }
-            get
-            {
+            get            {
                 return NumEmployes;
             }
         }
-        public int Benefits { set; get; }
+        public double Benefits { set; get; }
+        public override void showInfo()
+        {
+            base.showInfo();
+            Console.WriteLine("Department: {0}, Benfits: {1}, Number of Employees per Department: {2}",Department,Benefits,NumEmployes);
+        }
+        public override void modInfo()
+        {
+            base.modInfo();
+            Console.Write("Insert department: ");
+            this.Department = Console.ReadLine();
+            Console.Write("Insert Number of Employees per department: ");
+            this.Age = Int32.Parse(Console.ReadLine());
+
+        }
         public override double hacienda()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ganarPasta()
         {
             throw new NotImplementedException();
         }
