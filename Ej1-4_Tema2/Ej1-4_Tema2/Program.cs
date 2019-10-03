@@ -11,7 +11,7 @@ namespace Ej1_4_Tema2
     {
         static void Main(string[] args)
         {
-            Employee empo1 = new Employee("Juan", "Algo", "77015143", 35, "651533815", 1500);
+            Employee empo1 = new Employee("Juan", "Algo", "77015143", 35, "651533815", 50000);
             
             empo1.showInfo();
             Console.ReadKey();
@@ -72,7 +72,7 @@ namespace Ej1_4_Tema2
         public String Surname { set; get; }
         public virtual void showInfo()
         {
-            Console.WriteLine("Name: {0},\nSurname: {1},\nAge: {2},\nDNI: {3}.", Name, Surname, Age, Dni);
+            Console.WriteLine("Name: {0}.\nSurname: {1}.\nAge: {2}.\nDNI: {3}.", Name, Surname, Age, Dni);
         }
         public virtual void modInfo()
         {
@@ -124,6 +124,18 @@ namespace Ej1_4_Tema2
             }
             get
             {
+                if (salary <= 600)
+                {
+                    irpf = 7;
+                }
+                if (salary > 600 && salary <= 3000)
+                {
+                    irpf = 15;
+                }
+                if (salary > 3000)
+                {
+                    irpf = 20;
+                }
                 return salary;
             }
         }
@@ -149,7 +161,7 @@ namespace Ej1_4_Tema2
         public override void showInfo()
         {
             base.showInfo();
-            Console.WriteLine("Phone: {0}, Salary: {1}, IRPF: {2}", Phone, Salary, Irpf);
+            Console.WriteLine("Phone: {0}.\nSalary: {1}$.\nIRPF: {2}%.", Phone, Salary, Irpf);
 
         }
         public void showInfo(int select)
