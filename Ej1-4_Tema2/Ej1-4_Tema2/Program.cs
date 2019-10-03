@@ -11,6 +11,10 @@ namespace Ej1_4_Tema2
     {
         static void Main(string[] args)
         {
+            Employee empo1 = new Employee("Juan", "Algo", "77015143", 35, "651533815", 1500);
+            
+            empo1.showInfo();
+            Console.ReadKey();
 
         }
     }
@@ -18,7 +22,7 @@ namespace Ej1_4_Tema2
     abstract class Person
     {
         int age, dniNum;
-        String dni, surname, dniLet = "TRWAGMYFPDXBNJZSQVHLCKE";
+        String dni="77015143", dniLet = "TRWAGMYFPDXBNJZSQVHLCKE";
 
         public int Age
         {
@@ -42,28 +46,33 @@ namespace Ej1_4_Tema2
         {
             set
             {
+                try { 
+                    if (value.Length == 8)
+                    {
+                 
+                        int dniCal = Int32.Parse(dni) % 23;
+                        dni = dni + dniLet.ElementAt(dniCal);
+                        this.Dni = dni;
+                }
+                }
+                catch (Exception x)
+                {
+                    dni = value;
+                }
 
-                if (dni.Length == 8 && Int32.TryParse(value, out this.dniNum))
-                {
-                    this.dni = value;
-                }
-                else
-                {
-                    // Mejor lanzar excepción
-                }
+
             }
-            get
+                get
             {
-                int dniCal = dniNum % 23;
-                dni = dniNum.ToString() + dniLet.ElementAt(dniCal);
-                return dni;
+    
+                    return dni;
+                }
             }
-        }
         public String Name { set; get; }
         public String Surname { set; get; }
         public virtual void showInfo()
         {
-            Console.WriteLine("Name: {0},Surname: {1},Age: {2},DNI: {4}.", Name, Surname, Age, Dni);
+            Console.WriteLine("Name: {0},\nSurname: {1},\nAge: {2},\nDNI: {3}.", Name, Surname, Age, Dni);
         }
         public virtual void modInfo()
         {
@@ -190,60 +199,66 @@ namespace Ej1_4_Tema2
 
     interface iPastaGansa
     {
-        void ganarPasta();
+        void ganarPasta(double benefits);
     }
 
-    class Directive : Person, iPastaGansa
-    {
-        String department;
-        int numEmployes;
-        double benfits;
-        public string Department { set; get; }
-        public int NumEmployes
-        {
-            set
-            {
-                if (NumEmployes <= 10)
-                {
-                    Benefits = 2;
-                }
-                if (NumEmployes > 10 && NumEmployes<=50)
-                {
-                    Benefits = 3.5;
-                }
-                if (NumEmployes > 50)
-                {
-                    Benefits = 4;
-                }
+    //class Directive : Person, iPastaGansa
+    //{
+    //    String department;
+    //    int numEmployes;
+    //    double benfits;
+    //    public string Department { set; get; }
+    //    public int NumEmployes
+    //    {
+    //        set
+    //        {
+    //            if (NumEmployes <= 10)
+    //            {
+    //                Benefits = 2;
+    //            }
+    //            if (NumEmployes > 10 && NumEmployes<=50)
+    //            {
+    //                Benefits = 3.5;
+    //            }
+    //            if (NumEmployes > 50)
+    //            {
+    //                Benefits = 4;
+    //            }
 
-            }
-            get            {
-                return NumEmployes;
-            }
-        }
-        public double Benefits { set; get; }
-        public override void showInfo()
-        {
-            base.showInfo();
-            Console.WriteLine("Department: {0}, Benfits: {1}, Number of Employees per Department: {2}",Department,Benefits,NumEmployes);
-        }
-        public override void modInfo()
-        {
-            base.modInfo();
-            Console.Write("Insert department: ");
-            this.Department = Console.ReadLine();
-            Console.Write("Insert Number of Employees per department: ");
-            this.Age = Int32.Parse(Console.ReadLine());
+    //        }
+    //        get            {
+    //            return NumEmployes;
+    //        }
+    //    }
+    //    public double Benefits { set; get; }
+    //    public override void showInfo()
+    //    {
+    //        base.showInfo();
+    //        Console.WriteLine("Department: {0}, Benfits: {1}, Number of Employees per Department: {2}",Department,Benefits,NumEmployes);
+    //    }
+    //    public override void modInfo()
+    //    {
+    //        base.modInfo();
+    //        Console.Write("Insert department: ");
+    //        this.Department = Console.ReadLine();
+    //        Console.Write("Insert Number of Employees per department: ");
+    //        this.Age = Int32.Parse(Console.ReadLine());
 
-        }
-        public override double hacienda()
-        {
-            throw new NotImplementedException();
-        }
+    //    }
+    //    public override double hacienda()
+    //    {
+    //        throw new NotImplementedException();
+    //    }
 
-        public void ganarPasta()
-        {
-            throw new NotImplementedException();
-        }
-    }
+    //    public void ganarPasta(double casa)
+    //    {
+
+    //    }
+
+
+    //}
+
+
+
+
 }
