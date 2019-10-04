@@ -11,8 +11,10 @@ namespace Ej1_4_Tema2
     {
         static void Main(string[] args)
         {
-    
-
+            Employee emp1 = new Employee("Juan", "Algo", "77015143", 31, "651533815", 3000);
+            Directive dir1 = new Directive("Alvaro","Something","36098415",43,"Ventas",20);
+            SpecialEmployee sEmp1 = new SpecialEmployee("Antonio","Arlguito","32158216",35,"654894152",4000);
+            dir1.showInfo();
         }
     }
 
@@ -265,8 +267,8 @@ namespace Ej1_4_Tema2
 
         public override double hacienda()
         {
-          
-            return ganarPasta(benefits,ingresosBuss)*0.30;
+
+            return ganarPasta(benefits, ingresosBuss) * 0.30;
         }
 
         public static Directive operator --(Directive Dir)
@@ -280,16 +282,23 @@ namespace Ej1_4_Tema2
                 Dir.benefits = Dir.benefits - 1;
             }
             return Dir;
-        }
+        }
+
         public double ganarPasta(double benefits, double ingresosBuss)
         {
             if (ingresosBuss < 0)
             {
                 benefits = 0;
             }
-            Directive Dir = new Directive();
+            Directive Dir = new Directive("Alvaro", "Something", "36098415", 43, "Ventas", 20);
             Dir--;
             return benefits;
+        }
+
+        public Directive(String name, string surname, string dni, int age, string department, int numEmployes) : base(name, surname, dni, age)
+        {
+            this.Department = department;
+            this.NumEmployes = numEmployes;
         }
     }
 
@@ -305,8 +314,15 @@ namespace Ej1_4_Tema2
 
         public override double hacienda()
         {
-            double specialHacienda = base.hacienda()+(ganarPasta(benefits,ingresosBuss)*0.1);
+            double specialHacienda = base.hacienda() + (ganarPasta(benefits, ingresosBuss) * 0.1);
             return specialHacienda;
         }
+        public SpecialEmployee(String name, string surname, string dni, int age, string phone, int salary) : base(name, surname, dni, age, phone, salary)
+        {
+
+
+        }
+
+
     }
 }
