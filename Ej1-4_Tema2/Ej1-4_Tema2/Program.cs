@@ -11,10 +11,7 @@ namespace Ej1_4_Tema2
     {
         static void Main(string[] args)
         {
-            Employee empo1 = new Employee("Juan", "Algo", "77015143", 35, "651533815", 50000);
-            
-            empo1.showInfo();
-            Console.ReadKey();
+    
 
         }
     }
@@ -22,7 +19,7 @@ namespace Ej1_4_Tema2
     abstract class Person
     {
         int age, dniNum;
-        String dni="77015143", dniLet = "TRWAGMYFPDXBNJZSQVHLCKE";
+        String dni = "77015143", dniLet = "TRWAGMYFPDXBNJZSQVHLCKE";
 
         public int Age
         {
@@ -46,14 +43,15 @@ namespace Ej1_4_Tema2
         {
             set
             {
-                try { 
+                try
+                {
                     if (value.Length == 8)
                     {
-                 
+
                         int dniCal = Int32.Parse(dni) % 23;
                         dni = dni + dniLet.ElementAt(dniCal);
                         this.Dni = dni;
-                }
+                    }
                 }
                 catch (Exception x)
                 {
@@ -62,12 +60,12 @@ namespace Ej1_4_Tema2
 
 
             }
-                get
+            get
             {
-    
-                    return dni;
-                }
+
+                return dni;
             }
+        }
         public String Name { set; get; }
         public String Surname { set; get; }
         public virtual void showInfo()
@@ -211,66 +209,104 @@ namespace Ej1_4_Tema2
 
     interface iPastaGansa
     {
-        void ganarPasta(double benefits);
+        double ganarPasta(double benefits, double ingresos);
     }
 
-    //class Directive : Person, iPastaGansa
-    //{
-    //    String department;
-    //    int numEmployes;
-    //    double benfits;
-    //    public string Department { set; get; }
-    //    public int NumEmployes
-    //    {
-    //        set
-    //        {
-    //            if (NumEmployes <= 10)
-    //            {
-    //                Benefits = 2;
-    //            }
-    //            if (NumEmployes > 10 && NumEmployes<=50)
-    //            {
-    //                Benefits = 3.5;
-    //            }
-    //            if (NumEmployes > 50)
-    //            {
-    //                Benefits = 4;
-    //            }
+    class Directive : Person, iPastaGansa
+    {
+        //String department;
+        //int numEmployes;
+        double benefits;
+        double ingresosBuss;
 
-    //        }
-    //        get            {
-    //            return NumEmployes;
-    //        }
-    //    }
-    //    public double Benefits { set; get; }
-    //    public override void showInfo()
-    //    {
-    //        base.showInfo();
-    //        Console.WriteLine("Department: {0}, Benfits: {1}, Number of Employees per Department: {2}",Department,Benefits,NumEmployes);
-    //    }
-    //    public override void modInfo()
-    //    {
-    //        base.modInfo();
-    //        Console.Write("Insert department: ");
-    //        this.Department = Console.ReadLine();
-    //        Console.Write("Insert Number of Employees per department: ");
-    //        this.Age = Int32.Parse(Console.ReadLine());
+        public string Department { set; get; }
 
-    //    }
-    //    public override double hacienda()
-    //    {
-    //        throw new NotImplementedException();
-    //    }
+        public int NumEmployes
+        {
+            set
+            {
+                if (NumEmployes <= 10)
+                {
+                    Benefits = 2;
+                }
+                if (NumEmployes > 10 && NumEmployes <= 50)
+                {
+                    Benefits = 3.5;
+                }
+                if (NumEmployes > 50)
+                {
+                    Benefits = 4;
+                }
 
-    //    public void ganarPasta(double casa)
-    //    {
+            }
+            get
+            {
+                return NumEmployes;
+            }
+        }
 
-    //    }
+        public double Benefits { set; get; }
 
+        public override void showInfo()
+        {
+            base.showInfo();
+            Console.WriteLine("Department: {0}, Benfits: {1}, Number of Employees per Department: {2}", Department, Benefits, NumEmployes);
+        }
 
-    //}
+        public override void modInfo()
+        {
+            base.modInfo();
+            Console.Write("Insert department: ");
+            this.Department = Console.ReadLine();
+            Console.Write("Insert Number of Employees per department: ");
+            this.Age = Int32.Parse(Console.ReadLine());
 
+        }
 
+        public override double hacienda()
+        {
+          
+            return ganarPasta(benefits,ingresosBuss)*0.30;
+        }
 
+        public static Directive operator --(Directive Dir)
+        {
+            if (Dir.benefits <= 1)
+            {
+                Dir.benefits = 0;
+            }
+            else
+            {
+                Dir.benefits = Dir.benefits - 1;
+            }
+            return Dir;
+        }
+        public double ganarPasta(double benefits, double ingresosBuss)
+        {
+            if (ingresosBuss < 0)
+            {
+                benefits = 0;
+            }
+            Directive Dir = new Directive();
+            Dir--;
+            return benefits;
+        }
+    }
 
+    class SpecialEmployee : Employee, iPastaGansa
+    {
+        double benefits, ingresosBuss;
+
+        public double ganarPasta(double benefits, double ingresosBuss)
+        {
+            benefits = ingresosBuss * 0.05;
+            return benefits;
+        }
+
+        public override double hacienda()
+        {
+            double specialHacienda = base.hacienda()+(ganarPasta(benefits,ingresosBuss)*0.1);
+            return specialHacienda;
+        }
+    }
 }
