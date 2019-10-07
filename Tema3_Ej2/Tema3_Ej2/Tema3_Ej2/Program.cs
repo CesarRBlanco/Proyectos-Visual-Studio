@@ -26,26 +26,67 @@ namespace Tema3_Ej2
             }
 
             // Table Show
-            for (int i = 0; i < tableNotes.GetLength(0); i++)
-            {
-                Console.WriteLine();
-                for (int j = 0; j < tableNotes.GetLength(1); j++)
-                {
-                    Console.Write(tableNotes[i, j]);
-                    Console.Write(" ");
-                }
-            }
+            //for (int i = 0; i < tableNotes.GetLength(0); i++)
+            //{
+            //    Console.WriteLine();
+            //    for (int j = 0; j < tableNotes.GetLength(1); j++)
+            //    {
+            //        Console.Write(tableNotes[i, j]);
+            //        Console.Write(" ");
+            //    }
+            //}
 
 
-            menu();
-            averageNote(tableNotes);
+            menu(tableNotes);
             Console.ReadKey();
         }
 
 
-        public static void menu()
+        public static void menu(int[,] tableNotes)
         {
-            //Conso
+            int option;
+            do
+            {
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine("1. Total average note.");
+                Console.WriteLine("2. Average of one student.");
+                Console.WriteLine("3. Average of one signature.");
+                Console.WriteLine("4. Show all notes of one student.");
+                Console.WriteLine("5. Show all notes of one signature.");
+                Console.WriteLine("6. Max. and min. note of one student.");
+                Console.WriteLine("7. Show only <5 notes.");
+                Console.WriteLine("0. Exit.");
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine("Select an option:");
+                option = Int32.Parse(Console.ReadLine());
+                switch (option)
+                {
+                    case 1:
+                        averageNote(tableNotes);
+                        break;
+                    case 2:
+                        studentAverageNote(tableNotes);
+                        break;
+                    case 3:
+
+                        break;
+                    case 4:
+
+                        break;
+                    case 5:
+
+                        break;
+                    case 6:
+
+                        break;
+                    case 7:
+
+                        break;
+                    case 0:
+
+                        break;
+                }
+            } while (option != 0);
         }
 
         public static int noteCalculator(int note)
@@ -91,10 +132,24 @@ namespace Tema3_Ej2
                 }
             }
             average = pocket / tableNotes.Length;
-            Console.WriteLine(average);
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("The total average note is: {0}", average);
+            Console.WriteLine("-------------------------------------\n");
         }
 
+        public static void studentAverageNote(int[,] tableNotes)
+        {
+            int studentNumber;
 
+            studentNumber = Int32.Parse(Console.ReadLine());
+            for (int i = 0; i < tableNotes.GetLength(0); i++)
+            {
+                for (int j = 0; j < tableNotes.GetLength(1); j++)
+                {
+                    Console.WriteLine(tableNotes[i, studentNumber]);
+                }
+            }
+        }
     }
 
 }
