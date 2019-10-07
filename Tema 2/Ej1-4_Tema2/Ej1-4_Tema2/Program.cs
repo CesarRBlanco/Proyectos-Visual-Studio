@@ -12,9 +12,12 @@ namespace Ej1_4_Tema2
         static void Main(string[] args)
         {
             Employee emp1 = new Employee("Juan", "Algo", "77015143", 31, "651533815", 3000);
-            Directive dir1 = new Directive("Alvaro","Something","36098415",43,"Ventas",20);
-            SpecialEmployee sEmp1 = new SpecialEmployee("Antonio","Arlguito","32158216",35,"654894152",4000);
-            dir1.showInfo();
+           // Directive dir1 = new Directive("Alvaro","Something","36098415",43,"Ventas",20);
+           // SpecialEmployee sEmp1 = new SpecialEmployee("Antonio","Arlguito","32158216",35,"654894152",4000);
+
+            emp1.Age = -12;
+            emp1.Dni = "11111111";
+            emp1.showInfo();
         }
     }
 
@@ -217,7 +220,7 @@ namespace Ej1_4_Tema2
     class Directive : Person, iPastaGansa
     {
         //String department;
-        //int numEmployes;
+        int numEmployes;
         double benefits;
         double ingresosBuss;
 
@@ -227,7 +230,7 @@ namespace Ej1_4_Tema2
         {
             set
             {
-                if (NumEmployes <= 10)
+                if (numEmployes <= 10)
                 {
                     Benefits = 2;
                 }
@@ -243,7 +246,7 @@ namespace Ej1_4_Tema2
             }
             get
             {
-                return NumEmployes;
+                return numEmployes;
             }
         }
 
