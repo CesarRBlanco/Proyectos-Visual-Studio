@@ -6,87 +6,46 @@ using System.Threading.Tasks;
 
 namespace Tema3_Ej2
 {
-    class Program
+    class Aula
     {
-        static void Main(string[] args)
+        private int[,] tableNotesOrigin = new int[4, 12]; // 4 * 12
+
+        string[] students = new string[12]
         {
-            int[,] tableNotes = new int[4, 4]; // 4 * 12
-            int note;
-            Random notas = new Random();
+            "ChinoCudeiro", "AbueloDelChinoCudeiro", "PadreDelChinoCudeiro", "MadreDelChinoCudeiro",
+            "HermanoDelChinoCudeiro", "HermanaDelChinoCudeiro", "ChinoCudeiro2.0", "PerroDelChinoCudeiro",
+            "OrieducOnihc", "PepeLivingston", "ElCamara", "Ya,NoHayMas"
+        };
 
+        string[] signatures = new string[4] {"Maths", "Literature", "Phisics", "Programation"};
+        Random notas = new Random();
+        int note;
+
+        public string[] Students
+        {
+            get => students;
+            set => students = value;
+        }
+
+        public string[] Signatures
+        {
+            get => signatures;
+            set => signatures = value;
+        }
+
+        public int[,] tableGenerator()
+        {
             // Table Generator
-            for (int i = 0; i < tableNotes.GetLength(0); i++)
+            for (int i = 0; i < tableNotesOrigin.GetLength(0); i++)
             {
-                for (int j = 0; j < tableNotes.GetLength(1); j++)
+                for (int j = 0; j < tableNotesOrigin.GetLength(1); j++)
                 {
-
                     note = notas.Next(1, 101);
-                    tableNotes[i, j] = noteCalculator(note);
+                    tableNotesOrigin[i, j] = noteCalculator(note);
                 }
             }
 
-            // Table Show
-            //for (int i = 0; i < tableNotes.GetLength(0); i++)
-            //{
-            //    Console.WriteLine();
-            //    for (int j = 0; j < tableNotes.GetLength(1); j++)
-            //    {
-            //        Console.Write(tableNotes[i, j]);
-            //        Console.Write(" ");
-            //    }
-            //}
-
-
-            menu(tableNotes);
-            Console.ReadKey();
-        }
-
-
-        public static void menu(int[,] tableNotes)
-        {
-            int option;
-            do
-            {
-                Console.WriteLine("-------------------------------------");
-                Console.WriteLine("1. Total average note.");
-                Console.WriteLine("2. Average of one student.");
-                Console.WriteLine("3. Average of one signature.");
-                Console.WriteLine("4. Show all notes of one student.");
-                Console.WriteLine("5. Show all notes of one signature.");
-                Console.WriteLine("6. Max. and min. note of one student.");
-                Console.WriteLine("7. Show only <5 notes.");
-                Console.WriteLine("0. Exit.");
-                Console.WriteLine("-------------------------------------");
-                Console.WriteLine("Select an option:");
-                option = Int32.Parse(Console.ReadLine());
-                switch (option)
-                {
-                    case 1:
-                        averageNote(tableNotes);
-                        break;
-                    case 2:
-                        studentAverageNote(tableNotes);
-                        break;
-                    case 3:
-
-                        break;
-                    case 4:
-
-                        break;
-                    case 5:
-
-                        break;
-                    case 6:
-
-                        break;
-                    case 7:
-
-                        break;
-                    case 0:
-
-                        break;
-                }
-            } while (option != 0);
+            return tableNotesOrigin;
         }
 
         public static int noteCalculator(int note)
@@ -115,10 +74,9 @@ namespace Tema3_Ej2
                     return 9;
                 case int n when (n > 95): // 5%
                     return 10;
-
             }
-            return '0';
 
+            return '0';
         }
 
         public static void averageNote(int[,] tableNotes)
@@ -131,26 +89,143 @@ namespace Tema3_Ej2
                     pocket = pocket + tableNotes[i, j];
                 }
             }
+
             average = pocket / tableNotes.Length;
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("The total average note is: {0}", average);
             Console.WriteLine("-------------------------------------\n");
         }
 
-        public static void studentAverageNote(int[,] tableNotes)
+        public static void studentAverageNote(int[,] tableNotes, string[] students, string student)
         {
-            int studentNumber;
-
-            studentNumber = Int32.Parse(Console.ReadLine());
+            int selectedStudent = Array.IndexOf(students, student);
+            double pocket = 0, average;
             for (int i = 0; i < tableNotes.GetLength(0); i++)
             {
                 for (int j = 0; j < tableNotes.GetLength(1); j++)
                 {
-                    Console.WriteLine(tableNotes[i, studentNumber]);
+                    pocket = pocket + tableNotes[i, selectedStudent];
                 }
+            }
+
+            average = pocket / tableNotes.Length;
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("The average note of {1} is: {0}", average,student);
+            Console.WriteLine("-------------------------------------\n");
+        }
+
+        public static void signatureAverageNote(int[,] tableNotes, string[] signatures, string asignature)
+        {
+            int selectedSignature = Array.IndexOf(signatures, asignature);
+            double pocket = 0, average;
+            for (int i = 0; i < tableNotes.GetLength(0); i++)
+            {
+                for (int j = 0; j < tableNotes.GetLength(1); j++)
+                {
+                    pocket = pocket + tableNotes[selectedSignature,j ];
+                }
+            }
+
+            average = pocket / tableNotes.Length;
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("The average note of {1} is: {0}", average, asignature);
+            Console.WriteLine("-------------------------------------\n");
+        }
+
+        public static void showStudentNotes(int[,] tableNotes, string[] students, string student)
+        {
+            int selectedStudent = Array.IndexOf(students, student);
+            for (int i = 0; i < tableNotes.GetLength(0); i++)
+            {
+               
+                Console.Write(tableNotes[i, selectedStudent]);
+                Console.Write(" ");
             }
         }
     }
 
-}
+    class Menu
+    {
+        string student,signature;
+        int option;
 
+        public void menu(int[,] tableNotes, string[] students,string[] signatures)
+        {
+            do
+            {
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine("1. Total average note.");
+                Console.WriteLine("2. Average of one student.");
+                Console.WriteLine("3. Average of one signature.");
+                Console.WriteLine("4. Show all notes of one student.");
+                Console.WriteLine("5. Show all notes of one signature.");
+                Console.WriteLine("6. Max. and min. note of one student.");
+                Console.WriteLine("7. Show only <5 notes.");
+                Console.WriteLine("0. Exit.");
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine("Select an option:");
+                option = Int32.Parse(Console.ReadLine());
+                switch (option)
+                {
+                    case 1:
+                        Aula.averageNote(tableNotes);
+                        break;
+                    case 2:
+                        student = Console.ReadLine();
+                        Aula.studentAverageNote(tableNotes, students, student);
+                        break;
+                    case 3:
+                        signature = Console.ReadLine();
+                        Aula.signatureAverageNote(tableNotes, signatures, signature);
+                        break;
+                    case 4:
+                        student = Console.ReadLine();
+                        Aula.showStudentNotes(tableNotes,students,student);
+                        break;
+                    case 5:
+
+                        break;
+                    case 6:
+
+                        break;
+                    case 7:
+
+                        break;
+                    case 0:
+
+                        break;
+                }
+            } while (option != 0);
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[,] tableNotesCopy;
+            Aula classroom = new Aula();
+            Menu control = new Menu();
+
+
+            tableNotesCopy = classroom.tableGenerator();
+            // Table Show
+            //for (int i = 0; i < tableNotesCopy.GetLength(0); i++)
+            //{
+            //    Console.WriteLine();
+            //    for (int j = 0; j < tableNotesCopy.GetLength(1); j++)
+            //    {
+            //        Console.Write(tableNotesCopy[i, j]);
+            //        Console.Write(" ");
+            //    }
+            //}
+
+
+
+            control.menu(tableNotesCopy, classroom.Students,classroom.Signatures);
+
+
+            Console.ReadKey();
+        }
+    }
+}
