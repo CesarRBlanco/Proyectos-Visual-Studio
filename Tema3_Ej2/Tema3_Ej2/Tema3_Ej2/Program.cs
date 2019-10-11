@@ -8,18 +8,18 @@ namespace Tema3_Ej2
 {
     class Aula
     {
-        private int[,] tableNotesOrigin = new int[4, 12]; // 4 * 12
+        private int[,] tableGradesOrigin = new int[4, 12]; // 4 * 12
 
         string[] students = new string[12]
         {
             "Chino Cudeiro", "Abuelo Cudeiro", "Padre Cudeiro", "Madre Cudeiro",
             "Hermano Cudeiro", "Hermana Cudeiro", "Chino Cudeiro 2.0", "Perro Cudeiro",
-            "Orieduc Onihc", "Pepe Livingstone", "Paco Peluco", "Juanito Calvicie"
+            "Orieduc Onihc", "Pepe Livingstone", "Paco Peluca", "Juanito Calvicie"
         };
 
-        string[] signatures = new string[4] {"Maths", "Literature", "Phisics", "Programation"};
+        string[] subjects = new string[4] {"Maths", "Literature", "Phisics", "Programation"};
         Random notas = new Random();
-        int note;
+        int grade;
 
         public string[] Students
         {
@@ -27,28 +27,28 @@ namespace Tema3_Ej2
             set => students = value;
         }
 
-        public string[] Signatures
+        public string[] Subjects
         {
-            get => signatures;
-            set => signatures = value;
+            get => subjects;
+            set => subjects = value;
         }
 
         public int[,] tableGenerator()
         {
             // Table Generator
-            for (int i = 0; i < tableNotesOrigin.GetLength(0); i++)
+            for (int i = 0; i < tableGradesOrigin.GetLength(0); i++)
             {
-                for (int j = 0; j < tableNotesOrigin.GetLength(1); j++)
+                for (int j = 0; j < tableGradesOrigin.GetLength(1); j++)
                 {
-                    note = notas.Next(1, 101);
-                    tableNotesOrigin[i, j] = noteCalculator(note);
+                    grade = notas.Next(1, 101);
+                    tableGradesOrigin[i, j] = gradesCalcutor(grade);
                 }
             }
 
-            return tableNotesOrigin;
+            return tableGradesOrigin;
         }
 
-        public static int noteCalculator(int note)
+        public static int gradesCalcutor(int note)
         {
             switch (note)
             {
@@ -79,100 +79,100 @@ namespace Tema3_Ej2
             return '0';
         }
 
-        public static void averageNote(int[,] tableNotes)
+        public static void averageGrade(int[,] tableGrades)
         {
             double pocket = 0, average;
-            for (int i = 0; i < tableNotes.GetLength(0); i++)
+            for (int i = 0; i < tableGrades.GetLength(0); i++)
             {
-                for (int j = 0; j < tableNotes.GetLength(1); j++)
+                for (int j = 0; j < tableGrades.GetLength(1); j++)
                 {
-                    pocket = pocket + tableNotes[i, j];
+                    pocket = pocket + tableGrades[i, j];
                 }
             }
 
-            average = pocket / tableNotes.Length;
+            average = pocket / tableGrades.Length;
             Console.WriteLine("-------------------------------------");
-            Console.WriteLine("The total average note is: {0}", Math.Round(average, 2));
+            Console.WriteLine("The total average grade is: {0}", Math.Round(average, 2));
             Console.WriteLine("-------------------------------------\n");
         }
 
-        public static void studentAverageNote(int[,] tableNotes, string[] students, string student)
+        public static void studentAverageGrade(int[,] tableGrades, string[] students, string student)
         {
             int selectedStudent = Array.IndexOf(students, student);
             double pocket = 0, average;
-            for (int i = 0; i < tableNotes.GetLength(0); i++)
+            for (int i = 0; i < tableGrades.GetLength(0); i++)
             {
-                for (int j = 0; j < tableNotes.GetLength(1); j++)
+                for (int j = 0; j < tableGrades.GetLength(1); j++)
                 {
-                    pocket = pocket + tableNotes[i, selectedStudent];
+                    pocket = pocket + tableGrades[i, selectedStudent];
                 }
             }
 
-            average = pocket / tableNotes.Length;
+            average = pocket / tableGrades.Length;
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("The average note of {1} is: {0}", Math.Round(average, 2), student);
             Console.WriteLine("-------------------------------------\n");
         }
 
-        public static void signatureAverageNote(int[,] tableNotes, string[] signatures, string asignature)
+        public static void signatureAverageGrade(int[,] tableGrades, string[] signatures, string asignature)
         {
             int selectedSignature = Array.IndexOf(signatures, asignature);
             double pocket = 0, average;
-            for (int i = 0; i < tableNotes.GetLength(0); i++)
+            for (int i = 0; i < tableGrades.GetLength(0); i++)
             {
-                for (int j = 0; j < tableNotes.GetLength(1); j++)
+                for (int j = 0; j < tableGrades.GetLength(1); j++)
                 {
-                    pocket = pocket + tableNotes[selectedSignature, j];
+                    pocket = pocket + tableGrades[selectedSignature, j];
                 }
             }
 
-            average = pocket / tableNotes.Length;
+            average = pocket / tableGrades.Length;
             Console.WriteLine("-------------------------------------");
             Console.WriteLine("The average note of {1} is: {0}", Math.Round(average, 2), asignature);
             Console.WriteLine("-------------------------------------\n");
         }
 
-        public static void showStudentNotes(int[,] tableNotes, string[] students, string student, string[] signatures)
+        public static void showStudentsGrade(int[,] tableGrades, string[] students, string student, string[] signatures)
         {
             Console.WriteLine("-------------------------------------");
             int selectedStudent = Array.IndexOf(students, student);
-            for (int i = 0; i < tableNotes.GetLength(0); i++)
+            for (int i = 0; i < tableGrades.GetLength(0); i++)
             {
-                Console.Write(signatures[i] + ": " + tableNotes[i, selectedStudent]);
+                Console.Write(signatures[i] + ": " + tableGrades[i, selectedStudent]);
                 Console.WriteLine(" ");
             }
 
             Console.WriteLine("-------------------------------------\n");
         }
 
-        public static void showSignatureNotes(int[,] tableNotes, string[] students, string signature,
+        public static void showSignatureGrades(int[,] tableGrades, string[] students, string signature,
             string[] signatures)
         {
             Console.WriteLine("-------------------------------------");
             int selectedSignature = Array.IndexOf(signatures, signature);
-            for (int j = 0; j < tableNotes.GetLength(1); j++)
+            for (int j = 0; j < tableGrades.GetLength(1); j++)
             {
-                Console.Write(students[j] + ": " + tableNotes[selectedSignature, j]);
+                Console.Write(students[j] + ": " + tableGrades[selectedSignature, j]);
                 Console.WriteLine(" ");
             }
 
             Console.WriteLine("-------------------------------------\n");
         }
 
-        public static void showMaxAndMin(int[,] tableNotes, string[] students, string student, string[] signatures)
+        public static void showMaxAndMin(int[,] tableGrades, string[] students, string student, string[] signatures)
         {
             int max = 0, min = 10;
             int selectedStudent = Array.IndexOf(students, student);
-            for (int i = 0; i < tableNotes.GetLength(0); i++)
+            for (int i = 0; i < tableGrades.GetLength(0); i++)
             {
-                if (tableNotes[i, selectedStudent] > max)
+                if (tableGrades[i, selectedStudent] > max)
                 {
-                    max = tableNotes[i, selectedStudent];
+                    max = tableGrades[i, selectedStudent];
                 }
 
-                if (tableNotes[i, selectedStudent] < min)
+                if (tableGrades[i, selectedStudent] < min)
                 {
-                    min = tableNotes[i, selectedStudent];
+                    min = tableGrades[i, selectedStudent];
                 }
             }
 
@@ -181,19 +181,19 @@ namespace Tema3_Ej2
             Console.WriteLine("-------------------------------------\n");
         }
 
-        public static void showAprobbedStudents(int[,] tableNotes,string[] students)
+        public static void showAprobbedStudents(int[,] tableGrades,string[] students)
         {
             int cont1=0, cont2=0;
-            for (int j = 0; j < tableNotes.GetLength(1); j++)
+            for (int j = 0; j < tableGrades.GetLength(1); j++)
             {
-                for (int i = 0; i < tableNotes.GetLength(0); i++)
+                for (int i = 0; i < tableGrades.GetLength(0); i++)
                 {
                     if (cont2 == 4)
                     {
                         cont2 = 0;
                         cont1 = 0;
                     }
-                    if (tableNotes[i, j] >= 5)
+                    if (tableGrades[i, j] >= 5)
                     {
                         cont1++;
                         if (cont1 == 4)
@@ -233,23 +233,23 @@ namespace Tema3_Ej2
                 switch (option)
                 {
                     case 1:
-                        Aula.averageNote(tableNotes);
+                        Aula.averageGrade(tableNotes);
                         break;
                     case 2:
                         student = Console.ReadLine();
-                        Aula.studentAverageNote(tableNotes, students, student);
+                        Aula.studentAverageGrade(tableNotes, students, student);
                         break;
                     case 3:
                         signature = Console.ReadLine();
-                        Aula.signatureAverageNote(tableNotes, signatures, signature);
+                        Aula.signatureAverageGrade(tableNotes, signatures, signature);
                         break;
                     case 4:
                         student = Console.ReadLine();
-                        Aula.showStudentNotes(tableNotes, students, student, signatures);
+                        Aula.showStudentsGrade(tableNotes, students, student, signatures);
                         break;
                     case 5:
                         signature = Console.ReadLine();
-                        Aula.showSignatureNotes(tableNotes, students, signature, signatures);
+                        Aula.showSignatureGrades(tableNotes, students, signature, signatures);
                         break;
                     case 6:
                         student = Console.ReadLine();
@@ -289,7 +289,7 @@ namespace Tema3_Ej2
             }
 
 
-            control.menu(tableNotesCopy, classroom.Students, classroom.Signatures);
+            control.menu(tableNotesCopy, classroom.Students, classroom.Subjects);
 
 
             Console.ReadKey();
