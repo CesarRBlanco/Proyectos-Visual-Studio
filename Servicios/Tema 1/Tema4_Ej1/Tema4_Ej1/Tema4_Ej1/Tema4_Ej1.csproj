@@ -4,17 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CE621848-F3D1-4461-A718-F68661BF245E}</ProjectGuid>
+    <ProjectGuid>{52AD9D32-8E5B-41C7-9E30-5B60EA36DE3F}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ServiciosTest</RootNamespace>
-    <AssemblyName>ServiciosTest</AssemblyName>
+    <RootNamespace>Tema4_Ej1</RootNamespace>
+    <AssemblyName>Tema4_Ej1</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
