@@ -18,8 +18,8 @@ namespace Tema3_Ej2
         };
 
         string[] challenges = new string[4] {"Los rollitos de primavera", "Las zamburguesas", "El laberinto del chino tauro", "El Castillo del general Takeshi"};
-        Random randGrade = new Random();
-        int grade;
+
+   
 
         public string[] Contestants
         {
@@ -35,6 +35,8 @@ namespace Tema3_Ej2
 
         public int[,] tableGenerator()
         {
+            Random randGrade = new Random();
+            int grade;
             // Table Generator
             for (int i = 0; i < tableGradesOrigin.GetLength(0); i++)
             {
@@ -293,8 +295,6 @@ namespace Tema3_Ej2
             //    }
 
             //}
-
-
             control.menu(tableNotesCopy, classroom.Contestants, classroom.Challenges);
 
 
