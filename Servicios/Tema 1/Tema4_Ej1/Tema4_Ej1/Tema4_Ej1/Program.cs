@@ -9,38 +9,66 @@ namespace T1_Ejercicio1
     class Program
     {
         public delegate void MyDelegate();
-        public static void MenuGenerator(string[] options,MyDelegate[] delegates)
+
+        public static void MenuGenerator(string[] options, MyDelegate[] delegates)
         {
-            int option;
-            Console.WriteLine("1. {0}",options[0]);
-            Console.WriteLine("2. {0}", options[1]);
-            Console.WriteLine("3. {0}", options[2]);
-            Console.WriteLine("4. Exit");
-            option=Int32.Parse(Console.ReadLine());
-            delegates[0]();
-            if (option==2)
+            int opt;
+            try
             {
-                delegates[1]();
+                do
+                {
+                    for (int i = 0; i < options.Length; i++)
+                    {
+                        Console.WriteLine(i + 1 + "." +
+                                          " {0}", options[i]);
+                    }
+                    Console.WriteLine("4. Exit");
+                    opt = Int32.Parse(Console.ReadLine());
+                    if (opt == 4)
+                    {
+                        return;
+                    }
+                    if (opt <= 0 || opt >= options.Length+1)
+                    {
+                        Console.WriteLine(
+                            "Sorry, but that, maybe, perhaps, u know, i don't know, that's not any of the numbers in the menu.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("---------");
+                        delegates[opt - 1]();
+                        Console.WriteLine("---------");
+                    }
+                } while (opt != 4);
             }
-            delegates[2]();
+            catch (FormatException e)
+            {
+                Console.WriteLine(
+                    "Wow, stop right there fella! That's not a number, you need some lessons of grammar or something?");
+                MenuGenerator(options, delegates);
+            }
         }
+
         static void f1()
         {
             Console.WriteLine("A");
         }
+
         static void f2()
         {
             Console.WriteLine("B");
         }
+
         static void f3()
         {
             Console.WriteLine("C");
         }
+
         static void Main(string[] args)
         {
-            MenuGenerator(new string[] { "Op1", "Op2", "Op3" },
-                new MyDelegate[] { f1, f2, f3 });
-            Console.ReadKey();
+            MenuGenerator(new string[] {"Op1", "Op2", "Op3"},
+                new MyDelegate[] {f1, f2, f3});
+            //Console.ReadKey();
         }
     }
 }
