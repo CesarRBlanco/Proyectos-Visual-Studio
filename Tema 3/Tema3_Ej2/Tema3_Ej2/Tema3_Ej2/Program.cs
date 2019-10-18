@@ -6,31 +6,31 @@ using System.Threading.Tasks;
 
 namespace Tema3_Ej2
 {
-    class Aula
+    class Contest
     {
         private int[,] tableGradesOrigin = new int[4, 12]; // 4 * 12
 
-        string[] students = new string[12]
+        string[] contestants = new string[12]
         {
             "Chino Cudeiro", "Abuelo Cudeiro", "Padre Cudeiro", "Madre Cudeiro",
             "Hermano Cudeiro", "Hermana Cudeiro", "Chino Cudeiro 2.0", "Perro Cudeiro",
             "Orieduc Onihc", "Pepe Livingstone", "Paco Peluca", "Juanito Calvicie"
         };
 
-        string[] subjects = new string[4] {"Maths", "Literature", "Phisics", "Programation"};
-        Random notas = new Random();
+        string[] challenges = new string[4] {"Los rollitos de primavera", "Las zamburguesas", "El laberinto del chino tauro", "El Castillo del general Takeshi"};
+        Random randGrade = new Random();
         int grade;
 
-        public string[] Students
+        public string[] Contestants
         {
-            get => students;
-            set => students = value;
+            get => contestants;
+            set => contestants = value;
         }
 
-        public string[] Subjects
+        public string[] Challenges
         {
-            get => subjects;
-            set => subjects = value;
+            get => challenges;
+            set => challenges = value;
         }
 
         public int[,] tableGenerator()
@@ -40,7 +40,7 @@ namespace Tema3_Ej2
             {
                 for (int j = 0; j < tableGradesOrigin.GetLength(1); j++)
                 {
-                    grade = notas.Next(1, 101);
+                    grade = randGrade.Next(1, 101);
                     tableGradesOrigin[i, j] = gradesCalcutor(grade);
                 }
             }
@@ -96,7 +96,7 @@ namespace Tema3_Ej2
             Console.WriteLine("-------------------------------------\n");
         }
 
-        public static void studentAverageGrade(int[,] tableGrades, string[] students, string student)
+        public static void contestantsAverageGrade(int[,] tableGrades, string[] students, string student)
         {
             int selectedStudent = Array.IndexOf(students, student);
             double pocket = 0, average;
@@ -110,11 +110,11 @@ namespace Tema3_Ej2
 
             average = pocket / tableGrades.Length;
             Console.WriteLine("-------------------------------------");
-            Console.WriteLine("The average note of {1} is: {0}", Math.Round(average, 2), student);
+            Console.WriteLine("The average grade of {1} is: {0}", Math.Round(average, 2), student);
             Console.WriteLine("-------------------------------------\n");
         }
 
-        public static void signatureAverageGrade(int[,] tableGrades, string[] signatures, string asignature)
+        public static void challengesAverageGrade(int[,] tableGrades, string[] signatures, string asignature)
         {
             int selectedSignature = Array.IndexOf(signatures, asignature);
             double pocket = 0, average;
@@ -132,7 +132,7 @@ namespace Tema3_Ej2
             Console.WriteLine("-------------------------------------\n");
         }
 
-        public static void showStudentsGrade(int[,] tableGrades, string[] students, string student, string[] signatures)
+        public static void showContestantsGrade(int[,] tableGrades, string[] students, string student, string[] signatures)
         {
             Console.WriteLine("-------------------------------------");
             int selectedStudent = Array.IndexOf(students, student);
@@ -145,8 +145,7 @@ namespace Tema3_Ej2
             Console.WriteLine("-------------------------------------\n");
         }
 
-        public static void showSignatureGrades(int[,] tableGrades, string[] students, string signature,
-            string[] signatures)
+        public static void showChallengeGrades(int[,] tableGrades, string[] students, string signature, string[] signatures)
         {
             Console.WriteLine("-------------------------------------");
             int selectedSignature = Array.IndexOf(signatures, signature);
@@ -181,9 +180,11 @@ namespace Tema3_Ej2
             Console.WriteLine("-------------------------------------\n");
         }
 
-        public static void showAprobbedStudents(int[,] tableGrades,string[] students)
+        public static void showWinContestants(int[,] tableGrades,string[] students)
         {
             int cont1=0, cont2=0;
+            Boolean empty=true;
+            Console.WriteLine("-------------------------------------");
             for (int j = 0; j < tableGrades.GetLength(1); j++)
             {
                 for (int i = 0; i < tableGrades.GetLength(0); i++)
@@ -198,13 +199,18 @@ namespace Tema3_Ej2
                         cont1++;
                         if (cont1 == 4)
                         {
-                            Console.WriteLine("Aprobado");
-                            Console.WriteLine(students[j]);
+                            Console.Write(students[j]);
+                            Console.WriteLine(": Aprobado.");
+                            empty=false;
                         }
                     }
 
                     cont2++;
                 }
+            }
+            if (empty == true)
+            {
+                Console.WriteLine("Nobody has won Humor Amarillo");
             }
         }
     }
@@ -228,35 +234,35 @@ namespace Tema3_Ej2
                 Console.WriteLine("7. Show only <5 notes.");
                 Console.WriteLine("0. Exit.");
                 Console.WriteLine("-------------------------------------");
-                Console.WriteLine("Select an option:");
+                Console.Write("Select an option: ");
                 option = Int32.Parse(Console.ReadLine());
                 switch (option)
                 {
                     case 1:
-                        Aula.averageGrade(tableNotes);
+                        Contest.averageGrade(tableNotes);
                         break;
                     case 2:
                         student = Console.ReadLine();
-                        Aula.studentAverageGrade(tableNotes, students, student);
+                        Contest.contestantsAverageGrade(tableNotes, students, student);
                         break;
                     case 3:
                         signature = Console.ReadLine();
-                        Aula.signatureAverageGrade(tableNotes, signatures, signature);
+                        Contest.challengesAverageGrade(tableNotes, signatures, signature);
                         break;
                     case 4:
                         student = Console.ReadLine();
-                        Aula.showStudentsGrade(tableNotes, students, student, signatures);
+                        Contest.showContestantsGrade(tableNotes, students, student, signatures);
                         break;
                     case 5:
                         signature = Console.ReadLine();
-                        Aula.showSignatureGrades(tableNotes, students, signature, signatures);
+                        Contest.showChallengeGrades(tableNotes, students, signature, signatures);
                         break;
                     case 6:
                         student = Console.ReadLine();
-                        Aula.showMaxAndMin(tableNotes, students, student, signatures);
+                        Contest.showMaxAndMin(tableNotes, students, student, signatures);
                         break;
                     case 7:
-                        Aula.showAprobbedStudents(tableNotes, students);
+                        Contest.showWinContestants(tableNotes, students);
                         break;
                 }
             } while (option != 0);
@@ -268,31 +274,30 @@ namespace Tema3_Ej2
         static void Main(string[] args)
         {
             int[,] tableNotesCopy;
-            Aula classroom = new Aula();
+            Contest classroom = new Contest();
             Menu control = new Menu();
             string[] studentsCopy;
-            studentsCopy = classroom.Students;
+            studentsCopy = classroom.Contestants;
             tableNotesCopy = classroom.tableGenerator();
             // Table Show
 
-            for (int i = 0; i < tableNotesCopy.GetLength(0); i++)
-            {
-                Console.WriteLine();
+            //for (int i = 0; i < tableNotesCopy.GetLength(0); i++)
+            //{
+            //    Console.WriteLine();
 
-                for (int j = 0; j < tableNotesCopy.GetLength(1); j++)
-                {
+            //    for (int j = 0; j < tableNotesCopy.GetLength(1); j++)
+            //    {
 
-                    Console.Write(tableNotesCopy[i, j]);
-                    Console.Write(" ");
-                }
+            //        Console.Write(tableNotesCopy[i, j]);
+            //        Console.Write(" ");
+            //    }
 
-            }
-
-
-            control.menu(tableNotesCopy, classroom.Students, classroom.Subjects);
+            //}
 
 
-            Console.ReadKey();
+            control.menu(tableNotesCopy, classroom.Contestants, classroom.Challenges);
+
+
         }
     }
 }

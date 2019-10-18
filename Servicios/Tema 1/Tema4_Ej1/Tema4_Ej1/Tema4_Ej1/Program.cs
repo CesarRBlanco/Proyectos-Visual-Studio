@@ -22,13 +22,15 @@ namespace T1_Ejercicio1
                         Console.WriteLine(i + 1 + "." +
                                           " {0}", options[i]);
                     }
+
                     Console.WriteLine("4. Exit");
                     opt = Int32.Parse(Console.ReadLine());
                     if (opt == 4)
                     {
                         return;
                     }
-                    if (opt <= 0 || opt >= options.Length+1)
+
+                    if (opt <= 0 || opt >= options.Length + 1)
                     {
                         Console.WriteLine(
                             "Sorry, but that, maybe, perhaps, u know, i don't know, that's not any of the numbers in the menu.");
@@ -68,7 +70,6 @@ namespace T1_Ejercicio1
         {
             MenuGenerator(new string[] {"Op1", "Op2", "Op3"},
                 new MyDelegate[] {f1, f2, f3});
-            //Console.ReadKey();
         }
     }
 }
