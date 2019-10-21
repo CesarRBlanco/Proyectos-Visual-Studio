@@ -48,16 +48,18 @@ namespace T3_Ejercicio3
 
         public void showGames()
         {
-
+            foreach (int num in gamesCollection)
+                Console.Write(num);
         }
     }
 
     class Menu
     {
-         MyDelegate[] delegates =
+        MyDelegate[] delegates =
         {
             insertGames, deleteGames, visualizeGames, visualizeOneGenre, modifyGames, deleteGames
         };
+
 
         public void menu()
         {
@@ -73,7 +75,6 @@ namespace T3_Ejercicio3
                 {
                     Console.WriteLine("{0}. {1}.", i + 1, options[i]);
                 }
-
                 Console.WriteLine("0. Exit.");
                 opt = Int32.Parse(Console.ReadLine());
 
@@ -95,6 +96,7 @@ namespace T3_Ejercicio3
 
         public static void insertGames()
         {
+
             Videogames steam = new Videogames();
             string newTitle;
             int newYear;
@@ -108,18 +110,20 @@ namespace T3_Ejercicio3
         public static void deleteGames()
         {
             Console.WriteLine("-delete-");
+
         }
 
         public static void visualizeGames()
         {
             Console.WriteLine("-visualizeAll-");
+            Videogames steam = new Videogames();
+            steam.showGames();
         }
 
         public static void visualizeOneGenre()
         {
             Console.WriteLine("-visualizeGenre-");
-            Videogames casa=new Videogames();
-            
+            Videogames casa = new Videogames();
         }
 
         public static void modifyGames()
