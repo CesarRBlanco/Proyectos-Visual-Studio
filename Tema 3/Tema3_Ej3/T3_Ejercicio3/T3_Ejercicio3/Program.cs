@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,8 +12,9 @@ namespace T3_Ejercicio3
 
     class Videogames
     {
-        string title;
-        int year;
+        private string title;
+        private int year;
+        List<Object> gamesCollection = new List<Object>();
 
         enum eGenre
         {
@@ -21,42 +24,107 @@ namespace T3_Ejercicio3
             Estrategia,
             Deportivo
         }
+
+        private string Title { set; get; }
+        int Year { set; get; }
+
+        public Videogames(string title, int year)
+        {
+            this.Title = title;
+            this.Year = year;
+        }
+
+        public Videogames()
+        {
+            title = "";
+            year = 0;
+        }
+
+        public void gameInserter(string newTitle, int newYear)
+        {
+            Videogames newGame = new Videogames(title, year);
+            gamesCollection.Add(newGame);
+        }
+
+        public void showGames()
+        {
+
+        }
     }
 
     class Menu
     {
-        MyDelegate[] delegates =
+         MyDelegate[] delegates =
         {
+            insertGames, deleteGames, visualizeGames, visualizeOneGenre, modifyGames, deleteGames
         };
 
-        public void menu(string[] options)
+        public void menu()
         {
-            for (int i = 0; i < options.Length; i++)
+            int opt;
+            string[] options =
             {
-                Console.WriteLine("{0}. {1}.", i + 1, options[i]);
-            }
-            Console.WriteLine("0. Exit.");
+                "Insert a new game", "Delete games", "Visualize all games", "Visualize one genre", "Modify a game"
+            };
 
+            do
+            {
+                for (int i = 0; i < options.Length; i++)
+                {
+                    Console.WriteLine("{0}. {1}.", i + 1, options[i]);
+                }
+
+                Console.WriteLine("0. Exit.");
+                opt = Int32.Parse(Console.ReadLine());
+
+                if (opt <= 0 || opt >= options.Length + 1)
+                {
+                    Console.WriteLine("---------");
+                    Console.WriteLine(
+                        "Sorry, but that, maybe, perhaps, u know, i don't know, that's not any of the numbers in the menu.");
+                    Console.WriteLine("---------");
+                }
+                else
+                {
+                    Console.WriteLine("---------");
+                    delegates[opt - 1]();
+                    Console.WriteLine("---------");
+                }
+            } while (opt != 0);
         }
 
-        public void insertGames()
+        public static void insertGames()
         {
+            Videogames steam = new Videogames();
+            string newTitle;
+            int newYear;
+            Console.WriteLine("-Title-");
+            newTitle = Console.ReadLine();
+            Console.WriteLine("-Year-");
+            newYear = Int32.Parse(Console.ReadLine());
+            steam.gameInserter(newTitle, newYear);
         }
 
-        public void deleteGames()
+        public static void deleteGames()
         {
+            Console.WriteLine("-delete-");
         }
 
-        public void visualizeGames()
+        public static void visualizeGames()
         {
+            Console.WriteLine("-visualizeAll-");
         }
 
-        public void visualizeOneGenre()
+        public static void visualizeOneGenre()
         {
+            Console.WriteLine("-visualizeGenre-");
+            Videogames casa=new Videogames();
+            
         }
 
-        public void modifyGames()
+        public static void modifyGames()
         {
+            Console.WriteLine("-Modify-");
         }
     }
 
@@ -64,13 +132,9 @@ namespace T3_Ejercicio3
     {
         static void Main(string[] args)
         {
-            string[] options =
-            {
-                "Insert a new game", "Delete games", "Visualize all games", "Visualize one genre", "Modify a game"
-            };
             Menu mn = new Menu();
-            mn.menu(options);
-            Console.ReadKey();
+            mn.menu();
+            //Console.ReadKey();
         }
     }
 }
