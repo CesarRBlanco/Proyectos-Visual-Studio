@@ -42,7 +42,7 @@ namespace T3_Ejercicio3
 
         public void gameInserter(string newTitle, int newYear)
         {
-            Videogames newGame = new Videogames(title, year);
+            Videogames newGame = new Videogames(newTitle, newYear);
             gamesCollection.Add(newGame);
         }
 
