@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace T3_Ejercicio3
 {
-    public delegate void MyDelegate(String titleGame, int yearGame, int genreIndex);
+    public delegate void MyDelegate();
 
     class Videogames : IComparable<Videogames>
     {
@@ -35,7 +35,8 @@ namespace T3_Ejercicio3
 
         public override string ToString()
         {
-            string datos = "" + Title + " // " + Year + " // " + genresArray[GenreIndex];
+            string datos =String.Format( "{0} // {1} // {2}",Title,Year,genresArray[GenreIndex]);
+            
             return datos;
         }
 
@@ -58,15 +59,30 @@ namespace T3_Ejercicio3
     class VideoGamesHandler
     {
         static List<Videogames> GameLibrary = new List<Videogames>();
+        
+        public static void addVideoGame()
+        {
+            Console.Write("Insert a title: ");
+            string   titleGame = Console.ReadLine().Trim();
+            Console.Write("Insert a year: ");
+            int  yearGame = Int32.Parse(Console.ReadLine().Trim());
+            Console.Write("Insert a genre: ");
+            int genreIndex = Int32.Parse(Console.ReadLine().Trim());
+            Videogames newGame = new Videogames(titleGame, yearGame, genreIndex);
+            GameLibrary.Add(newGame);
+            GameLibrary.Sort();
+        }
 
-        public static void addVideoGame(String titleGame, int yearGame, int genreIndex)
+        //SObrecarga para los juegos iniciales
+        public static void addVideoGame(string titleGame, int yearGame, int genreIndex)
         {
             Videogames newGame = new Videogames(titleGame, yearGame, genreIndex);
             GameLibrary.Add(newGame);
             GameLibrary.Sort();
         }
 
-        public static void showVideoGames(String titleGame, int yearGame, int genreIndex)
+
+        public static void showVideoGames()
         {
             foreach (Object obj in GameLibrary)
             {
@@ -74,6 +90,8 @@ namespace T3_Ejercicio3
             }
         }
     }
+
+
 
     class Menu : VideoGamesHandler
     {
@@ -98,9 +116,7 @@ namespace T3_Ejercicio3
 
                 Console.WriteLine("0. Exit.");
                 opt = Int32.Parse(Console.ReadLine());
-                titleGame = Console.ReadLine();
-                yearGame = Int32.TryParse(Console.ReadLine());
-                genreIndex = Int32.TryParse(Console.ReadLine());
+          
                 if (opt <= 0 || opt >= options.Length + 1)
                 {
                     Console.WriteLine("---------");
@@ -111,7 +127,7 @@ namespace T3_Ejercicio3
                 else
                 {
                     Console.WriteLine("---------");
-                    delegates[opt - 1](titleGame, yearGame, genreIndex);
+                    delegates[opt - 1]();
                     Console.WriteLine("---------");
                 }
             } while (opt != 0);
@@ -132,6 +148,7 @@ namespace T3_Ejercicio3
             {
                 VideoGamesHandler.addVideoGame(defaultGamesTitles[i], defaultGamesYears[i], defaultGamesGenres[i]);
             }
+
 
             Menu.menu();
 
