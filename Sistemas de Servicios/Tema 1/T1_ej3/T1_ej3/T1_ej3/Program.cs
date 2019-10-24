@@ -59,7 +59,6 @@ namespace T1_ej3
             Thread one = new Thread(addition);
 
             one.Start();
-
             substraction();
             Console.ReadKey();
         }
