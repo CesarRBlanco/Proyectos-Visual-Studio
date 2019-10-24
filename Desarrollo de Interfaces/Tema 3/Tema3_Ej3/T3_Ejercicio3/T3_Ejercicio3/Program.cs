@@ -12,44 +12,55 @@ namespace T3_Ejercicio3
 
     class Videogames
     {
-        private string title;
-        private int year;
-        List<Object> gamesCollection = new List<Object>();
+        public string Title { set; get; }
+
+        public int Year { set; get; }
 
         enum eGenre
         {
             Arcade,
-            Videoaventura,
-            Shootemup,
+            Aventuras,
+            Shooter,
             Estrategia,
-            Deportivo
+            Pelea
         }
 
-        private string Title { set; get; }
-        int Year { set; get; }
 
-        public Videogames(string title, int year)
+        public Videogames(String titleGame, int yearGame)
         {
-            this.Title = title;
-            this.Year = year;
+            Title = titleGame;
+            Year = yearGame;
         }
 
         public Videogames()
         {
-            title = "";
-            year = 0;
+            Title = "";
+            Year = 0;
         }
 
-        public void gameInserter(string newTitle, int newYear)
+        public override string ToString()
         {
-            Videogames newGame = new Videogames(newTitle, newYear);
-            gamesCollection.Add(newGame);
+            string datos = ""+Title+" "+Year;
+            return datos;
+        }
+    }
+
+    class VGManagement
+    {
+        List<Object> GameLibrary = new List<object>();
+
+        public void adder(String titleGame, int yearGame)
+        {
+            Object game1 = new Videogames(titleGame, yearGame);
+            GameLibrary.Add(game1);
         }
 
-        public void showGames()
-        {
-            foreach (int num in gamesCollection)
-                Console.Write(num);
+        public void shower()
+        { 
+            foreach (Object obj in GameLibrary)
+            {
+                Console.WriteLine(obj);
+            }
         }
     }
 
@@ -57,7 +68,6 @@ namespace T3_Ejercicio3
     {
         MyDelegate[] delegates =
         {
-            insertGames, deleteGames, visualizeGames, visualizeOneGenre, modifyGames, deleteGames
         };
 
 
@@ -75,6 +85,7 @@ namespace T3_Ejercicio3
                 {
                     Console.WriteLine("{0}. {1}.", i + 1, options[i]);
                 }
+
                 Console.WriteLine("0. Exit.");
                 opt = Int32.Parse(Console.ReadLine());
 
@@ -93,52 +104,23 @@ namespace T3_Ejercicio3
                 }
             } while (opt != 0);
         }
-
-        public static void insertGames()
-        {
-
-            Videogames steam = new Videogames();
-            string newTitle;
-            int newYear;
-            Console.WriteLine("-Title-");
-            newTitle = Console.ReadLine();
-            Console.WriteLine("-Year-");
-            newYear = Int32.Parse(Console.ReadLine());
-            steam.gameInserter(newTitle, newYear);
-        }
-
-        public static void deleteGames()
-        {
-            Console.WriteLine("-delete-");
-
-        }
-
-        public static void visualizeGames()
-        {
-            Console.WriteLine("-visualizeAll-");
-            Videogames steam = new Videogames();
-            steam.showGames();
-        }
-
-        public static void visualizeOneGenre()
-        {
-            Console.WriteLine("-visualizeGenre-");
-            Videogames casa = new Videogames();
-        }
-
-        public static void modifyGames()
-        {
-            Console.WriteLine("-Modify-");
-        }
     }
+
 
     class Program
     {
         static void Main(string[] args)
         {
-            Menu mn = new Menu();
-            mn.menu();
-            //Console.ReadKey();
+            String[] defaultGamesTitles = {"Monster Hunter World: Iceborne", "Apex Legends", "Horizon Zero Dawn"};
+            int[] defaultGamesYears = { 2019, 2018, 2017 };
+            int[] defaultGamesGenres = { 1,2,1};
+            VGManagement defaultGames = new VGManagement();
+            for (int i = 0; i < defaultGamesTitles.Length; i++)
+            {
+                defaultGames.adder(defaultGamesTitles[i],defaultGamesYears[i]);
+            }
+            defaultGames.shower();
+            Console.ReadKey();
         }
     }
 }
