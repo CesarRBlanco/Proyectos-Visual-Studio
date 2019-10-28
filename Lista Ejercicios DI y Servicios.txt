@@ -1,0 +1,40 @@
+-DI-
+
+	Tema 1:
+		1.  Completado.
+		2.  Completado.
+		3.  Completado.
+		4.  Completado.
+		5.  Completado.
+		
+	Tema 2:
+		1-4. En edición y replanteo.
+
+	Tema 3:
+		1.  Completado.
+		2.  Completado.
+[*]		3.  En proceso. 
+		4.  No empezado.
+		
+	Tema 4:
+		1.  No empezado.
+		2.  No empezado.
+		3.  No empezado.
+		4.  No empezado.
+		5.  No empezado.
+		6.  No empezado.
+		7.  No empezado.
+		8.  No empezado.
+		9.  No empezado.
+		
+//////////////////////////////////////////////////////////////		
+		
+-Servicios-
+	
+	Tema 1:
+		1.  Completado.
+		2.  No empezado.
+		3.  Completado.
+[*]		4.  En proceso.
+		5.  No empezado.
+		6.  No empezado.
