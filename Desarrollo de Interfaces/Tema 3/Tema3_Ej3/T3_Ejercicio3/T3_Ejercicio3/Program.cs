@@ -11,7 +11,33 @@ namespace T3_Ejercicio3
     {
         public int GenreIndex { set; get; }
 
-        public string Title { set; get; }
+        public String _title;
+
+        public String Title
+        {
+            set
+            {
+                if (value.Length >= 18)
+                {
+                    value = value.Remove(15);
+                    value = value.Insert(15, "...");
+                    _title = value;
+                }
+                else
+                {
+                    int finalS;
+                    int blancs=0;
+                    blancs = 18 - value.Length;
+                    for (int i = 0; i < blancs; i++)
+                    {
+                        finalS = value.Length;
+                        value=value.Insert(finalS," ");
+                    }
+                    _title = value;
+                }
+            }
+            get => _title;
+        }
 
         public int Year { set; get; }
 
@@ -33,10 +59,11 @@ namespace T3_Ejercicio3
             GenreIndex = genreIndex;
         }
 
+
         public override string ToString()
         {
-            string datos =String.Format( "{0} // {1} // {2}",Title,Year,genresArray[GenreIndex]);
-            
+            string datos = String.Format("{0} // {1} // {2}", Title, Year, genresArray[GenreIndex]);
+
             return datos;
         }
 
@@ -59,13 +86,16 @@ namespace T3_Ejercicio3
     class VideoGamesHandler
     {
         static List<Videogames> GameLibrary = new List<Videogames>();
-        
+
+// AÑADIR TRYCATCH
+
         public static void addVideoGame()
         {
             Console.Write("Insert a title: ");
-            string   titleGame = Console.ReadLine().Trim();
+            string titleGame = Console.ReadLine().Trim();
             Console.Write("Insert a year: ");
-            int  yearGame = Int32.Parse(Console.ReadLine().Trim());
+            int yearGame = Int32.Parse(Console.ReadLine().Trim());
+            Console.Write("[0. Arcade, 1. Aventuras, 2. Estrategia, 3. Pelea, 4. Shooter]\n");
             Console.Write("Insert a genre: ");
             int genreIndex = Int32.Parse(Console.ReadLine().Trim());
             Videogames newGame = new Videogames(titleGame, yearGame, genreIndex);
@@ -73,7 +103,7 @@ namespace T3_Ejercicio3
             GameLibrary.Sort();
         }
 
-        //SObrecarga para los juegos iniciales
+        //Sobrecarga para los juegos iniciales
         public static void addVideoGame(string titleGame, int yearGame, int genreIndex)
         {
             Videogames newGame = new Videogames(titleGame, yearGame, genreIndex);
@@ -92,7 +122,6 @@ namespace T3_Ejercicio3
     }
 
 
-
     class Menu : VideoGamesHandler
     {
         static MyDelegate[] delegates = {addVideoGame, showVideoGames};
@@ -100,37 +129,51 @@ namespace T3_Ejercicio3
 
         public static void menu()
         {
-            String titleGame = "";
-            int yearGame = 0, genreIndex = 0, opt;
             string[] options =
             {
                 "Insert a new game", "Visualize all games", "Delete games", "Visualize one genre", "Modify a game"
             };
-
-            do
+            try
             {
-                for (int i = 0; i < options.Length; i++)
+                int  opt;
+                do
                 {
-                    Console.WriteLine("{0}. {1}.", i + 1, options[i]);
-                }
+                    for (int i = 0; i < options.Length; i++)
+                    {
+                        Console.WriteLine("{0}. {1}.", i + 1, options[i]);
+                    }
 
-                Console.WriteLine("0. Exit.");
-                opt = Int32.Parse(Console.ReadLine());
-          
-                if (opt <= 0 || opt >= options.Length + 1)
-                {
+                    Console.WriteLine("0. Exit.");
                     Console.WriteLine("---------");
-                    Console.WriteLine(
-                        "Sorry, but that, maybe, perhaps, u know, i don't know, that's not any of the numbers in the menu.");
-                    Console.WriteLine("---------");
-                }
-                else
-                {
-                    Console.WriteLine("---------");
-                    delegates[opt - 1]();
-                    Console.WriteLine("---------");
-                }
-            } while (opt != 0);
+                    opt = Int32.Parse(Console.ReadLine().Trim());
+
+                    if (opt <= 0 || opt >= options.Length + 1)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("---------");
+                        Console.WriteLine(
+                            "Sorry, {0} is not any of the numbers in the menu.",opt);
+                        Console.WriteLine("---------");
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("---------");
+                        delegates[opt - 1]();
+                        Console.WriteLine("---------");
+                    }
+                  
+                } while (opt != 0);
+            }
+            catch(System.FormatException e)
+            {
+                Console.Clear();
+                Console.WriteLine("---------");
+                Console.WriteLine(
+                    "Sorry, characters are not available in the menu.");
+                Console.WriteLine("---------");
+                menu();
+            }
         }
     }
 
