@@ -59,7 +59,6 @@ namespace T3_Ejercicio3
             GenreIndex = genreIndex;
         }
 
-
         public override string ToString()
         {
             string datos = String.Format("{0} // {1} // {2}", Title, Year, genresArray[GenreIndex]);
@@ -109,6 +108,7 @@ namespace T3_Ejercicio3
             Videogames newGame = new Videogames(titleGame, yearGame, genreIndex);
             GameLibrary.Add(newGame);
             GameLibrary.Sort();
+
         }
 
 
@@ -117,6 +117,16 @@ namespace T3_Ejercicio3
             foreach (Object obj in GameLibrary)
             {
                 Console.WriteLine(obj);
+               
+            }
+        }
+
+
+        public static void showOneGenre()
+        {
+            foreach(Object obj in GameLibrary)
+            {
+                
             }
         }
     }
@@ -124,7 +134,7 @@ namespace T3_Ejercicio3
 
     class Menu : VideoGamesHandler
     {
-        static MyDelegate[] delegates = {addVideoGame, showVideoGames};
+        static MyDelegate[] delegates = {addVideoGame, showVideoGames,showOneGenre};
 
 
         public static void menu()
