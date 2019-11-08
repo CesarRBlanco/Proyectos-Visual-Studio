@@ -107,82 +107,91 @@ Recoger errores en los limites del array e insercion de letras
         public static void contestantsAverageResult(int[,] tableResults, string[] contestants, int contestant)
         {
             double pocket = 0, average;
-            for (int i = 0; i < tableResults.GetLength(0); i++)
-            {
-                for (int j = 0; j < tableResults.GetLength(1); j++)
+                for (int i = 0; i < tableResults.GetLength(0); i++)
                 {
-                    pocket = pocket + tableResults[i, contestant - 1];
+                    for (int j = 0; j < tableResults.GetLength(1); j++)
+                    {
+                        pocket = pocket + tableResults[i, contestant - 1];
+                    }
                 }
-            }
-
             average = pocket / tableResults.Length;
-            Console.WriteLine("-------------------------------------");
-            Console.WriteLine("The average result of {0} is: {1}", contestants[contestant - 1], Math.Round(average, 2));
-            Console.WriteLine("-------------------------------------\n");
-        }
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine("The average result of {0} is: {1}", contestants[contestant - 1], Math.Round(average, 2));
+                Console.WriteLine("-------------------------------------\n");
+         }
 
 
         public static void challengesAverageResult(int[,] tableResults, string[] challenges, int challenge)
         {
             double pocket = 0, average;
-            for (int i = 0; i < tableResults.GetLength(0); i++)
-            {
-                for (int j = 0; j < tableResults.GetLength(1); j++)
+          
+                for (int i = 0; i < tableResults.GetLength(0); i++)
                 {
-                    pocket = pocket + tableResults[challenge - 1, j];
+                    for (int j = 0; j < tableResults.GetLength(1); j++)
+                    {
+                        pocket = pocket + tableResults[challenge - 1, j];
+                    }
                 }
-            }
 
-            average = pocket / tableResults.Length;
-            Console.WriteLine("-------------------------------------");
-            Console.WriteLine("The average result of {0} is: {1}", challenges[challenge - 1], Math.Round(average, 2));
-            Console.WriteLine("-------------------------------------\n");
+                average = pocket / tableResults.Length;
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine("The average result of {0} is: {1}", challenges[challenge - 1], Math.Round(average, 2));
+                Console.WriteLine("-------------------------------------\n");
+            
+  
         }
 
         public static void showContestantsResult(int[,] tableResults, int contestant,
             string[] challenges)
         {
-            Console.WriteLine("-------------------------------------");
-            for (int i = 0; i < tableResults.GetLength(0); i++)
-            {
-                Console.Write(i+1+". "+challenges[i] + " : " + tableResults[i, contestant - 1]);
-                Console.WriteLine(" ");
-            }
+          
+                Console.WriteLine("-------------------------------------");
+                for (int i = 0; i < tableResults.GetLength(0); i++)
+                {
+                    Console.Write(i + 1 + ". " + challenges[i] + " : " + tableResults[i, contestant - 1]);
+                    Console.WriteLine(" ");
+                }
 
-            Console.WriteLine("-------------------------------------\n");
+                Console.WriteLine("-------------------------------------\n");
+          
         }
 
         public static void showChallengeResults(int[,] tableResults, string[] contestans, int challenge)
         {
-            Console.WriteLine("-------------------------------------");
-            for (int j = 0; j < tableResults.GetLength(1); j++)
-            {
-                Console.Write(j + 1 + ". "+contestans[j] + ": " + tableResults[challenge-1, j]);
-                Console.WriteLine(" ");
-            }
+           
+                Console.WriteLine("-------------------------------------");
+                for (int j = 0; j < tableResults.GetLength(1); j++)
+                {
+                    Console.Write(j + 1 + ". " + contestans[j] + ": " + tableResults[challenge - 1, j]);
+                    Console.WriteLine(" ");
+                }
 
-            Console.WriteLine("-------------------------------------\n");
+                Console.WriteLine("-------------------------------------\n");
+        
         }
 
         public static void showMaxAndMin(int[,] tableResults, int contestant, string[] challenges)
         {
             int max = 0, min = 10;
-            for (int i = 0; i < tableResults.GetLength(0); i++)
-            {
-                if (tableResults[i, contestant-1] > max)
+       
+                for (int i = 0; i < tableResults.GetLength(0); i++)
                 {
-                    max = tableResults[i, contestant-1];
+                    if (tableResults[i, contestant - 1] > max)
+                    {
+                        max = tableResults[i, contestant - 1];
+                    }
+
+                    if (tableResults[i, contestant - 1] < min)
+                    {
+                        min = tableResults[i, contestant - 1];
+                    }
                 }
 
-                if (tableResults[i, contestant-1] < min)
-                {
-                    min = tableResults[i, contestant-1];
-                }
-            }
-
-            Console.WriteLine("-------------------------------------");
-            Console.WriteLine("Max Result: {0}. \nMin Result: {1}.", max, min);
-            Console.WriteLine("-------------------------------------\n");
+                Console.WriteLine("-------------------------------------");
+                Console.WriteLine("Max Result: {0}. \nMin Result: {1}.", max, min);
+                Console.WriteLine("-------------------------------------\n");
+            
+          
         }
 
         public static void showWinContestants(int[,] tableResults, Contest classrom)
@@ -190,32 +199,33 @@ Recoger errores en los limites del array e insercion de letras
             int cont1 = 0, cont2 = 0;
             Boolean empty = true;
             Console.WriteLine("-------------------------------------");
-            for (int j = 0; j < tableResults.GetLength(1); j++)
-            {
-                for (int i = 0; i < tableResults.GetLength(0); i++)
+        
+                for (int j = 0; j < tableResults.GetLength(1); j++)
                 {
-                    if (cont2 == 4)
+                    for (int i = 0; i < tableResults.GetLength(0); i++)
                     {
-                        cont2 = 0;
-                        cont1 = 0;
-                    }
-
-                    if (tableResults[i, j] >= 5)
-                    {
-                        cont1++;
-                        if (cont1 == 4)
+                        if (cont2 == 4)
                         {
-                            Console.Write(classrom.contestants[j]);
-                            Console.WriteLine(": Has win Humor Amarillo.");
-                            showContestantsResult(tableResults,j+1,classrom.challenges);
-                            empty = false;
+                            cont2 = 0;
+                            cont1 = 0;
                         }
+
+                        if (tableResults[i, j] >= 5)
+                        {
+                            cont1++;
+                            if (cont1 == 4)
+                            {
+                                Console.Write(j + 1 + ". " + classrom.contestants[j]);
+                                Console.WriteLine(": Has win Humor Amarillo.");
+                                showContestantsResult(tableResults, j + 1, classrom.challenges);
+                                empty = false;
+                            }
+                        }
+
+                        cont2++;
                     }
-
-                    cont2++;
                 }
-            }
-
+         
             if (empty == true)
             {
                 Console.WriteLine("Nobody has won Humor Amarillo");
@@ -308,8 +318,16 @@ Recoger errores en los limites del array e insercion de letras
                 Console.WriteLine("---------");
                 menu(tableResults, classrom);
             }
+            catch (IndexOutOfRangeException e)
+            {
+                Console.Clear();
+                Console.WriteLine("---------");
+                Console.WriteLine(
+                    "Sorry, the number selected is not a contestant/challenge.");
+                Console.WriteLine("---------");
+                menu(tableResults, classrom);
+            }
         }
-
         class Program
         {
             public static void showTable(int[,] tableResultsCopy, Contest classroom)
