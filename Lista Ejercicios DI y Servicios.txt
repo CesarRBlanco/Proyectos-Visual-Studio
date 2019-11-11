@@ -13,7 +13,7 @@
 	Tema 3:
 ---		1.  Corregido.
 ---		2.  Corregido.
-[*]		3.  En proceso. 
+[*]		3.  En proceso (Eliminar juegos). 
 		4.  No empezado.
 		
 	Tema 4:
