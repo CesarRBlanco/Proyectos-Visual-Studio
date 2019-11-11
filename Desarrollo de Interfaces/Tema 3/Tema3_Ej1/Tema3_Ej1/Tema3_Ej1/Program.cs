@@ -21,11 +21,14 @@ namespace Tema3_Ej1
             string ip;
             double ram;
             Boolean errorKey = false;
+
+            Console.Clear();
+
             try
             {
-                Console.WriteLine("Introduce an IP for the new element:");
+                Console.Write("Introduce an IP for the new element: ");
                 ip = Console.ReadLine();
-                Console.WriteLine("Introduce the GigaBytes of RAM for the new element:");
+                Console.Write("Introduce the GigaBytes of RAM for the new element: ");
                 ram = Double.Parse(Console.ReadLine());
                 string[] ipArray = ip.Split('.');
 
@@ -68,11 +71,14 @@ namespace Tema3_Ej1
                 }
 
 
-
                 ipRam.Add(ip, ram);
 
-
             }
+            catch (System.ArgumentException e)
+            {
+                Console.WriteLine("This computer already exists.");
+            }
+            
             catch (FormatException e)
             {
                 Console.WriteLine("RAM value must be a number.");
@@ -83,6 +89,7 @@ namespace Tema3_Ej1
             {
                 if (errorKey)
                 {
+                    Console.WriteLine("------------------------------");
                     Console.WriteLine("IP is not valid.");
 
                 }
@@ -92,21 +99,28 @@ namespace Tema3_Ej1
         }
         public static void tableShow(Hashtable ipRam)
         {
+            Console.Clear();
+            if (ipRam.Count == 0)
+            {
+                Console.WriteLine("No computers have been added to the tale.");
+            }
+
             foreach (DictionaryEntry de in ipRam)
             {
-                Console.WriteLine("Computer {0} has {1} GB of RAM", de.Key, de.Value);
+                Console.WriteLine("Computer {0} // {1} GB of RAM", de.Key, de.Value);
             }
 
         }
         public static void tableShowOne(Hashtable ipRam, string ipSelect)
         {
-
-         if(ipRam.ContainsKey(ipSelect))
+            Console.Clear();
+            if (ipRam.ContainsKey(ipSelect))
             {
-                Console.WriteLine("Computer {0} has {1} GB of RAM", ipSelect, ipRam[ipSelect]);
+                Console.WriteLine("Computer {0} // {1} GB of RAM", ipSelect, ipRam[ipSelect]);
             }
             else
             {
+                Console.WriteLine("------------------------------");
                 Console.WriteLine("The selected IP wasn´t found.");
             }
         }
@@ -114,25 +128,29 @@ namespace Tema3_Ej1
         {
             int select;
             string ipSelect;
+            string[] menuOptions = {"Introduce a new computer.","Show all computers.","Show one computer."};
             try
             {
                 do
                 {
-                    Console.WriteLine("");
-                    Console.WriteLine("Introduce a number please:");
+                    Console.WriteLine("------------------------------");
+                    for (int i = 0; i < menuOptions.Length; i++)
+                    {
+                        Console.WriteLine("{0}. {1}", i + 1,menuOptions[i]);
+                    }
+                    Console.WriteLine("0. Exit.");
+                    Console.WriteLine("------------------------------");
                     select = Int32.Parse(Console.ReadLine());
                     switch (select)
                     {
                         case 1:
-                            Console.WriteLine("");
                             tableModificator(ipRam);
                             break;
                         case 2:
-                            Console.WriteLine("");
                             tableShow(ipRam);
                             break;
                         case 3:
-                            Console.WriteLine("");
+                            Console.Write("Introduce the IP: ");
                             ipSelect = Console.ReadLine();
                             tableShowOne(ipRam, ipSelect);
                             break;
@@ -141,20 +159,23 @@ namespace Tema3_Ej1
                             break;
 
                     }
-                } while (select != 4);
+
+                } while (select != 0);
 
             }
             catch (FormatException e)
             {
+                Console.Clear();
                 if (cont < 2)
                 {
-                    Console.WriteLine("Would you be so kind to introduce a number, please?\n");
+                    Console.Write("Would you be so kind to introduce a number, please?\n");
                     cont++;
                 }
                 else
                 {
-                    Console.WriteLine("Jesus Christ! Write a number you ****** donkey!\n");
+                    Console.Write("Jesus Christ! Write a number you ****** donkey!\n");
                 }
+
                 menu(cont, ipRam);
             }
         }

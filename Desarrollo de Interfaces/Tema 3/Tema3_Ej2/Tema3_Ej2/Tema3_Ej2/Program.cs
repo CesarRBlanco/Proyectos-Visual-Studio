@@ -101,9 +101,7 @@ namespace Tema3_Ej2
             Console.WriteLine("-------------------------------------\n");
         }
 
-/*@TODO 
-Recoger errores en los limites del array e insercion de letras
-    */
+
         public static void contestantsAverageResult(int[,] tableResults, string[] contestants, int contestant)
         {
             double pocket = 0, average;

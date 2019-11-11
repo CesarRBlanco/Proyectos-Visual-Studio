@@ -122,6 +122,34 @@ namespace T3_Ejercicio3
         }
 
 
+        public static void deleteGame()
+        {
+            int toDelete=-1;
+            Object[] casa;
+            Console.Write("Insert a title: ");
+            string titleGame = Console.ReadLine().Trim();
+            foreach (T3_Ejercicio3.Videogames obj in GameLibrary)
+            {
+                if (obj.ToString().Contains(titleGame))
+                {
+              
+
+                    toDelete =GameLibrary.IndexOf(obj);
+                    
+                }
+            }
+
+            for (int i = 0; i < GameLibrary.Count; i++)
+            {
+                casa = GameLibrary.ToArray();
+                Console.WriteLine(casa[i]);
+                
+
+              Localizar juego a borrar
+            }
+
+        }
+
         public static void showOneGenre()
         {
             foreach(Object obj in GameLibrary)
@@ -134,7 +162,7 @@ namespace T3_Ejercicio3
 
     class Menu : VideoGamesHandler
     {
-        static MyDelegate[] delegates = {addVideoGame, showVideoGames,showOneGenre};
+        static MyDelegate[] delegates = {addVideoGame, showVideoGames,deleteGame, showOneGenre };
 
 
         public static void menu()
@@ -148,29 +176,30 @@ namespace T3_Ejercicio3
                 int  opt;
                 do
                 {
+                    Console.WriteLine("----------------------------");
                     for (int i = 0; i < options.Length; i++)
                     {
                         Console.WriteLine("{0}. {1}.", i + 1, options[i]);
                     }
 
                     Console.WriteLine("0. Exit.");
-                    Console.WriteLine("---------");
+                    Console.WriteLine("----------------------------");
                     opt = Int32.Parse(Console.ReadLine().Trim());
 
                     if (opt <= 0 || opt >= options.Length + 1)
                     {
                         Console.Clear();
-                        Console.WriteLine("---------");
+                        Console.WriteLine("----------------------------");
                         Console.WriteLine(
                             "Sorry, {0} is not any of the numbers in the menu.",opt);
-                        Console.WriteLine("---------");
+                        Console.WriteLine("----------------------------");
                     }
                     else
                     {
                         Console.Clear();
-                        Console.WriteLine("---------");
+                        Console.WriteLine("----------------------------");
                         delegates[opt - 1]();
-                        Console.WriteLine("---------");
+                        Console.WriteLine("----------------------------");
                     }
                   
                 } while (opt != 0);
@@ -178,10 +207,10 @@ namespace T3_Ejercicio3
             catch(System.FormatException e)
             {
                 Console.Clear();
-                Console.WriteLine("---------");
+                Console.WriteLine("----------------------------");
                 Console.WriteLine(
                     "Sorry, characters are not available in the menu.");
-                Console.WriteLine("---------");
+                Console.WriteLine("----------------------------");
                 menu();
             }
         }

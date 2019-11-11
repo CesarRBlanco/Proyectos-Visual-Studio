@@ -12,7 +12,7 @@
 
 	Tema 3:
 ---		1.  Corregido.
----		2.  Acabar y revisar.
+---		2.  Corregido.
 [*]		3.  En proceso. 
 		4.  No empezado.
 		
