@@ -74,12 +74,12 @@ namespace Tema3_Ej1
                 ipRam.Add(ip, ram);
 
             }
-            catch (System.ArgumentException e)
+            catch (System.ArgumentException )
             {
                 Console.WriteLine("This computer already exists.");
             }
             
-            catch (FormatException e)
+            catch (FormatException )
             {
                 Console.WriteLine("RAM value must be a number.");
 

@@ -10,6 +10,18 @@ namespace Tema3_Ej2
     {
         private int[,] tableResultsOrigin = new int[4, 12]; // 4 * 12
 
+        public int this[int indice]
+        {
+            set
+            {
+                tableResultsOrigin[indice,2] = value;
+            }
+            get
+            {
+                return tableResultsOrigin[indice,2];
+            }
+        }
+
         public string[] contestants = new string[12]
         {
             "Chino Cudeiro", "Abuelo Cudeiro", "Padre Cudeiro", "Madre Cudeiro",
@@ -17,12 +29,14 @@ namespace Tema3_Ej2
             "Orieduc Onihc", "Pepe Livingstone", "Paco Peluca", "Juanito Calvicie"
         };
 
-        public string[] challenges = new string[4]
+        enum eChallenges
         {
-            "Los rollitos de primavera", "Las zamburguesas", "El laberinto del chino tauro",
-            "El Castillo del general Takeshi"
-        };
-
+            Los_rollitos_de_primavera,
+            Las_zamburguesas, 
+            El_laberinto_del_chino_tauro,
+            El_Castillo_del_general_Takeshi
+        }
+    
 
         public string[] Contestants
         {
@@ -30,11 +44,6 @@ namespace Tema3_Ej2
             set => contestants = value;
         }
 
-        public string[] Challenges
-        {
-            get => challenges;
-            set => challenges = value;
-        }
 
         public int[,] tableGenerator()
         {
@@ -97,17 +106,20 @@ namespace Tema3_Ej2
 
             average = pocket / tableResults.Length;
             Console.WriteLine("-------------------------------------");
-            Console.WriteLine("The total average result is: {0}", Math.Round(average, 2));
+            Console.WriteLine("The total average result is: {0,2}", Math.Round(average, 2));
             Console.WriteLine("-------------------------------------\n");
         }
 
+        // %2d  {0,2}
+        // %.2f {0:.00}
+        // %10.2f  {0,10:.00} 
 
         public static void contestantsAverageResult(int[,] tableResults, string[] contestants, int contestant)
         {
             double pocket = 0, average;
                 for (int i = 0; i < tableResults.GetLength(0); i++)
                 {
-                    for (int j = 0; j < tableResults.GetLength(1); j++)
+                   // for (int j = 0; j < tableResults.GetLength(1); j++)
                     {
                         pocket = pocket + tableResults[i, contestant - 1];
                     }
@@ -123,13 +135,13 @@ namespace Tema3_Ej2
         {
             double pocket = 0, average;
           
-                for (int i = 0; i < tableResults.GetLength(0); i++)
+                //for (int i = 0; i < tableResults.GetLength(0); i++)
+                
+                for (int j = 0; j < tableResults.GetLength(1); j++)
                 {
-                    for (int j = 0; j < tableResults.GetLength(1); j++)
-                    {
                         pocket = pocket + tableResults[challenge - 1, j];
                     }
-                }
+                
 
                 average = pocket / tableResults.Length;
                 Console.WriteLine("-------------------------------------");
@@ -360,13 +372,17 @@ namespace Tema3_Ej2
             {
                 int[,] tableResultsCopy;
                 Contest classroom = new Contest();
-                tableResultsCopy = classroom.tableGenerator();
-                Menu control = new Menu();
-                string[] contestantsCopy;
-                contestantsCopy = classroom.Contestants;
-                tableResultsCopy = classroom.tableGenerator();
-                showTable(tableResultsCopy, classroom);
-                control.menu(tableResultsCopy, classroom);
+                //tableResultsCopy = classroom.tableGenerator();
+                //Menu control = new Menu();
+                //string[] contestantsCopy;
+                //contestantsCopy = classroom.Contestants;
+                //tableResultsCopy = classroom.tableGenerator();
+                //showTable(tableResultsCopy, classroom);
+                //control.menu(tableResultsCopy, classroom);
+
+                Console.WriteLine(classroom[3]);
+                Console.ReadKey();
+               
             }
         }
     }

@@ -119,7 +119,7 @@ namespace T3_Ejercicio3
         {
             foreach (Object obj in GameLibrary)
             {
-                Console.WriteLine(obj);
+                Console.WriteLine(GameLibrary.Count+"{0}",obj);
 
             }
         }
