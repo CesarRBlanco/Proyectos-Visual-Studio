@@ -1,7 +1,7 @@
 - Programa de simulación de notas:
 	
 		- [REMENBERS] 
-		  = Nombres alumnos en vector y asignatura en enumerado.
+[✓]		  = Nombres alumnos en vector y asignatura en enumerado.
  		  = No hay interfaz de usuario.		
 		  = Dos clases minimo [
 				Clase aula [Contiene el array private de notas | metodos de proceso de datos 
@@ -14,11 +14,11 @@
 [✓]		-Notas ponderadas [0,1,2 ->5% | 3->10% | 4,5,6 ->15% | 7,8 ->10% | 9,10 ->5%] 
 
 	-Menu de metodos [Sin salida por pantalla]
-		- Calcular media de toda la tabla
-		- Media de un alumno
-		- Media de una asignatura
-		- Visualizar notas de un alumno
-		- Visualizar notas de una asignatura
+[✓]		- Calcular media de toda la tabla
+[✓]		- Media de un alumno
+[✓]		- Media de una asignatura
+[✓]		- Visualizar notas de un alumno
+[✓]		- Visualizar notas de una asignatura
 		- Nota maxima y minima de un alumno
 		- Tabla solo de aprobados
 		- Visualizar tabla completa
