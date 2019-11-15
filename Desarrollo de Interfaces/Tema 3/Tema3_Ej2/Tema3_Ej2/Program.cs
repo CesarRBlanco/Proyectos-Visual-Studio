@@ -34,7 +34,7 @@ namespace Tema3_Ej2
 
         // CREACION DE LA TABLA
         // Rellenado de la tabla a traves de la ponderación de las notas
-        public void tableGenerator()
+        public int[,] tableGenerator()
         {
             Random rand = new Random();
             int randSelection;
@@ -46,6 +46,7 @@ namespace Tema3_Ej2
                     notes[i, j] = noteCalculation(randSelection);
                 }
             }
+            return notes;
         }
 
         // Ponderacion de notas a un numero del 1-10 sin decimales
@@ -135,22 +136,160 @@ namespace Tema3_Ej2
         }
 
         // Visualizar nota máxima y minima
-        public ref studentMaxAndMin(int selectedStudent,ref int min,ref int max)
+        public void studentMaxAndMin(int selectedStudent, ref int min, ref int max)
         {
+            for (int i = 0; i < notes.GetLength(0); i++)
+            {
+                if (notes[i, selectedStudent] > max)
+                {
+                    max = notes[i, selectedStudent];
+                }
+                if (notes[i, selectedStudent] < min)
+                {
+                    min = notes[i, selectedStudent];
+                }
 
+            }
+        }
 
+        // Tabla de aprobados
+        public void approvedStudents(ref string[] approvedStudents, ref string[] approvedNotes)
+        {
+            int contApproves = 0, contNotes = 0, contArrayStudents = 0, contArrayNotes = 0, lastApprovedIndex = 0;
+            Boolean empty = true, notesKey = false;
 
-            return min + max;
+            for (int j = 0; j < notes.GetLength(1); j++)
+            {
+                for (int i = 0; i < notes.GetLength(0); i++)
+                {
+                    // Entra una vez contadas cuatro notas
+                    if (contNotes == 4)
+                    {
+                        contNotes = 0;
+
+                        // Marca a 0 el indice de aprobados para evitar que detecte dos alumnos diferentes como uno mismo aprobado
+                        contApproves = 0;
+
+                        // Entra si la llave a sido puesta a false, para reiniciar el array de notas al ultimo punto de guardado +1 (menos si es 0)
+                        if (!notesKey)
+                        {
+                            if (lastApprovedIndex == 0)
+                            {
+                                contArrayNotes = lastApprovedIndex;
+                            }
+                            else
+                            {
+                                contArrayNotes = lastApprovedIndex + 1;
+                            }
+                        }
+                    }
+
+                    approvedNotes[contArrayNotes] = notes[i, j].ToString();
+
+                    // Entra si la nota es superior a 5
+                    if (notes[i, j] >= 5)
+                    {
+                        contApproves++;
+
+                        //Si hay 4 aprobados seguidos entra, los guarda en un array y guarda la ultima posicion en la que se guardó una nota aprovada
+                        if (contApproves == 4)
+                        {
+                            approvedStudents[contArrayStudents] = students[j];
+                            contArrayStudents++;
+                            lastApprovedIndex = contArrayNotes;
+                            empty = false;
+                            notesKey = true;
+                        }
+                    }
+                    else
+                    {
+                        notesKey = false;
+                    }
+                    contArrayNotes++;
+                    contNotes++;
+                }
+
+            }
+            if (empty == true)
+            {
+                approvedNotes = null;
+                approvedStudents = null;
+            }
         }
 
     }
 
+
+    class UserInterface
+    {
+        Classrom newClassrom = new Classrom();
+        int selectedStudent, selectedSubject, min, max, option;
+        string[] approvedStudents, approvedNotes;
+
+        // Averiguar tamaño
+        public void showTable(int[,] tableCopy)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 12; j++)
+                {
+                    Console.WriteLine(newClassrom[i, j]);
+                }
+            }
+        }
+
+
+        public void menu()
+        {
+            switch (option)
+            {
+                case 1:
+                    newClassrom.averageNoteAll();
+                    break;
+
+                case 2:
+                    newClassrom.averageNoteStudent(selectedStudent);
+                    break;
+
+                case 3:
+                    newClassrom.averageNoteSubject(selectedSubject);
+                    break;
+
+                case 4:
+
+                    newClassrom.showStudentNotes(selectedStudent);
+                    break;
+
+                case 5:
+                    newClassrom.showSubjectNotes(selectedSubject);
+                    break;
+
+                case 6:
+                    newClassrom.studentMaxAndMin(selectedStudent, ref min, ref max);
+                    break;
+
+                case 7:
+                    newClassrom.approvedStudents(ref approvedStudents, ref approvedNotes);
+                    break;
+
+                case 8:
+                    showTable(tableCopy);
+                    break;
+            }
+
+        }
+    }
 
 
     class Program
     {
         static void Main(string[] args)
         {
+            int[,] copytable;
+            Classrom nue23 = new Classrom();
+            copytable = nue23.tableGenerator();
+            UserInterface n2 = new UserInterface();
+            n2.showTable(copytable);
 
         }
     }
