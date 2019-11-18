@@ -1,0 +1,27 @@
+- Programa de colección de videojuegos:
+	
+		- [REMENBERS] 
+[✓]		  = Debe inciarse con al menos tres titulos pre-hechos
+ 		  = Usabilidad.		
+		  = Limpio de errores [Titutlo inexistente, trim(), MinMayus]
+	
+	- Clase Principal:
+[✓]		- String Titulo
+[✓]		- Int Año
+[✓]		- eNum Genero [Arcade, Aventuras, Estrategia,Pelea, Shooter]
+
+	- Menu de metodos:
+[✓]		- Insertar un nuevo videojuego
+[✓]		- Eliminar videojuegos
+[✓]		- Mostrar todos los videojuegos
+[✓]		- Visualizar videojuegos de un genero especifico
+		- Modificar un juego
+[✓]		- Salir del programa
+	
+	- Clase Videojuegos: [Sin interfaz de usuario]
+		- int Posicion(int) [Se le pasa un año como parámetro y devuelve la posición donde dicho
+							parámetro es mayor al de la colección.]
+		- bool Eliminar(int, int) [Se pasa posición mín y max y elimina entre posiciones. 	
+								  El parámetro min es opcional y si no se pasa será 0.
+								  Devuelve true si va todo bien y false si no]
+		- List<Videojuegos> Busqueda(Estilo) [Devuelve todos los juegos del estilo seleccionado.]

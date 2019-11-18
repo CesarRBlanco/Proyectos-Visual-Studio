@@ -223,17 +223,27 @@ namespace Tema3_Ej2
     class UserInterface
     {
         Classrom newClassrom = new Classrom();
+        int[,] tableCopy;
         int selectedStudent, selectedSubject, min, max, option;
         string[] approvedStudents, approvedNotes;
 
-        // Averiguar tamaño
-        public void showTable(int[,] tableCopy)
+        // Creacion de la tabla y copia a una variable trabajable
+        public void tableMaker()
         {
+            tableCopy = newClassrom.tableGenerator();
+        }
+
+
+        // Averiguar tamaño
+        public void showTable()
+        {
+
             for (int i = 0; i < 4; i++)
             {
+                Console.WriteLine(" ");
                 for (int j = 0; j < 12; j++)
                 {
-                    Console.WriteLine(newClassrom[i, j]);
+                    Console.Write(newClassrom[i, j]);
                 }
             }
         }
@@ -241,6 +251,7 @@ namespace Tema3_Ej2
 
         public void menu()
         {
+
             switch (option)
             {
                 case 1:
@@ -273,7 +284,7 @@ namespace Tema3_Ej2
                     break;
 
                 case 8:
-                    showTable(tableCopy);
+                    showTable();
                     break;
             }
 
@@ -286,10 +297,10 @@ namespace Tema3_Ej2
         static void Main(string[] args)
         {
             int[,] copytable;
-            Classrom nue23 = new Classrom();
-            copytable = nue23.tableGenerator();
+         
             UserInterface n2 = new UserInterface();
-            n2.showTable(copytable);
+            n2.tableMaker();
+            n2.showTable();
 
         }
     }

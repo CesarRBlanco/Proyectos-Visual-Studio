@@ -2,11 +2,11 @@
 	
 		- [REMENBERS] 
 [✓]		  = Nombres alumnos en vector y asignatura en enumerado.
- 		  = No hay interfaz de usuario.		
-		  = Dos clases minimo [
+[✓] 		  = No hay interfaz de usuario.		
+[✓]		  = Dos clases minimo [
 [✓]				Clase aula [Contiene el array private de notas | metodos de proceso de datos 
 [✓]					| Funcion de max y min con parametros por ref. | Debe ser clase indexada]
-				Clase interfaz [Contiene el interfaz de usuario/menu y los recursos necesario]
+[✓]				Clase interfaz [Contiene el interfaz de usuario/menu y los recursos necesario]
 				]
 
 
@@ -21,6 +21,6 @@
 [✓]		- Visualizar notas de una asignatura
 [✓]		- Nota maxima y minima de un alumno
 [✓]		- Tabla solo de aprobados
-		- Visualizar tabla completa
+[✓]		- Visualizar tabla completa
 	
 	
