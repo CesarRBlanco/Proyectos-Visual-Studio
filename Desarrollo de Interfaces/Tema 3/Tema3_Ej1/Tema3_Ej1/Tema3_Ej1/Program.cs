@@ -9,6 +9,9 @@ namespace Tema3_Ej1
 {
     class Program
     {
+
+        private static int select=4;
+
         static void Main(string[] args)
         {
             int cont = 0;
@@ -124,19 +127,20 @@ namespace Tema3_Ej1
                 Console.WriteLine("The selected IP wasn´t found.");
             }
         }
+      
         public static void menu(int cont, Hashtable ipRam)
         {
-            int select;
+
             string ipSelect;
             string[] menuOptions = {"Introduce a new computer.","Show all computers.","Show one computer."};
-            try
+            do
             {
-                do
+                try
                 {
                     Console.WriteLine("------------------------------");
                     for (int i = 0; i < menuOptions.Length; i++)
                     {
-                        Console.WriteLine("{0}. {1}", i + 1,menuOptions[i]);
+                        Console.WriteLine("{0}. {1}", i + 1, menuOptions[i]);
                     }
                     Console.WriteLine("0. Exit.");
                     Console.WriteLine("------------------------------");
@@ -154,30 +158,26 @@ namespace Tema3_Ej1
                             ipSelect = Console.ReadLine();
                             tableShowOne(ipRam, ipSelect);
                             break;
-                        case 4:
-
-                            break;
-
                     }
+                }
 
+                catch (FormatException)
+                {
+                    Console.Clear();
+                    if (cont < 2)
+                    {
+                        Console.Write("Would you be so kind to introduce a number, please?\n");
+                        cont++;
+                    }
+                    else
+                    {
+                        Console.Write("Jesus Christ! Write a number you ****** donkey!\n");
+                    }
+                }
+                catch (System.OverflowException)
+                {
+                }
                 } while (select != 0);
-
-            }
-            catch (FormatException e)
-            {
-                Console.Clear();
-                if (cont < 2)
-                {
-                    Console.Write("Would you be so kind to introduce a number, please?\n");
-                    cont++;
-                }
-                else
-                {
-                    Console.Write("Jesus Christ! Write a number you ****** donkey!\n");
-                }
-
-                menu(cont, ipRam);
-            }
         }
     }
 }

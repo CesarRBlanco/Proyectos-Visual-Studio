@@ -132,51 +132,48 @@ namespace T3_Ejercicio3
         {
             Boolean deleteFailed = false;
             Object[] arrayGames;
-            string titleComparator;
+            //string titleComparator;
             arrayGames = GameLibrary.ToArray();
             Boolean key = false;
             int moves;
-            Console.Write("Insert a range of games: ");
-            int range1 = Int32.Parse(Console.ReadLine().Trim());
+            Console.WriteLine("-The select games and in-betweens will be deleted.-");
+            Console.Write("Insert the number of the first game to delete: ");
+            int range1 = Int32.Parse(Console.ReadLine().Trim()) - 1;
 
-            Console.Write("Insert a range of games: ");
-            int range2 = Int32.Parse(Console.ReadLine().Trim());
+            Console.Write("Insert the number of the last game to delete: ");
+            int range2 = Int32.Parse(Console.ReadLine().Trim()) - 1;
 
 
             moves = range2 - (range1 - 1);
 
             int contBack = 0;
-            for (int i = 0; i < arrayGames.Length; i++)
-            {
-                //deleteFailed = true;
-
-                if (i == range1)
-                {
-                    key = true;
-                }
-                if (key)
-                {
 
 
-                    GameLibrary.Remove(GameLibrary[range1]);
-                    contBack++;
-                    if (contBack == moves)
-                    {
-                        key = false;
-                    }
-                    Console.WriteLine("----------------------------");
-                    Console.WriteLine("Delete succesful.");
-                }
-
-
-            }
-
-
-
-            if (deleteFailed)
+            if (range1 > range2 || range1 < 0 || range1 > arrayGames.Length || range2 < 0 || range2 > arrayGames.Length)
             {
                 Console.WriteLine("----------------------------");
-                Console.WriteLine("Sorry, the requested game was not found.");
+                Console.WriteLine("A problem has ocurred. Please check inserted number or game list.");
+            }
+            else
+            {
+                for (int i = 0; i < arrayGames.Length; i++)
+                {
+                    if (i == range1)
+                    {
+                        key = true;
+                    }
+                    if (key)
+                    {
+                        GameLibrary.Remove(GameLibrary[range1]);
+                        contBack++;
+                        if (contBack == moves)
+                        {
+                            key = false;
+                            Console.WriteLine("----------------------------");
+                            Console.WriteLine("Delete succesful.");
+                        }
+                    }
+                }
             }
 
         }
@@ -186,128 +183,151 @@ namespace T3_Ejercicio3
             Object[] arrayGames;
             string genreComparator;
             arrayGames = GameLibrary.ToArray();
+            Boolean keyGenre = false;
 
-
+            Console.Write("[0. Arcade, 1. Aventuras, 2. Estrategia, 3. Pelea, 4. Shooter]\n");
             Console.Write("Insert a genre number: ");
-            string genreGame = Console.ReadLine().Trim().ToLower();
+            string genreGame = Console.ReadLine().Trim();
+            Console.WriteLine("----------------------------");
             for (int i = 0; i < arrayGames.Length; i++)
             {
                 genreComparator = GameLibrary[i].GetType().GetProperty("GenreIndex").GetValue(GameLibrary[i]).ToString().Trim().ToLower();
                 if (genreComparator.Equals(genreGame))
                 {
-
+                    keyGenre = true;
                     Console.WriteLine(GameLibrary[i].GetType().GetProperty("OriginalTitle").GetValue(GameLibrary[i]).ToString());
-
-
                 }
-
+            }
+            if (!keyGenre)
+            {
+                Console.WriteLine("No game was found.");
             }
         }
+    
 
-        public static void modifyGame()
-        {
-            Object[] arrayGames;
-            arrayGames = GameLibrary.ToArray();
-            arrayGames[2] = "hey";
-            for (int i = 0; i < arrayGames.Length; i++)
+    public static void modifyGame()
+    {
+            Boolean editKey=false;
+            Console.WriteLine("Select the number of the game you want to modify");
+            int selectedGame = Int32.Parse(Console.ReadLine().Trim())-1;
+            for (int i = 0; i < GameLibrary.Count; i++)
             {
-                Console.WriteLine(arrayGames[i]);
-            }
-        }
-
-
-        class Menu : VideoGamesHandler
-        {
-            static MyDelegate[] delegates = { addVideoGame, deleteGame, showVideoGames, showOneGenre,modifyGame };
-            private static int opt;
-
-            public static void menu()
-            {
-                string[] options =
+                if (i == selectedGame)
                 {
+                    editKey = true;
+                }
+            }
+            if (!editKey)
+            {
+                Console.WriteLine("A problem has ocurred. Please check inserted number or game list.");
+            }
+            else
+            {
+                Console.WriteLine("Introduce a new title:");
+                string newTitle = Console.ReadLine().Trim();
+                GameLibrary[selectedGame].Title = newTitle;
+                GameLibrary[selectedGame].OriginalTitle = newTitle;
+
+                Console.WriteLine("Introduce a new year:");
+                int newYear = Int32.Parse(Console.ReadLine().Trim());
+                GameLibrary[selectedGame].Year= newYear;
+
+                Console.Write("[0. Arcade, 1. Aventuras, 2. Estrategia, 3. Pelea, 4. Shooter]\n");
+                Console.WriteLine("Introduce a new genre:");
+                int newGenre = Int32.Parse(Console.ReadLine().Trim());
+                GameLibrary[selectedGame].GenreIndex= newGenre;
+
+            }
+        }
+
+
+    class Menu : VideoGamesHandler
+    {
+        static MyDelegate[] delegates = { addVideoGame, deleteGame, showVideoGames, showOneGenre, modifyGame };
+        private static int opt;
+
+        public static void menu()
+        {
+            string[] options =
+            {
                 "Insert a new game", "Delete games", "Visualize all games", "Visualize one genre", "Modify a game"
                 };
-
-
-                do
-                {
-
-                    try
-                    {
-                        Console.WriteLine("----------------------------");
-                        for (int i = 0; i < options.Length; i++)
-                        {
-                            Console.WriteLine("{0}. {1}.", i + 1, options[i]);
-                        }
-
-                        Console.WriteLine("0. Exit.");
-                        Console.WriteLine("----------------------------");
-
-                        opt = Int32.Parse(Console.ReadLine().Trim());
-
-                        if (opt <= 0 || opt >= options.Length + 1)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("----------------------------");
-                            Console.WriteLine(
-                                "Sorry, {0} is not any of the numbers in the menu.", opt);
-                            Console.WriteLine("----------------------------");
-                        }
-                        else
-                        {
-                            Console.Clear();
-                            Console.WriteLine("----------------------------");
-                            delegates[opt - 1]();
-                            Console.WriteLine("----------------------------");
-                        }
-
-                    }
-                    catch (System.FormatException)
-                    {
-                        Console.Clear();
-                        Console.WriteLine("----------------------------");
-                        Console.WriteLine(
-                            "Sorry, characters are not available in the menu.");
-                        Console.WriteLine("----------------------------");
-                    }
-                    catch (System.OverflowException)
-                    {
-                        Console.Clear();
-                        Console.WriteLine("----------------------------");
-                        Console.WriteLine(
-                            "Sorry, that number is out of range.");
-                        Console.WriteLine("----------------------------");
-
-                    }
-
-                } while (opt != 0);
-
-
-            }
-
-
-            class Program
+            do
             {
-                static void Main(string[] args)
-                {
-                    String[] defaultGamesTitles = { "Monster Hunter World: Iceborne", "Horizon Zero Dawn", "Apex Legends" };
-                    int[] defaultGamesYears = { 2019, 2017, 2018 };
-                    int[] defaultGamesGenres = { 1, 1, 4 };
 
-                    //----------------------------------------------------------------------------------------------------------
-                    for (int i = 0; i < defaultGamesTitles.Length; i++)
+                try
+                {
+                    //Console.WriteLine("----------------------------");
+                    for (int i = 0; i < options.Length; i++)
                     {
-                        VideoGamesHandler.addVideoGame(defaultGamesTitles[i], defaultGamesYears[i], defaultGamesGenres[i]);
+                        Console.WriteLine("{0}. {1}.", i + 1, options[i]);
                     }
 
+                    Console.WriteLine("0. Exit.");
+                    Console.WriteLine("----------------------------");
 
-                    Menu.menu();
+                    opt = Int32.Parse(Console.ReadLine().Trim());
 
+                    if (opt <= 0 || opt >= options.Length + 1)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("----------------------------");
+                        Console.WriteLine(
+                            "Sorry, {0} is not any of the numbers in the menu.", opt);
+                        Console.WriteLine("----------------------------");
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("----------------------------");
+                        delegates[opt - 1]();
+                        Console.WriteLine("----------------------------");
+                    }
 
-                    //defaultGames.showVideoGames();
-                    //Console.ReadKey();
                 }
+                catch (System.FormatException)
+                {
+                    Console.Clear();
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine(
+                        "Sorry, characters are not available in the menu.");
+                    Console.WriteLine("----------------------------");
+                }
+                catch (System.OverflowException)
+                {
+                    Console.Clear();
+                    Console.WriteLine("----------------------------");
+                    Console.WriteLine(
+                        "Sorry, that number is out of range.");
+                    Console.WriteLine("----------------------------");
+
+                }
+            } while (opt != 0);
+        }
+
+
+        class Program
+        {
+            static void Main(string[] args)
+            {
+                String[] defaultGamesTitles = { "Monster Hunter World: Iceborne", "Horizon Zero Dawn", "Apex Legends" };
+                int[] defaultGamesYears = { 2019, 2017, 2018 };
+                int[] defaultGamesGenres = { 1, 1, 4 };
+
+                //----------------------------------------------------------------------------------------------------------
+                for (int i = 0; i < defaultGamesTitles.Length; i++)
+                {
+                    VideoGamesHandler.addVideoGame(defaultGamesTitles[i], defaultGamesYears[i], defaultGamesGenres[i]);
+                }
+
+
+                Menu.menu();
+
+
+                //defaultGames.showVideoGames();
+                //Console.ReadKey();
             }
         }
     }
+}
 }

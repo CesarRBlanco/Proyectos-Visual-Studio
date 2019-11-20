@@ -7,36 +7,69 @@ namespace Tema1_Ej4
     {
         static object l = new object();
 
-        public static void setRace()
+        static void horseOne()
         {
-            for (int i = 0; i < 4; i++)
+            lock (l) 
+                Monitor.Wait(l);
+            for (int i = 1; i <= 20; i++)
             {
-                for (int j = 0; j < 50; j++)
+                lock (l)
                 {
-                    Console.SetCursorPosition(j, i);
-                    Console.Write("-");
+                    Console.SetCursorPosition(1, 20);
+                    Console.Write("{0,4}", i);
+                    Thread.Sleep(50);
                 }
             }
-
-            for (int x=0;x<4;x++)
+            for (int x = 0; x < 4; x++)
             {
-                Console.SetCursorPosition(50,x);
+                Console.SetCursorPosition(50, x);
 
             }
         }
 
-        public static void horseOne()
+        static void horseTwo()
         {
-
+      
+            for (int i = 1; i <= 20; i++)
+            {
+                lock (l)
+                {
+                    Console.SetCursorPosition(1, 20);
+                    Console.Write("{0,4}", i);
+                    Thread.Sleep(50);
+                    lock (l)
+                    {
+                        Monitor.Pulse(l);
+                    }
+                }
+            }
+            for (int x = 0; x < 4; x++)
+            {
+                Console.SetCursorPosition(0, x);
+            }
         }
 
         static void Main(string[] args)
         {
-            setRace();
-            Console.ReadKey();
-            Thread horse1 = new Thread(horseOne);
-            horse1.Start();
-            Console.ReadKey();
+            Thread thread = new Thread(horseOne);
+            Thread thread2 = new Thread(horseTwo);
+            thread.Start();
+            thread2.Start();
+
+            //for (int i = 1; i <= 30; i++)
+            //{
+            //    lock (l)
+            //    {
+            //        Console.SetCursorPosition(1, 1);
+            //        Console.Write("{0,4}", i);
+            //    }
+            //    Thread.Sleep(50);
+            //    if (i == 15) // Warn thread writeDown to begin
+            //        lock (l)
+            //        {
+            //            Monitor.Pulse(l);
+            //        }
+            //}
             Console.ReadKey();
         }
     }
