@@ -301,8 +301,9 @@ namespace Tema3_Ej2
             int[,] copytable;
          
             UserInterface n2 = new UserInterface();
-            n2.tableMaker();
-            n2.showTable();
+            //n2.tableMaker();
+            //n2.showTable();
+            Classrom c = new Classrom();
 
         }
     }
