@@ -42,7 +42,7 @@ namespace Tema3_Ej2
             {
                 for (int j = 0; j < notes.GetLength(1); j++)
                 {
-                    randSelection = rand.Next(1, 101);
+                    randSelection = rand.Next(30, 101);
                     notes[i, j] = noteCalculation(randSelection);
                 }
             }
@@ -92,7 +92,7 @@ namespace Tema3_Ej2
                     pocket = pocket + notes[i, j];
                 }
             }
-            return pocket = pocket / notes.Length;
+            return   pocket / notes.Length;
         }
 
         // Media de un único alumno
@@ -160,6 +160,7 @@ namespace Tema3_Ej2
 
             for (int j = 0; j < notes.GetLength(1); j++)
             {
+
                 for (int i = 0; i < notes.GetLength(0); i++)
                 {
                     // Entra una vez contadas cuatro notas
@@ -208,6 +209,7 @@ namespace Tema3_Ej2
                     contArrayNotes++;
                     contNotes++;
                 }
+
 
             }
             if (empty == true)
