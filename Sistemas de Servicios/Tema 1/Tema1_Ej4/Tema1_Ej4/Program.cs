@@ -11,7 +11,7 @@ namespace Tema1_Ej4
         {
             lock (l) 
                 Monitor.Wait(l);
-            for (int i = 1; i <= 20; i++)
+            for (int i = 1; i <= 50; i++)
             {
                 lock (l)
                 {
@@ -30,7 +30,7 @@ namespace Tema1_Ej4
         static void horseTwo()
         {
       
-            for (int i = 1; i <= 20; i++)
+            for (int i = 1; i <= 50; i++)
             {
                 lock (l)
                 {
@@ -43,6 +43,12 @@ namespace Tema1_Ej4
                     }
                 }
             }
+            //if (i == 15) // Warn thread writeDown to begin
+                lock (l)
+                {
+                    Monitor.Pulse(l);
+                }
+        
             for (int x = 0; x < 4; x++)
             {
                 Console.SetCursorPosition(0, x);
@@ -53,8 +59,8 @@ namespace Tema1_Ej4
         {
             Thread thread = new Thread(horseOne);
             Thread thread2 = new Thread(horseTwo);
-            thread.Start();
             thread2.Start();
+            thread.Start();
 
             //for (int i = 1; i <= 30; i++)
             //{
