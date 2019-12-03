@@ -53,6 +53,7 @@
             this.txtBxRGB1.Name = "txtBxRGB1";
             this.txtBxRGB1.Size = new System.Drawing.Size(54, 20);
             this.txtBxRGB1.TabIndex = 1;
+            this.txtBxRGB1.Enter += new System.EventHandler(this.TxtBxRGB1_Enter);
             // 
             // txtBxRGB2
             // 
@@ -60,6 +61,7 @@
             this.txtBxRGB2.Name = "txtBxRGB2";
             this.txtBxRGB2.Size = new System.Drawing.Size(54, 20);
             this.txtBxRGB2.TabIndex = 2;
+            this.txtBxRGB2.Enter += new System.EventHandler(this.TxtBxRGB1_Enter);
             // 
             // txtBxRGB3
             // 
@@ -67,6 +69,7 @@
             this.txtBxRGB3.Name = "txtBxRGB3";
             this.txtBxRGB3.Size = new System.Drawing.Size(54, 20);
             this.txtBxRGB3.TabIndex = 3;
+            this.txtBxRGB3.Enter += new System.EventHandler(this.TxtBxRGB1_Enter);
             // 
             // btnColorChange
             // 
@@ -77,6 +80,8 @@
             this.btnColorChange.Text = "Apply Color";
             this.btnColorChange.UseVisualStyleBackColor = true;
             this.btnColorChange.Click += new System.EventHandler(this.BtnColorChange_Click);
+            this.btnColorChange.MouseEnter += new System.EventHandler(this.BtnColorChange_MouseEnter);
+            this.btnColorChange.MouseLeave += new System.EventHandler(this.BtnColorChange_MouseLeave);
             // 
             // txtBxImgPath
             // 
@@ -84,6 +89,7 @@
             this.txtBxImgPath.Name = "txtBxImgPath";
             this.txtBxImgPath.Size = new System.Drawing.Size(335, 20);
             this.txtBxImgPath.TabIndex = 5;
+            this.txtBxImgPath.Enter += new System.EventHandler(this.TxtBxImgPath_Enter);
             // 
             // btnImgPath
             // 
@@ -94,15 +100,15 @@
             this.btnImgPath.Text = "Apply Image";
             this.btnImgPath.UseVisualStyleBackColor = true;
             this.btnImgPath.Click += new System.EventHandler(this.BtnImgPath_Click);
+            this.btnImgPath.MouseEnter += new System.EventHandler(this.BtnImgPath_MouseEnter);
+            this.btnImgPath.MouseLeave += new System.EventHandler(this.BtnImgPath_MouseLeave);
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(353, 248);
+            this.label1.Location = new System.Drawing.Point(12, 92);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 7;
-            this.label1.Text = "label1";
             // 
             // Form1
             // 

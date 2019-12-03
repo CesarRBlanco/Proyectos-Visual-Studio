@@ -15,6 +15,7 @@ namespace Excercise1
         public Form1()
         {
             InitializeComponent();
+            this.Icon = new Icon("F:\\Wallpapers\\favicon.ico");
         }
 
         // Cambio color
@@ -44,9 +45,52 @@ namespace Excercise1
 
         private void BtnImgPath_Click(object sender, EventArgs e)
         {
-            label1.Image = new Bitmap(txtBxImgPath.Text);
-            label1.Width = new Bitmap(txtBxImgPath.Text).Width;
-            label1.Height = new Bitmap(txtBxImgPath.Text).Height;
+            try
+            {
+
+                label1.Size = new Size(new Bitmap(txtBxImgPath.Text).Width, new Bitmap(txtBxImgPath.Text).Height);
+                label1.Image = new Bitmap(txtBxImgPath.Text);
+          
+            }
+            catch (System.ArgumentException)
+            {
+
+            }
+        }
+
+        private void TxtBxImgPath_Enter(object sender, EventArgs e)
+        {
+            if (this.AcceptButton == btnColorChange)
+            {
+                this.AcceptButton = btnImgPath;
+            }
+        }
+        private void TxtBxRGB1_Enter(object sender, EventArgs e)
+        {
+            if (this.AcceptButton == btnImgPath)
+            {
+                this.AcceptButton = btnColorChange;
+            }
+        }
+
+        private void BtnColorChange_MouseEnter(object sender, EventArgs e)
+        {
+            btnColorChange.BackColor = Color.Red;
+        }
+
+        private void BtnColorChange_MouseLeave(object sender, EventArgs e)
+        {
+            btnColorChange.BackColor = default(Color);
+        }
+
+        private void BtnImgPath_MouseEnter(object sender, EventArgs e)
+        {
+            btnImgPath.BackColor = Color.Red;
+        }
+
+        private void BtnImgPath_MouseLeave(object sender, EventArgs e)
+        {
+            btnImgPath.BackColor = default(Color);
         }
     }
 }
