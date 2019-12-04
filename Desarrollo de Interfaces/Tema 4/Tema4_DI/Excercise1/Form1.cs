@@ -15,7 +15,7 @@ namespace Excercise1
         public Form1()
         {
             InitializeComponent();
-            this.Icon = new Icon("F:\\Wallpapers\\favicon.ico");
+            this.Cursor = Cursors.Hand;
         }
 
         // Cambio color
@@ -80,7 +80,7 @@ namespace Excercise1
 
         private void BtnColorChange_MouseLeave(object sender, EventArgs e)
         {
-            btnColorChange.BackColor = default(Color);
+            btnColorChange.BackColor = DefaultBackColor;
         }
 
         private void BtnImgPath_MouseEnter(object sender, EventArgs e)
@@ -90,7 +90,15 @@ namespace Excercise1
 
         private void BtnImgPath_MouseLeave(object sender, EventArgs e)
         {
-            btnImgPath.BackColor = default(Color);
+            btnImgPath.BackColor = DefaultBackColor;
+        }
+
+        private void BtnExit_Click(object sender, EventArgs e)
+        {
+            if(MessageBox.Show("Are you sure?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
     }
 }

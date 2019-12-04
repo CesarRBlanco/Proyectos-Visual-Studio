@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.btnExit = new System.Windows.Forms.Button();
             this.txtBxRGB1 = new System.Windows.Forms.TextBox();
             this.txtBxRGB2 = new System.Windows.Forms.TextBox();
             this.txtBxRGB3 = new System.Windows.Forms.TextBox();
@@ -38,14 +39,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // button1
+            // btnExit
             // 
-            this.button1.Location = new System.Drawing.Point(713, 415);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Exit";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnExit.Location = new System.Drawing.Point(713, 415);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(75, 23);
+            this.btnExit.TabIndex = 0;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
             // txtBxRGB1
             // 
@@ -115,6 +118,7 @@
             this.AcceptButton = this.btnColorChange;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnImgPath);
@@ -123,9 +127,13 @@
             this.Controls.Add(this.txtBxRGB3);
             this.Controls.Add(this.txtBxRGB2);
             this.Controls.Add(this.txtBxRGB1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnExit);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Excercise 1";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,7 +141,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.TextBox txtBxRGB1;
         private System.Windows.Forms.TextBox txtBxRGB2;
         private System.Windows.Forms.TextBox txtBxRGB3;
