@@ -51,6 +51,7 @@
             this.btnRight.TabIndex = 1;
             this.btnRight.Text = "R_Click";
             this.btnRight.UseVisualStyleBackColor = true;
+            this.btnRight.Click += new System.EventHandler(this.BtnRight_Click);
             this.btnRight.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Button2_MouseMove);
             // 
             // Form1

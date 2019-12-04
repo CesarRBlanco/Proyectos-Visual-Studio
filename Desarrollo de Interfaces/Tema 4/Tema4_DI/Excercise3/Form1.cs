@@ -73,11 +73,11 @@ namespace Excercise3
                 key = !key;
                 if (key)
                 {
-                    this.Icon = new Icon(Environment.GetEnvironmentVariable("USERPROFILE") + "\\Downloads\\favicon (2).ico");
+                    //this.Icon = new Icon(Environment.GetEnvironmentVariable("USERPROFILE") + "\\Downloads\\favicon (2).ico");
                 }
                 else
                 {
-                    this.Icon = new Icon(Environment.GetEnvironmentVariable("USERPROFILE") + "\\Downloads\\nomo.ico");
+                    //this.Icon = new Icon(Environment.GetEnvironmentVariable("USERPROFILE") + "\\Downloads\\nomo.ico");
                 }
                 cont2 = 0;
             }
@@ -113,5 +113,7 @@ namespace Excercise3
 
             }
         }
+
+
     }
 }

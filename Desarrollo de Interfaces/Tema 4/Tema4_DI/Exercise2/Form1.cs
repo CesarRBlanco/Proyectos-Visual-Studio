@@ -102,5 +102,9 @@ namespace Exercise2
             }
         }
 
+        private void BtnRight_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
