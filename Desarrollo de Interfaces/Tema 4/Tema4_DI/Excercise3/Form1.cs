@@ -106,7 +106,6 @@ namespace Excercise3
                     listBox1.Items.Insert(0,listBox2.SelectedItem);
                     listBox2.Items.Remove(listBox2.SelectedItem);
                 }
-
             }
             catch (System.ArgumentException)
             {
@@ -114,6 +113,17 @@ namespace Excercise3
             }
         }
 
+<<<<<<< Updated upstream
 
+=======
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            while (listBox1.SelectedItem != null)
+            listBox1.Items.Remove(listBox1.SelectedItem);
+            {
+                listBox1.Items.Remove(listBox1.SelectedItem);
+            }
+        }
+>>>>>>> Stashed changes
     }
 }

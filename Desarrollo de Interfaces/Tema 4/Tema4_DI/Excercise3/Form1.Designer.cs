@@ -91,6 +91,7 @@
             this.button3.TabIndex = 4;
             this.button3.Text = "Remove";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
             // 
             // button4
             // 
