@@ -1,6 +1,6 @@
 ﻿namespace DI_Tema6
 {
-    partial class UserControl1
+    partial class LabelUsuario
     {
         /// <summary> 
         /// Variable del diseñador necesaria.
@@ -47,6 +47,7 @@
             this.txt.Name = "txt";
             this.txt.Size = new System.Drawing.Size(100, 20);
             this.txt.TabIndex = 1;
+            this.txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Txt_KeyPress);
             // 
             // UserControl1
             // 
