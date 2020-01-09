@@ -141,7 +141,8 @@ namespace DI_Tema6
 
         private void Txt_KeyPress(object sender, KeyPressEventArgs e)
         {
-            this.OnKeyPress(e);
+            this.OnKeyPress(e);
+
         }
 
 

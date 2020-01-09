@@ -34,5 +34,18 @@ namespace Ejercicio_1
                 labelUsuario1.Posicion = DI_Tema6.LabelUsuario.ePosicion.IZQUIERDA;
             }
         }
+
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawString("Prueba de escritura de texto",
+this.Font, Brushes.BlueViolet, 10, 10);
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            e.Graphics.DrawString("Prueba 2",
+this.Font, Brushes.Red, 10, 40);
+        }
     }
 }
