@@ -3,7 +3,7 @@
 		- [REMENBERS] 
 [✓]		  = Debe inciarse con al menos tres titulos pre-hechos
  		  = Usabilidad.		
-		  = Limpio de errores [Titutlo inexistente, trim(), MinMayus]
+[✓]		  = Limpio de errores [Titutlo inexistente, trim(), MinMayus]
 	
 	- Clase Principal:
 [✓]		- String Titulo
@@ -15,7 +15,7 @@
 [✓]		- Eliminar videojuegos
 [✓]		- Mostrar todos los videojuegos
 [✓]		- Visualizar videojuegos de un genero especifico
-		- Modificar un juego
+[✓]		- Modificar un juego
 [✓]		- Salir del programa
 	
 	- Clase Videojuegos: [Sin interfaz de usuario]

@@ -33,8 +33,8 @@
 	
 	Tema 1:
 		1.  Completado.
-		2.  No empezado.
-		3.  Completado.
-[*]		4.  En proceso.
+[*]		2.  En proceso.
+		3.  No empezado.
+		4.  No empezado.
 		5.  No empezado.
 		6.  No empezado.
