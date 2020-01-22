@@ -13,12 +13,16 @@ namespace ServEx02
 {
     public partial class Form1 : Form
     {
+
+        string accesError = "Not enough permissions for this action.";
+        string typoError = "The name, route or ID are incorrect.";
+
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void allProcess_btn_Click(object sender, EventArgs e)
         {
             Process[] processes = Process.GetProcesses();
             const string FORMAT = "{0,7} || {1,5} || {2,5}";
@@ -28,34 +32,98 @@ namespace ServEx02
             {
                 Info = Info + String.Format("{0,5} || {1} || {2}", p.Id, p.ProcessName, p.MainWindowTitle) + "\r\n";
             }
-            textBox1.Text = Info;
+            show_txt.Text = Info;
         }
 
-        private void Button2_Click(object sender, EventArgs e)
+        private void oneProcess_btn_Click(object sender, EventArgs e)
         {
-            int pid = Int32.Parse(textBox2.Text);
-            Process p = Process.GetProcessById(pid);
-            textBox1.Text = String.Format("{0} || {1} || {2} || {3} || {4}", p.ProcessName, p.Id, p.StartTime, p.Modules.Count, p.MainModule);
+            try
+            {
+                int pid = Int32.Parse(search_txt.Text.Trim());
+                Process p = Process.GetProcessById(pid);
+                ProcessModuleCollection pM = p.Modules;
+                string Info = String.Format("{0} || {1} || {2} || {3} || {4}", p.ProcessName, p.Id, p.StartTime, p.Modules.Count, p.MainModule);
+
+                foreach (ProcessModule pMm in pM)
+                {
+                    Info = Info + String.Format("{0,5} ", pMm) + "\r\n";
+                }
+                error_lbl.Visible = false;
+
+                show_txt.Text = Info;
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                error_lbl.Text = accesError;
+                error_lbl.Visible = true;
+            }
+            catch (System.FormatException)
+            {
+                error_lbl.Text = typoError;
+                error_lbl.Visible = true;
+            }
         }
 
-        private void Button3_Click(object sender, EventArgs e)
+        private void closeProcess_btn_Click(object sender, EventArgs e)
         {
-            int pid = Int32.Parse(textBox2.Text);
-            Process p = Process.GetProcessById(pid);
-            p.Close();
+            try
+            {
+                int pid = Int32.Parse(search_txt.Text);
+                Process p = Process.GetProcessById(pid);
+                p.Close();
+                error_lbl.Visible = false;
+            }
+            catch (System.FormatException)
+            {
+                error_lbl.Text = typoError;
+                error_lbl.Visible = true;
+            }
+            if (show_txt.Text != "")
+            {
+                allProcess_btn_Click(sender, e);
+            }
         }
 
-        private void Button4_Click(object sender, EventArgs e)
+        private void killProcess_btn_Click(object sender, EventArgs e)
         {
-            int pid = Int32.Parse(textBox2.Text);
-            Process p = Process.GetProcessById(pid);
-            p.Kill();
+            try
+            {
+                int pid = Int32.Parse(search_txt.Text);
+                Process p = Process.GetProcessById(pid);
+                p.Kill();
+                error_lbl.Visible = false;
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                error_lbl.Text =accesError;
+                error_lbl.Visible = true;
+            }
+            catch (System.FormatException)
+            {
+                error_lbl.Text = typoError;
+                error_lbl.Visible = true;
+            }
+            if (show_txt.Text != "")
+            {
+                allProcess_btn_Click(sender, e);
+            }
         }
 
-        private void Button5_Click(object sender, EventArgs e)
+        private void runApp_btn_Click(object sender, EventArgs e)
         {
-            string name = textBox2.Text;
-            Process p = Process.Start(name);
+            try
+            {
+                string name = search_txt.Text;
+                Process p = Process.Start(name);
+                error_lbl.Visible = false;
+            }catch (SystemException ex)
+            {
+                if (ex is System.ComponentModel.Win32Exception || ex is FormatException)
+                {
+                    error_lbl.Text = typoError;
+                    error_lbl.Visible = true;
+                }
+            }
         }
     }
 }

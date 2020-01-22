@@ -29,95 +29,108 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.show_txt = new System.Windows.Forms.TextBox();
+            this.search_txt = new System.Windows.Forms.TextBox();
+            this.allProcess_btn = new System.Windows.Forms.Button();
+            this.oneProcess_btn = new System.Windows.Forms.Button();
+            this.closeProcess_btn = new System.Windows.Forms.Button();
+            this.killProcess_btn = new System.Windows.Forms.Button();
+            this.runApp_btn = new System.Windows.Forms.Button();
+            this.error_lbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox1
+            // show_txt
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 47);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(776, 344);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.WordWrap = false;
+            this.show_txt.Location = new System.Drawing.Point(12, 47);
+            this.show_txt.Multiline = true;
+            this.show_txt.Name = "show_txt";
+            this.show_txt.ReadOnly = true;
+            this.show_txt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.show_txt.Size = new System.Drawing.Size(654, 344);
+            this.show_txt.TabIndex = 0;
+            this.show_txt.WordWrap = false;
             // 
-            // textBox2
+            // search_txt
             // 
-            this.textBox2.Location = new System.Drawing.Point(12, 12);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(369, 20);
-            this.textBox2.TabIndex = 1;
+            this.search_txt.Location = new System.Drawing.Point(12, 12);
+            this.search_txt.Name = "search_txt";
+            this.search_txt.Size = new System.Drawing.Size(369, 20);
+            this.search_txt.TabIndex = 1;
             // 
-            // button1
+            // allProcess_btn
             // 
-            this.button1.Location = new System.Drawing.Point(12, 397);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(98, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "View Proccesses";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.allProcess_btn.Location = new System.Drawing.Point(12, 397);
+            this.allProcess_btn.Name = "allProcess_btn";
+            this.allProcess_btn.Size = new System.Drawing.Size(98, 23);
+            this.allProcess_btn.TabIndex = 2;
+            this.allProcess_btn.Text = "View Proccesses";
+            this.allProcess_btn.UseVisualStyleBackColor = true;
+            this.allProcess_btn.Click += new System.EventHandler(this.allProcess_btn_Click);
             // 
-            // button2
+            // oneProcess_btn
             // 
-            this.button2.Location = new System.Drawing.Point(116, 397);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Process Info";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click);
+            this.oneProcess_btn.Location = new System.Drawing.Point(116, 397);
+            this.oneProcess_btn.Name = "oneProcess_btn";
+            this.oneProcess_btn.Size = new System.Drawing.Size(75, 23);
+            this.oneProcess_btn.TabIndex = 3;
+            this.oneProcess_btn.Text = "Process Info";
+            this.oneProcess_btn.UseVisualStyleBackColor = true;
+            this.oneProcess_btn.Click += new System.EventHandler(this.oneProcess_btn_Click);
             // 
-            // button3
+            // closeProcess_btn
             // 
-            this.button3.Location = new System.Drawing.Point(197, 397);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(87, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Close Process";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.Button3_Click);
+            this.closeProcess_btn.Location = new System.Drawing.Point(197, 397);
+            this.closeProcess_btn.Name = "closeProcess_btn";
+            this.closeProcess_btn.Size = new System.Drawing.Size(87, 23);
+            this.closeProcess_btn.TabIndex = 4;
+            this.closeProcess_btn.Text = "Close Process";
+            this.closeProcess_btn.UseVisualStyleBackColor = true;
+            this.closeProcess_btn.Click += new System.EventHandler(this.closeProcess_btn_Click);
             // 
-            // button4
+            // killProcess_btn
             // 
-            this.button4.Location = new System.Drawing.Point(290, 397);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "Kill Process";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.Button4_Click);
+            this.killProcess_btn.Location = new System.Drawing.Point(290, 397);
+            this.killProcess_btn.Name = "killProcess_btn";
+            this.killProcess_btn.Size = new System.Drawing.Size(75, 23);
+            this.killProcess_btn.TabIndex = 5;
+            this.killProcess_btn.Text = "Kill Process";
+            this.killProcess_btn.UseVisualStyleBackColor = true;
+            this.killProcess_btn.Click += new System.EventHandler(this.killProcess_btn_Click);
             // 
-            // button5
+            // runApp_btn
             // 
-            this.button5.Location = new System.Drawing.Point(371, 396);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 6;
-            this.button5.Text = "Run App";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.Button5_Click);
+            this.runApp_btn.Location = new System.Drawing.Point(371, 396);
+            this.runApp_btn.Name = "runApp_btn";
+            this.runApp_btn.Size = new System.Drawing.Size(75, 23);
+            this.runApp_btn.TabIndex = 6;
+            this.runApp_btn.Text = "Run App";
+            this.runApp_btn.UseVisualStyleBackColor = true;
+            this.runApp_btn.Click += new System.EventHandler(this.runApp_btn_Click);
+            // 
+            // error_lbl
+            // 
+            this.error_lbl.AutoSize = true;
+            this.error_lbl.ForeColor = System.Drawing.Color.Red;
+            this.error_lbl.Location = new System.Drawing.Point(387, 15);
+            this.error_lbl.Name = "error_lbl";
+            this.error_lbl.Size = new System.Drawing.Size(236, 13);
+            this.error_lbl.TabIndex = 7;
+            this.error_lbl.Text = "El nombre, ruta o ID introducidos son incorrectos";
+            this.error_lbl.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 431);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(678, 431);
+            this.Controls.Add(this.error_lbl);
+            this.Controls.Add(this.runApp_btn);
+            this.Controls.Add(this.killProcess_btn);
+            this.Controls.Add(this.closeProcess_btn);
+            this.Controls.Add(this.oneProcess_btn);
+            this.Controls.Add(this.allProcess_btn);
+            this.Controls.Add(this.search_txt);
+            this.Controls.Add(this.show_txt);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Task Manager";
@@ -128,13 +141,14 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.TextBox show_txt;
+        private System.Windows.Forms.TextBox search_txt;
+        private System.Windows.Forms.Button allProcess_btn;
+        private System.Windows.Forms.Button oneProcess_btn;
+        private System.Windows.Forms.Button closeProcess_btn;
+        private System.Windows.Forms.Button killProcess_btn;
+        private System.Windows.Forms.Button runApp_btn;
+        private System.Windows.Forms.Label error_lbl;
     }
 }
 

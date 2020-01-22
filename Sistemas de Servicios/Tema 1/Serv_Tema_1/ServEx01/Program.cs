@@ -61,6 +61,7 @@ namespace ServEx01
             MenuGenerator(new string[] { "Op1", "Op2", "Op3" },
                           new MyDelegate[] { f1, f2, f3 });
             Console.ReadKey();
-        }
+        }
+
     }
 }
