@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServEx01", "ServEx01\ServEx
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServEx02", "ServEx02\ServEx02.csproj", "{7432F8F1-E01E-44BA-A1C2-6749E8445C08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServEx03", "ServEx03\ServEx03.csproj", "{C07BE3BD-DB5F-4633-8E48-6D03FD289DD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServEx04", "ServEx04\ServEx04.csproj", "{F12526A5-35F1-4B96-BB89-AF91AC5D2189}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{7432F8F1-E01E-44BA-A1C2-6749E8445C08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7432F8F1-E01E-44BA-A1C2-6749E8445C08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7432F8F1-E01E-44BA-A1C2-6749E8445C08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C07BE3BD-DB5F-4633-8E48-6D03FD289DD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C07BE3BD-DB5F-4633-8E48-6D03FD289DD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C07BE3BD-DB5F-4633-8E48-6D03FD289DD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C07BE3BD-DB5F-4633-8E48-6D03FD289DD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F12526A5-35F1-4B96-BB89-AF91AC5D2189}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F12526A5-35F1-4B96-BB89-AF91AC5D2189}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F12526A5-35F1-4B96-BB89-AF91AC5D2189}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F12526A5-35F1-4B96-BB89-AF91AC5D2189}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
