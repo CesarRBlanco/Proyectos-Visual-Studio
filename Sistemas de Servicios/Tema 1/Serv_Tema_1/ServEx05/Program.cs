@@ -2,12 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ServEx05
 {
+
+
+    // utilizar booleano para activar o salir del wait que para o retiene la funcion. Si esta en wait no va a la funcion, del hace la funcion hasta que otro booleano que sea finish cambie
+
+
+
+
+    public delegate void MyDelegate();
     class Program
     {
+
+
         static int counter = 0;
         static void increment()
         {
@@ -16,7 +27,9 @@ namespace ServEx05
         }
         static void Main(string[] args)
         {
-            MyTimer t = new MyTimer(increment);
+            MyDelegate passFunc;
+            passFunc = new MyDelegate(increment);
+            MyTimer t = new MyTimer(passFunc);
             t.interval = 1000;
             string op = "";
             do
@@ -31,4 +44,51 @@ namespace ServEx05
                 op = Console.ReadLine();
             } while (op == "1");
         }
-    }}
+    }
+
+    class MyTimer
+    {
+        static readonly private object l = new object();
+        Thread _thread;
+        public int interval;
+        public bool finish = false;
+        public bool wait = true;
+
+        public MyTimer(MyDelegate passFunc)
+        {
+            Thread _timer = new Thread(() =>
+            {
+                while (!finish)
+                {
+                    Thread.Sleep(interval);
+                    lock (l)
+                    {
+                        if (wait)
+                        {
+                            Monitor.Wait(l);
+                        }
+                        else
+                        {
+                            passFunc();
+                        }
+                    }
+                }
+            });
+            _timer.Start();
+        }
+
+        public void start()
+        {
+            wait = false;
+            Monitor.Pulse(l);
+        }
+
+        public void stop()
+        {
+            wait = true;
+
+        }
+
+    }
+}
+
