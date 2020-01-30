@@ -7,18 +7,9 @@ using System.Threading.Tasks;
 
 namespace ServEx05
 {
-
-
-    // utilizar booleano para activar o salir del wait que para o retiene la funcion. Si esta en wait no va a la funcion, del hace la funcion hasta que otro booleano que sea finish cambie
-
-
-
-
     public delegate void MyDelegate();
     class Program
     {
-
-
         static int counter = 0;
         static void increment()
         {
@@ -43,6 +34,7 @@ namespace ServEx05
                 Console.WriteLine("Press 1 to restart or Enter to end.");
                 op = Console.ReadLine();
             } while (op == "1");
+            t.kill();
         }
     }
 
@@ -80,13 +72,23 @@ namespace ServEx05
         public void start()
         {
             wait = false;
-            Monitor.Pulse(l);
+            lock (l)
+            {
+
+                Monitor.Pulse(l);
+            }
         }
 
         public void stop()
         {
             wait = true;
 
+        }
+
+        public void kill()
+        {
+            finish = true;
+            start();
         }
 
     }
