@@ -11,37 +11,41 @@ namespace ServEx04
     {
         static readonly private object l = new object();
         static bool jump = true;
-
-        static Thread horse = new Thread(run);
-        static Thread horse2 = new Thread(run);
-        static Thread horse3 = new Thread(run);
-        static Thread horse4 = new Thread(run);
-        static Thread horse5 = new Thread(run);
+        static bool victoria = false;
+        static int winner;
+        static Thread[] horses = new Thread[5];
 
         static void Main(string[] args)
         {
-            // Generar un caballo que corra en intervalos aleatorios ininterrumpidos de tiempo
-            paint();
+            int select;
+                Console.Clear();
+                Console.WriteLine("Select a horse from 1-5");
+                try
+                {
+                    select = Int32.Parse(Console.ReadLine());
+                    Console.Clear();
+                    paint();
+                    for (int i = 0; i < horses.Length; i++)
+                    {
+                        horses[i] = new Thread(run);
+                        horses[i].Start(i);
+                    }
+                    Console.ReadKey();
+                    Console.Clear();
+                    if (select == winner)
+                    {
+                        Console.WriteLine("You Win!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("You lose...");
+                    }
+                }
+                catch (System.FormatException)
+                {
 
-
-
-            horse.Start(0);
-            horse2.Start(1);
-            horse3.Start(2);
-            horse4.Start(3);
-            horse5.Start(4);
-
-
-            horse.Join();
-            horse2.Join();
-            horse3.Join();
-            horse4.Join();
-            horse5.Join();
-
-
-
+                }
             Console.ReadKey();
-
         }
 
 
@@ -54,28 +58,21 @@ namespace ServEx04
                 {
                     Console.Write("-");
                 }
+                Console.WriteLine("|");
             }
         }
-
-        static void ragnarok()
-        { 
-           
-            
-
-        }
-
-
         static void run(object y)
         {
-            Random randJump = new Random();
+
             int x = 0;
             int nJump;
             do
             {
                 lock (l)
                 {
+                    Random randJump = new Random();
                     nJump = randJump.Next(0, 10);
-                    if (nJump >= 5)
+                    if (nJump >= 2)
                     {
                         jump = true;
                     }
@@ -86,7 +83,7 @@ namespace ServEx04
                     while (jump)
                     {
                         nJump = randJump.Next(0, 10);
-                        if (nJump > 5)
+                        if (nJump > 2)
                         {
                             jump = true;
                         }
@@ -94,27 +91,26 @@ namespace ServEx04
                         {
                             jump = false;
                         }
-
-
                         Console.SetCursorPosition(x, (int)y);
                         Thread.Sleep(20);
                         Console.Write("*");
                         x++;
                         if (x >= 50)
                         {
-                            Console.SetCursorPosition(10, 10);
-                            Console.WriteLine("Victoria" + y);
-                            horse.Abort();
-                            horse2.Abort();
-                            horse3.Abort();
-                            horse4.Abort();
-                            horse5.Abort();
+                            if (!victoria)
+                            {
+                                Console.SetCursorPosition(55, (int)y);
+                                Console.WriteLine("The winner horse is the number {0}.", ((int)y + 1));
+                                winner = (int)y + 1;
+                                victoria = true;
+                            }
                             return;
                         }
                     }
-                    Thread.Sleep(10);
+                    //Thread.Sleep(100);
                 }
-            } while (x < 50);
+
+            } while (!victoria);
         }
     }
 }
