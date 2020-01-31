@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace ServEx06
+namespace ServEx06_V2
 {
-    class Program
+    public partial class Form1 : Form
     {
         static readonly private object l = new object();
         public static int displayNumber = 0;
@@ -15,8 +19,13 @@ namespace ServEx06
         public static bool finish = false;
         public static bool displayStop = false;
         public static bool stopColor = false;
+        delegate void Delega(string texto, TextBox t);
+        public Form1()
+        {
+            InitializeComponent();
+        }
 
-        static void Main(string[] args)
+        private void Form1_Load(object sender, EventArgs e)
         {
             Thread player1 = new Thread(add);
             player1.Start(1);
@@ -24,10 +33,20 @@ namespace ServEx06
             player2.Start(2);
             Thread _display = new Thread(display);
             _display.Start();
+      
+
+
+        }
+        private void cambiaTexto(string texto, TextBox t)
+        {
+            t.AppendText(texto + Environment.NewLine);
         }
 
-        public static void add(object code)
+
+        public void add(object code)
         {
+
+      
             int turn, sleepTIme;
             while (!finish)
             {
@@ -38,11 +57,12 @@ namespace ServEx06
                     turn = r.Next(1, 11);
                     sleepTIme = rS.Next(100, 100 * turn);
                     Thread.Sleep(sleepTIme);
-
+                    Delega d = new Delega(cambiaTexto);
+                    this.Invoke(d, displayText, player1);
                     switch (code)
                     {
                         case 1:
-                            Console.SetCursorPosition(0, 1);
+
                             Console.WriteLine(String.Format("{0,2}", turn));
                             if (turn == 5 || turn == 7)
                             {
@@ -96,9 +116,10 @@ namespace ServEx06
             }
         }
 
+  
         public static void display()
         {
-       
+
             int consoleColor;
             ConsoleColor[] colorArray = { ConsoleColor.Red, ConsoleColor.Blue, ConsoleColor.Green };
             Random rC = new Random();
@@ -109,8 +130,10 @@ namespace ServEx06
 
             }
 
-            
+
 
         }
     }
 }
+
+
