@@ -20,6 +20,9 @@ namespace ServEx06_V2
         public static bool displayStop = false;
         public static bool stopColor = false;
         delegate void Delega(string texto, TextBox t);
+        delegate void DelegaDisplay(string texto, Label l);
+        delegate void DelegaColor(Label l);
+        delegate void GameEnd();
         public Form1()
         {
             InitializeComponent();
@@ -33,105 +36,146 @@ namespace ServEx06_V2
             player2.Start(2);
             Thread _display = new Thread(display);
             _display.Start();
-      
-
-
         }
+
+        public void gameEnd()
+        {
+            finish_lbl.Visible = true;
+        }
+
         private void cambiaTexto(string texto, TextBox t)
         {
-            t.AppendText(texto + Environment.NewLine);
+            t.Text = String.Format(texto + Environment.NewLine);
+        }
+
+        private void changeDisplay(string texto, Label l)
+        {
+            l.Text = String.Format(texto + Environment.NewLine);
+        }
+
+        private void displayColor(Label l)
+        {
+            int nowColor;
+            Color[] colorArray = { Color.Red, Color.Blue, Color.Green };
+            Random rC = new Random();
+            nowColor = rC.Next(0, 3);
+            display_lbl.ForeColor = colorArray[nowColor];
+
         }
 
 
         public void add(object code)
         {
-
-      
-            int turn, sleepTIme;
-            while (!finish)
+            try
             {
-                lock (l)
+                int turn, sleepTIme;
+                while (!finish)
                 {
-                    Random r = new Random();
-                    Random rS = new Random();
-                    turn = r.Next(1, 11);
-                    sleepTIme = rS.Next(100, 100 * turn);
-                    Thread.Sleep(sleepTIme);
-                    Delega d = new Delega(cambiaTexto);
-                    this.Invoke(d, displayText, player1);
-                    switch (code)
+                    lock (l)
                     {
-                        case 1:
+                        Random r = new Random();
+                        Random rS = new Random();
+                        turn = r.Next(1, 11);
+                        sleepTIme = rS.Next(100, 100 * turn);
+                        Thread.Sleep(sleepTIme);
+                        Delega t = new Delega(cambiaTexto);
+                        DelegaDisplay d = new DelegaDisplay(changeDisplay);
+                        GameEnd gE = new GameEnd(gameEnd);
 
-                            Console.WriteLine(String.Format("{0,2}", turn));
-                            if (turn == 5 || turn == 7)
-                            {
-
-                                if (displayStop)
+                        switch (code)
+                        {
+                            case 1:
+                                this.Invoke(t, turn.ToString(), player1);
+                                if (turn == 5 || turn == 7)
                                 {
-                                    displayNumber += 5;
+                                    if (displayStop)
+                                    {
+                                        displayNumber += 5;
+                                    }
+                                    else
+                                    {
+                                        displayNumber++;
+                                        displayStop = true;
+                                    }
+                                    displayText = String.Format("{0,3}", displayNumber.ToString());
+                                    this.Invoke(d, displayText, display_lbl);
+                                    if (displayNumber >= 20)
+                                    {
+                                        this.Invoke(gE);
+                                        finish = true;
+                                
+                                    }
                                 }
-                                else
+                                break;
+                            case 2:
+                                this.Invoke(t, turn.ToString(), player2);
+                                if (turn == 5 || turn == 7)
                                 {
-                                    displayNumber++;
-                                    displayStop = true;
+                                    if (displayStop)
+                                    {
+                                        displayNumber--;
+                                        displayStop = false;
+                                    }
+                                    else
+                                    {
+                                        displayNumber -= 5;
+                                    }
+                                    displayText = String.Format("{0,3}", displayNumber.ToString());
+                                    this.Invoke(d, displayText, display_lbl);
+                                    if (displayNumber <= -20)
+                                    {
+                                        this.Invoke(gE);
+                                        finish = true;
+                                    
+                                    }
                                 }
-                                displayText = displayNumber.ToString();
-                                displayText = String.Format("{0,3}", displayNumber.ToString());
-                                Console.SetCursorPosition(1, 0);
-                                Console.WriteLine(displayText);
-
-                                if (displayNumber >= 20)
-                                {
-                                    finish = true;
-                                }
-                            }
-                            break;
-                        case 2:
-                            Console.SetCursorPosition(3, 1);
-                            Console.WriteLine(String.Format("{0,2}", turn));
-                            if (turn == 5 || turn == 7)
-                            {
-                                if (displayStop)
-                                {
-                                    displayNumber--;
-                                    displayStop = false;
-                                }
-                                else
-                                {
-                                    displayNumber -= 5;
-                                }
-                                displayText = String.Format("{0,3}", displayNumber.ToString());
-                                Console.SetCursorPosition(1, 0);
-                                Console.WriteLine(displayText);
-                                if (displayNumber <= -20)
-                                {
-                                    finish = true;
-                                }
-                            }
-                            break;
+                                break;
+                        }
                     }
                 }
+            }
+            catch (System.InvalidOperationException)
+            {
 
             }
         }
 
-  
-        public static void display()
-        {
 
-            int consoleColor;
-            ConsoleColor[] colorArray = { ConsoleColor.Red, ConsoleColor.Blue, ConsoleColor.Green };
-            Random rC = new Random();
-            while (!finish)
+        public void display()
+        {
+            try
             {
-                consoleColor = rC.Next(0, 3);
-                Console.ForegroundColor = colorArray[consoleColor];
+                DelegaColor cD = new DelegaColor(displayColor);
+
+                while (!finish)
+                {
+                    if (!displayStop)
+                    {
+                        this.Invoke(cD, display_lbl);
+                    }
+                }
+
+            }
+            catch (System.InvalidOperationException)
+            {
 
             }
 
+        }
 
-
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            if (!displayStop)
+            {
+                if (display_lbl.ForeColor == Color.White)
+                {
+                    display_lbl.ForeColor = Color.Black;
+                }
+                else
+                {
+                    display_lbl.ForeColor = Color.White;
+                }
+            }
         }
     }
 }

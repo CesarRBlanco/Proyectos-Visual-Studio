@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.display_lbl = new System.Windows.Forms.Label();
             this.player1 = new System.Windows.Forms.TextBox();
             this.player2 = new System.Windows.Forms.TextBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.finish_lbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // display_lbl
@@ -44,25 +47,42 @@
             // 
             // player1
             // 
-            this.player1.Location = new System.Drawing.Point(12, 76);
+            this.player1.Location = new System.Drawing.Point(84, 76);
             this.player1.Name = "player1";
             this.player1.ReadOnly = true;
-            this.player1.Size = new System.Drawing.Size(100, 20);
+            this.player1.Size = new System.Drawing.Size(30, 20);
             this.player1.TabIndex = 1;
             // 
             // player2
             // 
-            this.player2.Location = new System.Drawing.Point(164, 76);
+            this.player2.Location = new System.Drawing.Point(145, 76);
             this.player2.Name = "player2";
             this.player2.ReadOnly = true;
-            this.player2.Size = new System.Drawing.Size(100, 20);
+            this.player2.Size = new System.Drawing.Size(32, 20);
             this.player2.TabIndex = 2;
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 200;
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            // 
+            // finish_lbl
+            // 
+            this.finish_lbl.AutoSize = true;
+            this.finish_lbl.Location = new System.Drawing.Point(13, 32);
+            this.finish_lbl.Name = "finish_lbl";
+            this.finish_lbl.Size = new System.Drawing.Size(108, 13);
+            this.finish_lbl.TabIndex = 3;
+            this.finish_lbl.Text = "The game has ended";
+            this.finish_lbl.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 136);
+            this.Controls.Add(this.finish_lbl);
             this.Controls.Add(this.player2);
             this.Controls.Add(this.player1);
             this.Controls.Add(this.display_lbl);
@@ -79,6 +99,8 @@
         private System.Windows.Forms.Label display_lbl;
         private System.Windows.Forms.TextBox player1;
         private System.Windows.Forms.TextBox player2;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label finish_lbl;
     }
 }
 
