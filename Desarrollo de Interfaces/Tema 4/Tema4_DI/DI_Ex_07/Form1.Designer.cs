@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.txtbox = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoDocumentoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,18 +57,10 @@
             this.copiarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.pegarToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // txtbox
-            // 
-            this.txtbox.Location = new System.Drawing.Point(0, 52);
-            this.txtbox.Multiline = true;
-            this.txtbox.Name = "txtbox";
-            this.txtbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtbox.Size = new System.Drawing.Size(800, 402);
-            this.txtbox.TabIndex = 0;
             // 
             // menuStrip1
             // 
@@ -114,6 +105,7 @@
             this.abrirArchivoToolStripMenuItem.Name = "abrirArchivoToolStripMenuItem";
             this.abrirArchivoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.abrirArchivoToolStripMenuItem.Text = "Abrir archivo";
+            this.abrirArchivoToolStripMenuItem.Click += new System.EventHandler(this.AbrirArchivoToolStripMenuItem_Click);
             // 
             // archivosRecientesToolStripMenuItem
             // 
@@ -246,6 +238,7 @@
             this.abrirToolStripButton.Name = "abrirToolStripButton";
             this.abrirToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.abrirToolStripButton.Text = "&Abrir";
+            this.abrirToolStripButton.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // guardarToolStripButton
             // 
@@ -293,18 +286,27 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(0, 52);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(800, 400);
+            this.richTextBox1.TabIndex = 3;
+            this.richTextBox1.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.txtbox);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Text Editor";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -315,8 +317,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox txtbox;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem edicionToolStripMenuItem;
@@ -345,6 +345,7 @@
         private System.Windows.Forms.ToolStripMenuItem informaciónDeSelecciónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ajusteDeLineaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem seleccionDeEscrituraToolStripMenuItem;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 
