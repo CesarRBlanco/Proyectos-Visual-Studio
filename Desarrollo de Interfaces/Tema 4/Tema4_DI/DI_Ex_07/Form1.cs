@@ -38,7 +38,7 @@ namespace DI_Ex_07
                 dr = MessageBox.Show("Deseas guardar antes de abrir un nuevo archivo?", "Atención", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 if (dr == DialogResult.Yes)
                 {
-                    if (GuardarToolStripMenuItem_Click(sender, e) == true)
+                    if (saveFile(sender, e) == true)
                     {
                         richTextBox1.Text = "";
                     }
@@ -59,33 +59,7 @@ namespace DI_Ex_07
                 richTextBox1.Text = "";
             }
         }
-        private bool GuardarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                DialogResult drS;
-
-                SaveFileDialog saveDialog = new SaveFileDialog();
-
-                saveDialog.Title = "Selección de directorio para almacenar datos";
-                saveDialog.InitialDirectory = "C:\\";
-                saveDialog.Filter = "texto (*.txt)|*.txt|pascal (*.pas) |*.pas|visualbasic(*.vb) | *.vb | Todos los archivos| *.* ";
-                saveDialog.ValidateNames = true;
-                drS = saveDialog.ShowDialog();
-                if (drS == DialogResult.OK)
-                {
-                    return true;
-                }
-                StreamWriter s;
-                s = new StreamWriter(saveDialog.FileName);
-                s.Write(richTextBox1.Text);
-                s.Close();
-            }
-            catch (System.ArgumentException)
-            {
-            }
-            return false;
-        }
+  
         private void AbrirArchivoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string fileContent = "";
@@ -191,6 +165,42 @@ namespace DI_Ex_07
             }
         }
 
+        private bool saveFile(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult drS;
 
+                SaveFileDialog saveDialog = new SaveFileDialog();
+
+                saveDialog.Title = "Selección de directorio para almacenar datos";
+                saveDialog.InitialDirectory = "C:\\";
+                saveDialog.Filter = "Archivos de texto (*.txt)|*.txt| Todos los archivos| *.* ";
+                saveDialog.ValidateNames = true;
+                drS = saveDialog.ShowDialog();
+                if (drS == DialogResult.OK)
+                {
+                    return true;
+                }
+                StreamWriter s;
+                s = new StreamWriter(saveDialog.FileName);
+                s.Write(richTextBox1.Text);
+                s.Close();
+            }
+            catch (System.ArgumentException)
+            {
+            }
+            return false;
+        }
+
+        private void GuardarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveFile(sender,e);
+        }
+
+        private void SalirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -58,6 +58,7 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(335, 277);
             this.listBox1.TabIndex = 2;
+            this.listBox1.Click += new System.EventHandler(this.ListBox1_Click);
             // 
             // listBox2
             // 
@@ -66,6 +67,7 @@
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(315, 277);
             this.listBox2.TabIndex = 3;
+            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.ListBox2_SelectedIndexChanged);
             // 
             // Form1
             // 
