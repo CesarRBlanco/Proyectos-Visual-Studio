@@ -26,13 +26,22 @@ namespace DI_Ex_07
 
         private void AjusteDeLineaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //ajusteDeLineaToolStripMenuItem.Checked = false;
+            
+            ajusteDeLineaToolStripMenuItem.Checked = !ajusteDeLineaToolStripMenuItem.Checked;
+            if (ajusteDeLineaToolStripMenuItem.Checked)
+            {
+                _txtbox.WordWrap = true;
+            }
+            else
+            {
+                _txtbox.WordWrap = false;
+            }
         }
 
         private void NuevoDocumentoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult dr;
-            if (richTextBox1.Text != "")
+            if (_txtbox.Text != "")
             {
 
                 dr = MessageBox.Show("Deseas guardar antes de abrir un nuevo archivo?", "Atención", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
@@ -40,13 +49,13 @@ namespace DI_Ex_07
                 {
                     if (saveFile(sender, e) == true)
                     {
-                        richTextBox1.Text = "";
+                        _txtbox.Text = "";
                     }
 
                 }
                 else if (dr == DialogResult.No)
                 {
-                    richTextBox1.Text = "";
+                    _txtbox.Text = "";
                 }
                 else
                 {
@@ -56,10 +65,10 @@ namespace DI_Ex_07
             }
             else
             {
-                richTextBox1.Text = "";
+                _txtbox.Text = "";
             }
         }
-  
+
         private void AbrirArchivoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string fileContent = "";
@@ -81,7 +90,7 @@ namespace DI_Ex_07
                     }
                 }
             }
-            richTextBox1.Text = fileContent;
+            _txtbox.Text = fileContent;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -95,7 +104,7 @@ namespace DI_Ex_07
         }
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            richTextBox1.Clear();
+            _txtbox.Clear();
         }
         /// <summary>
         /// store a list to file and refresh list
@@ -153,14 +162,14 @@ namespace DI_Ex_07
         /// <param name="e"></param>
         private void RecentFile_click(object sender, EventArgs e)
         {
-            richTextBox1.LoadFile(sender.ToString(), RichTextBoxStreamType.PlainText); //same as open menu
+            _txtbox.LoadFile(sender.ToString(), RichTextBoxStreamType.PlainText); //same as open menu
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                richTextBox1.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText); 
+                _txtbox.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText);
                 SaveRecentFile(openFileDialog1.FileName);
             }
         }
@@ -184,7 +193,7 @@ namespace DI_Ex_07
                 }
                 StreamWriter s;
                 s = new StreamWriter(saveDialog.FileName);
-                s.Write(richTextBox1.Text);
+                s.Write(_txtbox.Text);
                 s.Close();
             }
             catch (System.ArgumentException)
@@ -195,12 +204,78 @@ namespace DI_Ex_07
 
         private void GuardarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveFile(sender,e);
+            saveFile(sender, e);
         }
 
         private void SalirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void CortarToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (_txtbox.SelectedText != "")
+            {
+                Clipboard.SetText(_txtbox.SelectedText);
+                _txtbox.SelectedText = "";
+            }
+        }
+
+        private void CopiarToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (_txtbox.SelectedText != "")
+            {
+                Clipboard.SetText(_txtbox.SelectedText);
+            }
+        }
+
+        private void PegarToolStripButton_Click(object sender, EventArgs e)
+        {
+            int selectionIndex = _txtbox.SelectionStart;
+            _txtbox.Text = _txtbox.Text.Insert(selectionIndex, Clipboard.GetText());
+            _txtbox.SelectionStart = selectionIndex + Clipboard.GetText().Length;
+        }
+
+        private void DeshacerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _txtbox.Undo();
+            _txtbox.ClearUndo();
+        }
+
+        private void SeleccionarTodoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _txtbox.Select(0, _txtbox.Text.Length);
+        }
+
+
+        TextBox selectTxtBox = new TextBox();
+        private void InformaciónDeSelecciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form formSelec = new Form();
+            Button applyBtn = new Button();
+    
+            if (_txtbox.SelectedText != "")
+            {
+        
+                selectTxtBox.Multiline = true;
+                selectTxtBox.Size = new Size(200, 100);
+                selectTxtBox.ReadOnly = true;
+                selectTxtBox.Text =String.Format( "Punto de inicio: " + _txtbox.SelectionStart + "\r\nLongitud: " + _txtbox.SelectedText.Length);
+       
+                applyBtn.Location = new Point(50, 200);
+                applyBtn.Text = "Aplicar";
+                applyBtn.Click += new EventHandler(this.buttonOk_Click);
+
+                formSelec.Controls.Add(selectTxtBox);
+                formSelec.Controls.Add(applyBtn);
+           
+                formSelec.Show();
+            }
+        }
+
+        void buttonOk_Click(object sender, EventArgs e)
+        {
+            selectTxtBox.Text = String.Format("Punto de inicio: " + _txtbox.SelectionStart + "\r\nLongitud: " + _txtbox.SelectedText.Length);
         }
     }
 }
