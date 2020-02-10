@@ -160,8 +160,8 @@ namespace DI_Ex_07
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                richTextBox1.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText); //open file
-                SaveRecentFile(openFileDialog1.FileName); //insert to list so that opened file will shown on the list
+                richTextBox1.LoadFile(openFileDialog1.FileName, RichTextBoxStreamType.PlainText); 
+                SaveRecentFile(openFileDialog1.FileName);
             }
         }
 
