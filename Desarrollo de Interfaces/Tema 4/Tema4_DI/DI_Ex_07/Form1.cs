@@ -26,8 +26,8 @@ namespace DI_Ex_07
 
         private void AjusteDeLineaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
-            ajusteDeLineaToolStripMenuItem.Checked = !ajusteDeLineaToolStripMenuItem.Checked;
+
+            //ajusteDeLineaToolStripMenuItem.Checked = !ajusteDeLineaToolStripMenuItem.Checked;
             if (ajusteDeLineaToolStripMenuItem.Checked)
             {
                 _txtbox.WordWrap = true;
@@ -189,12 +189,17 @@ namespace DI_Ex_07
                 drS = saveDialog.ShowDialog();
                 if (drS == DialogResult.OK)
                 {
-                    return true;
+
+
+                    StreamWriter s;
+                    s = new StreamWriter(saveDialog.FileName);
+                    s.Write(_txtbox.Text);
+                    s.Close();
                 }
-                StreamWriter s;
-                s = new StreamWriter(saveDialog.FileName);
-                s.Write(_txtbox.Text);
-                s.Close();
+                else
+                {
+                    return false;
+                }
             }
             catch (System.ArgumentException)
             {
@@ -253,22 +258,22 @@ namespace DI_Ex_07
         {
             Form formSelec = new Form();
             Button applyBtn = new Button();
-    
+
             if (_txtbox.SelectedText != "")
             {
-        
+
                 selectTxtBox.Multiline = true;
                 selectTxtBox.Size = new Size(200, 100);
                 selectTxtBox.ReadOnly = true;
-                selectTxtBox.Text =String.Format( "Punto de inicio: " + _txtbox.SelectionStart + "\r\nLongitud: " + _txtbox.SelectedText.Length);
-       
+                selectTxtBox.Text = String.Format("Punto de inicio: " + _txtbox.SelectionStart + "\r\nLongitud: " + _txtbox.SelectedText.Length);
+
                 applyBtn.Location = new Point(50, 200);
                 applyBtn.Text = "Aplicar";
                 applyBtn.Click += new EventHandler(this.buttonOk_Click);
 
                 formSelec.Controls.Add(selectTxtBox);
                 formSelec.Controls.Add(applyBtn);
-           
+
                 formSelec.Show();
             }
         }
@@ -277,5 +282,80 @@ namespace DI_Ex_07
         {
             selectTxtBox.Text = String.Format("Punto de inicio: " + _txtbox.SelectionStart + "\r\nLongitud: " + _txtbox.SelectedText.Length);
         }
+
+        private void MayusculasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (minusculasToolStripMenuItem.Checked == true || normalToolStripMenuItem.Checked == true)
+            {
+                mayusculasToolStripMenuItem.Checked = true;
+                minusculasToolStripMenuItem.Checked = false;
+                normalToolStripMenuItem.Checked = false;
+                _txtbox.Text = _txtbox.Text.ToUpper();
+            }
+        }
+
+        private void MinusculasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (mayusculasToolStripMenuItem.Checked == true || normalToolStripMenuItem.Checked == true)
+            {
+                minusculasToolStripMenuItem.Checked = true;
+                mayusculasToolStripMenuItem.Checked = false;
+                normalToolStripMenuItem.Checked = false;
+                _txtbox.Text = _txtbox.Text.ToLower();
+            }
+        }
+
+        private void ToolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            if (minusculasToolStripMenuItem.Checked == true || mayusculasToolStripMenuItem.Checked == true)
+            {
+                normalToolStripMenuItem.Checked = true;
+                mayusculasToolStripMenuItem.Checked = false;
+                minusculasToolStripMenuItem.Checked = false;
+                _txtbox.Text = _txtbox.Text.ToLowerInvariant();
+            }
+        }
+
+
+
+
+        private void _txtbox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            normalToolStripMenuItem.Checked = true;
+            mayusculasToolStripMenuItem.Checked = false;
+            minusculasToolStripMenuItem.Checked = false;
+        }
+
+        private void ColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.AllowFullOpen = false;
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                _txtbox.ForeColor = colorDialog.Color;
+
+            }
+        }
+
+
+
+        private void FuenteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                _txtbox.Font = fontDialog.Font;
+
+            }
+        }
+
+        private void AcercaDeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form formInfo = new Form(() => formInfo.Text = "Acerca de ...");
+        }
     }
 }
+
+
+
+
