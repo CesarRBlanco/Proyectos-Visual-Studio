@@ -18,7 +18,7 @@ namespace DI_Ex_07
         const int MRUnumber = 6;
         Collection<string> MRUlist = new Collection<string>();
         public static OpenFileDialog openFileDialog1 = new OpenFileDialog();
-
+        public static bool lastSave=true;
         public Form1()
         {
             InitializeComponent();
@@ -47,7 +47,7 @@ namespace DI_Ex_07
                 dr = MessageBox.Show("Deseas guardar antes de abrir un nuevo archivo?", "Atención", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 if (dr == DialogResult.Yes)
                 {
-                    if (saveFile(sender, e) == true)
+                    if (saveFile() == true)
                     {
                         _txtbox.Text = "";
                     }
@@ -95,6 +95,7 @@ namespace DI_Ex_07
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             LoadRecentList();
             foreach (string item in MRUlist)
             {
@@ -174,7 +175,7 @@ namespace DI_Ex_07
             }
         }
 
-        private bool saveFile(object sender, EventArgs e)
+        private bool saveFile()
         {
             try
             {
@@ -195,6 +196,7 @@ namespace DI_Ex_07
                     s = new StreamWriter(saveDialog.FileName);
                     s.Write(_txtbox.Text);
                     s.Close();
+                    lastSave = true;
                 }
                 else
                 {
@@ -209,7 +211,7 @@ namespace DI_Ex_07
 
         private void GuardarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveFile(sender, e);
+            saveFile();
         }
 
         private void SalirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -351,11 +353,63 @@ namespace DI_Ex_07
 
         private void AcercaDeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form formInfo = new Form(() => formInfo.Text = "Acerca de ...");
+            Form formInfo = new Form();
+            formInfo.Text = "Acerca de...";
+            formInfo.Show();
+        }
+
+        private void _txtbox_TextChanged(object sender, EventArgs e)
+        {
+
+
+            lastSave = false;
+
+            int charCount = _txtbox.Text.Length;
+            int wordCount = 0, index = 0;
+            string[] translateArraySourceTexts;
+            int sentenceCount;
+
+            // Word Count
+            while (index < _txtbox.Text.Length)
+            {
+                while (index < _txtbox.Text.Length && !char.IsWhiteSpace(_txtbox.Text[index]))
+                    index++;
+                wordCount++;
+                while (index < _txtbox.Text.Length && char.IsWhiteSpace(_txtbox.Text[index]))
+                    index++;
+            }
+
+            //Sentece Count
+            translateArraySourceTexts = _txtbox.Text.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
+            sentenceCount = translateArraySourceTexts.Length;
+
+            toolTip1.SetToolTip(_txtbox, "Frases: " + sentenceCount + "\nPalabras: " + wordCount + "\nCaracteres: " + charCount);
+
+
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!lastSave)
+            {
+                DialogResult dr;
+                dr = MessageBox.Show("Deseas guardar antes de cerrar?", "Atencion", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                if (dr == DialogResult.Yes)
+                {
+                    if (saveFile() == false)
+                    {
+                        e.Cancel = true;
+                    }
+                }
+                else if (dr == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+
+            }
         }
     }
 }
-
 
 
 
