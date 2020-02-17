@@ -31,11 +31,11 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this._btnAbrir = new System.Windows.Forms.Button();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this._btnAnterior = new System.Windows.Forms.Button();
             this._btnSiguiente = new System.Windows.Forms.Button();
             this._lblDirectorio = new System.Windows.Forms.Label();
             this._lblInfoImagen = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // _btnAbrir
@@ -47,12 +47,6 @@
             this._btnAbrir.Text = "Abrir";
             this._btnAbrir.UseVisualStyleBackColor = true;
             this._btnAbrir.Click += new System.EventHandler(this.Button1_Click);
-            // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // _btnAnterior
             // 
@@ -72,6 +66,7 @@
             this._btnSiguiente.TabIndex = 2;
             this._btnSiguiente.Text = "Siguiente";
             this._btnSiguiente.UseVisualStyleBackColor = true;
+            this._btnSiguiente.Click += new System.EventHandler(this._btnSiguiente_Click);
             // 
             // _lblDirectorio
             // 
@@ -112,11 +107,11 @@
         #endregion
 
         private System.Windows.Forms.Button _btnAbrir;
-        private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Button _btnAnterior;
         private System.Windows.Forms.Button _btnSiguiente;
         private System.Windows.Forms.Label _lblDirectorio;
         private System.Windows.Forms.Label _lblInfoImagen;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 
