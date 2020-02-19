@@ -28,14 +28,18 @@ namespace DI_Ex_08
         {
             try
             {
-
+                if (form2 != null)
+                {
+                    form2.Close();
+                }
+                form2 = new Form();
                 if (FD.ShowDialog() == DialogResult.OK)
                 {
                     string fileToOpen = FD.FileName;
                     FileInfo File = new FileInfo(fileToOpen);
                     form2.BackgroundImage = Image.FromFile(fileToOpen);
-                }
 
+                }
 
                 FileInfo fInfo = new FileInfo(FD.FileName);
                 strFilePath = fInfo.DirectoryName;
@@ -49,22 +53,27 @@ namespace DI_Ex_08
             }
             catch (System.ObjectDisposedException)
             {
-                form2.Show();
+
             }
 
         }
 
 
 
-        private void form2_Closing(object sender, FormClosingEventArgs e)
-        {
-            this.Hide();
-            e.Cancel = true;
-        }
 
         private void _btnAnterior_Click(object sender, EventArgs e)
         {
+            previaImagen();
+        }
 
+        private void _btnSiguiente_Click(object sender, EventArgs e)
+        {
+            siguienteImagen();
+        }
+
+
+        public void previaImagen()
+        {
             cont--;
             if (cont < 0)
             {
@@ -79,11 +88,11 @@ namespace DI_Ex_08
             }
             else
             {
-                _btnAnterior_Click(sender, e);
+                previaImagen();
             }
         }
 
-        private void _btnSiguiente_Click(object sender, EventArgs e)
+        public void siguienteImagen()
         {
 
             cont++;
@@ -100,14 +109,10 @@ namespace DI_Ex_08
             }
             else
             {
-                _btnSiguiente_Click(sender, e);
+                siguienteImagen();
             }
 
         }
-
-
-
-        //Conectar flechas de teclado a los botnoes anterior y siguiente
 
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -125,13 +130,13 @@ namespace DI_Ex_08
             //capture left arrow key
             if (keyData == Keys.Left)
             {
-
+                previaImagen();
                 return true;
             }
             //capture right arrow key
             if (keyData == Keys.Right)
             {
-
+                siguienteImagen();
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);

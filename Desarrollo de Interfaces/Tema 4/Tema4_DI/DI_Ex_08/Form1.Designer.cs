@@ -99,6 +99,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Image Viewer";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 
