@@ -14,6 +14,9 @@ namespace ServEx05
 {
     public partial class Form1 : Form
     {
+
+
+        private readonly object l = new object();
         public Form1()
         {
             InitializeComponent();
@@ -27,6 +30,10 @@ namespace ServEx05
             string newWord;
             realPath = "";
             bool firstTime = true;
+
+            _txtboxResult.Clear();
+            _lblError.Visible = false;
+            _lblErrorPatron.Visible = false;
             foreach (var word in words)
             {
                 newWord = word;
@@ -44,52 +51,90 @@ namespace ServEx05
                 {
                     realPath = realPath + "\\" + newWord;
                 }
-
-
-
-
             }
-
-            int contThread = 0;
-
-            string[] files = Directory.GetFiles(realPath);
-            Thread[] hilos = new Thread[files.Length];
-
-            for (int i = 0; i < files.Length; i++)
+            try
             {
-                hilos[i] = new Thread(wordSearch);
-                hilos[i].Start(files[i]);
+                string[] files = Directory.GetFiles(realPath);
+                Thread[] hilos = new Thread[files.Length];
+                lock (l)
+                {
+                    for (int i = 0; i < files.Length; i++)
+                    {
+                        hilos[i] = new Thread(wordSearch);
+                        hilos[i].Start(files[i]);
+                    }
+                }
             }
-
-
-
-
+            catch (System.IO.DirectoryNotFoundException)
+            {
+                _lblError.Text = "Directorio no encontrado";
+                _lblError.Visible = true;
+            }
+            catch (System.ArgumentException)
+            {
+                _lblError.Text = "Introduzca un directorio";
+                _lblError.Visible = true;
+            }
         }
 
-
-
         delegate void Delega(string texto, TextBox t);
+        delegate void DelegaError(Label l);
 
         public void wordSearch(object files)
         {
             Delega d = new Delega(cambiaTexto);
+            DelegaError dE = new DelegaError(errorPatron);
             int cont = 0;
-            if (files.ToString().EndsWith(".txt"))
+            lock (l)
             {
-                string fileRead = File.ReadAllText(files.ToString());
-                if (fileRead.ToString().Contains(_txtboxPatron.Text))
+                if (files.ToString().EndsWith(".txt"))
                 {
-                    cont++;
+                    string patron = _txtboxPatron.Text.Trim();
+                    string fileRead = File.ReadAllText(files.ToString());
+                    string[] words = fileRead.Split(' ');
 
-                    this.Invoke(d, _txtboxResult.Text + "" + cont, _txtboxResult);
+                    if (patron == "")
+                    {
+                        this.Invoke(dE,_lblErrorPatron);
+                        return;
+                    }
+
+
+                    for (int i = 0; i < words.Length; i++)
+                    {
+                        if (_chkboxMayusMin.Checked)
+                        {
+                            if (words[i].ToLower().Equals(patron.ToLower()))
+                            {
+                                cont++;
+                            }
+                        }
+                        else
+                        {
+                            if (words[i].Equals(patron))
+                            {
+                                cont++;
+                            }
+                        }
+                    }
+                    if (cont > 0)
+                    {
+                        this.Invoke(d, files.ToString() + ". Contiene: " + "\"" + patron + "\" " + cont + " vez/veces.", _txtboxResult);
+                    }
                 }
             }
         }
 
+        private void errorPatron(Label l)
+        {
+            l.Visible=true;
+        }
 
         private void cambiaTexto(string texto, TextBox t)
         {
             t.AppendText(texto + Environment.NewLine);
         }
+
+
     }
 }
