@@ -14,7 +14,7 @@ namespace ServEx02Servidor
     {
         private static readonly object l = new object();
         static List<StreamWriter> swArray = new List<StreamWriter>();
-
+        static List<string> names = new List<string>();
         static void Main(string[] args)
         {
 
@@ -40,7 +40,7 @@ namespace ServEx02Servidor
             string nombre;
 
 
-          
+
 
             Socket cliente = (Socket)socket;
             IPEndPoint ieCliente = (IPEndPoint)cliente.RemoteEndPoint;
@@ -50,17 +50,18 @@ namespace ServEx02Servidor
             using (StreamReader sr = new StreamReader(ns))
             using (StreamWriter sw = new StreamWriter(ns))
             {
-                string welcome = "Wellcome to this great Server";
+                string welcome = "Welcome, please insert your username:";
                 sw.WriteLine(welcome);
                 sw.Flush();
 
 
 
                 nombre = sr.ReadLine();
-
+                names.Add(nombre);
+                nombre = String.Format("{0}@{1}: ", nombre, ieCliente.Address);
                 swArray.Add(sw);
-           
-          
+
+
                 while (true)
                 {
                     try
@@ -68,7 +69,27 @@ namespace ServEx02Servidor
                         mensaje = sr.ReadLine();
                         lock (l)
                         {
-                            lee(sw, mensaje, nombre);
+                            if (mensaje == "#exit")
+                            {
+                                cliente.Close();
+                            }
+                            else if (mensaje == "#lista")
+                            {
+                                mensaje = "Users: \n";
+                                foreach (var persona in names)
+                                {
+                                    mensaje = "\n"+mensaje + persona;                         //ordenar correctamente la lista de usuarios
+
+
+                                }
+                                list(sw, mensaje);
+                            }
+                            else
+                            {
+                                lee(sw, mensaje, nombre);
+                            }
+
+
                         }
                     }
                     catch (IOException)
@@ -100,6 +121,7 @@ namespace ServEx02Servidor
 
                     if (destino != sw)
                     {
+
                         destino.WriteLine(nombre + "" + mensaje);
                         destino.Flush();
                     }
@@ -109,5 +131,18 @@ namespace ServEx02Servidor
 
         }
 
+
+        static void list(StreamWriter sw, string mensaje)
+        {
+
+
+            sw.WriteLine( mensaje);
+            sw.Flush();
+        }
+
+
+
     }
+
 }
+
