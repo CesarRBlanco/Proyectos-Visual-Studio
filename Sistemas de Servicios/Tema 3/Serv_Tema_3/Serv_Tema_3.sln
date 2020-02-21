@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServEx01Cliente", "ServEx01
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServEx02Servidor", "ServEx02Servidor\ServEx02Servidor.csproj", "{583A74B6-22B9-49FB-9B18-2E6F6924C421}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServEx02Cliente", "ServEx02Cliente\ServEx02Cliente.csproj", "{92D74E67-2B3A-4F2E-843B-5998FE414324}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,10 +39,6 @@ Global
 		{583A74B6-22B9-49FB-9B18-2E6F6924C421}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{583A74B6-22B9-49FB-9B18-2E6F6924C421}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{583A74B6-22B9-49FB-9B18-2E6F6924C421}.Release|Any CPU.Build.0 = Release|Any CPU
-		{92D74E67-2B3A-4F2E-843B-5998FE414324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{92D74E67-2B3A-4F2E-843B-5998FE414324}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{92D74E67-2B3A-4F2E-843B-5998FE414324}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{92D74E67-2B3A-4F2E-843B-5998FE414324}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

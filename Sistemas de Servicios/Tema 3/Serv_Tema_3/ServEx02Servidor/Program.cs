@@ -12,8 +12,13 @@ namespace ServEx02Servidor
 {
     class Program
     {
+        private static readonly object l = new object();
+        static List<StreamWriter> swArray = new List<StreamWriter>();
+
         static void Main(string[] args)
         {
+
+
             IPEndPoint ie = new IPEndPoint(IPAddress.Any, 31416);
             Socket s = new Socket(AddressFamily.InterNetwork,
             SocketType.Stream, ProtocolType.Tcp);
@@ -32,6 +37,11 @@ namespace ServEx02Servidor
         static void hiloCliente(object socket)
         {
             string mensaje;
+            string nombre;
+
+
+          
+
             Socket cliente = (Socket)socket;
             IPEndPoint ieCliente = (IPEndPoint)cliente.RemoteEndPoint;
             Console.WriteLine("Connected with client {0} at port {1}",
@@ -43,18 +53,22 @@ namespace ServEx02Servidor
                 string welcome = "Wellcome to this great Server";
                 sw.WriteLine(welcome);
                 sw.Flush();
+
+
+
+                nombre = sr.ReadLine();
+
+                swArray.Add(sw);
+           
+          
                 while (true)
                 {
                     try
                     {
-                        
                         mensaje = sr.ReadLine();
-                        //El mensaje es null en el Shutdown
-                        if (mensaje != null)
+                        lock (l)
                         {
-                            sw.WriteLine("{0} says: {1}",
-                            ieCliente.Address, mensaje);
-                            sw.Flush();
+                            lee(sw, mensaje, nombre);
                         }
                     }
                     catch (IOException)
@@ -68,6 +82,31 @@ namespace ServEx02Servidor
                 ieCliente.Address, ieCliente.Port);
             }
             cliente.Close();
+        }
+
+        //static void escribe(StreamReader sr,StreamWriter sw)
+        //{
+        //     lee(sw,sr.ReadLine());
+        //    //El mensaje es null en el Shutdown
+
+        //}
+
+        static void lee(StreamWriter sw, string mensaje, string nombre)
+        {
+            foreach (var destino in swArray)
+            {
+                if (mensaje != null)
+                {
+
+                    if (destino != sw)
+                    {
+                        destino.WriteLine(nombre + "" + mensaje);
+                        destino.Flush();
+                    }
+
+                }
+            }
+
         }
 
     }
