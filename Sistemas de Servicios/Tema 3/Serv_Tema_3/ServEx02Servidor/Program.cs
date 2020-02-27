@@ -58,10 +58,11 @@ namespace ServEx02Servidor
 
                 nombre = sr.ReadLine();
                 names.Add(nombre);
-                nombre = String.Format("{0}@{1}: ", nombre, ieCliente.Address);
+                int pos = names.IndexOf(nombre);
+                nombre = String.Format("{0}@{1}", nombre, ieCliente.Address);
                 swArray.Add(sw);
-
-
+                int posSW = swArray.IndexOf(sw);
+                userConnected(sw, nombre);
                 while (true)
                 {
                     try
@@ -69,18 +70,18 @@ namespace ServEx02Servidor
                         mensaje = sr.ReadLine();
                         lock (l)
                         {
-                            if (mensaje == "#exit")
+                            if (mensaje == "#salir")
                             {
+                                names.Remove(names[pos]);
+                                swArray.Remove(swArray[posSW]);
                                 cliente.Close();
                             }
                             else if (mensaje == "#lista")
                             {
-                                mensaje = "Users: \n";
+                                mensaje = "Users: ";
                                 foreach (var persona in names)
                                 {
-                                    mensaje = "\n"+mensaje + persona;                         //ordenar correctamente la lista de usuarios
-
-
+                                    mensaje = mensaje +"-"+ persona+" ";                     
                                 }
                                 list(sw, mensaje);
                             }
@@ -88,8 +89,6 @@ namespace ServEx02Servidor
                             {
                                 lee(sw, mensaje, nombre);
                             }
-
-
                         }
                     }
                     catch (IOException)
@@ -101,16 +100,14 @@ namespace ServEx02Servidor
                 }
                 Console.WriteLine("Finished connection with {0}:{1}",
                 ieCliente.Address, ieCliente.Port);
+                names.Remove(names[pos]);
+                swArray.Remove(swArray[posSW]);
             }
+
             cliente.Close();
         }
 
-        //static void escribe(StreamReader sr,StreamWriter sw)
-        //{
-        //     lee(sw,sr.ReadLine());
-        //    //El mensaje es null en el Shutdown
 
-        //}
 
         static void lee(StreamWriter sw, string mensaje, string nombre)
         {
@@ -118,25 +115,35 @@ namespace ServEx02Servidor
             {
                 if (mensaje != null)
                 {
-
                     if (destino != sw)
                     {
-
-                        destino.WriteLine(nombre + "" + mensaje);
+                        destino.WriteLine("{0}: {1}", nombre, mensaje);
                         destino.Flush();
                     }
-
                 }
             }
+        }
 
+
+
+        static void userConnected(StreamWriter sw, string nombre)
+        {
+            foreach (var destino in swArray)
+            {
+
+                if (destino != sw)
+                {
+                    destino.WriteLine("User \"{0}\" is now connected. Say hi!", nombre);
+                    destino.Flush();
+                }
+
+            }
         }
 
 
         static void list(StreamWriter sw, string mensaje)
         {
-
-
-            sw.WriteLine( mensaje);
+            sw.WriteLine(mensaje);
             sw.Flush();
         }
 

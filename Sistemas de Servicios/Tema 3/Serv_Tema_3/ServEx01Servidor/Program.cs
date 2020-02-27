@@ -51,7 +51,7 @@ namespace ServEx01Servidor
                             break;
 
                         case "FECHA":
-                            sw.WriteLine(now.Day + "/" + now.Month + "/" + now.Year);
+                            sw.WriteLine(String.Format("{0,2:D2}/{1,2:D2}/{2,2:D2}",now.Day , now.Month ,now.Year));
                             break;
 
                         case "TODO":
@@ -66,7 +66,6 @@ namespace ServEx01Servidor
                             s.Close();
                         running = false;
                             return;
-
                     }
                     sw.Flush();
                     sr.Close();

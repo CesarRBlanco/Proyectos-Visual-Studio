@@ -15,6 +15,17 @@ namespace ServEx01Cliente
 {
     public partial class Form1 : Form
     {
+
+        //Global variables
+        Form optsForm = new Form();
+        TextBox txtIP = new TextBox();
+        TextBox txtPort = new TextBox();
+        string ip = "127.0.0.1";
+        int port = 31416;
+
+
+
+
         public Form1()
         {
             InitializeComponent();
@@ -22,71 +33,45 @@ namespace ServEx01Cliente
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            const string IP_SERVER = "127.0.0.1";
+
             string msg;
             string userMsg;
-            // Indicamos servidor al que nos queremos conectar y puerto
-            IPEndPoint ie = new IPEndPoint(IPAddress.Parse(IP_SERVER), 31416);
-            //Console.WriteLine("Starting client. Press a key to init connection");
-            //Console.ReadKey();
+            IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ip), port);
             Socket server = new Socket(AddressFamily.InterNetwork,
             SocketType.Stream, ProtocolType.Tcp);
             try
             {
-                // El cliente inicia la conexión haciendo petición con Connect
                 server.Connect(ie);
             }
             catch (SocketException er)
             {
-                //Console.WriteLine("Error connection: {0}\nError code: {1}({2})",
-                //er.Message, (SocketError)er.ErrorCode, er.ErrorCode);
-                //Console.ReadKey();
+                _lblConsulta.Text = "Error. Check IP and Port.";
                 return;
             }
-            // Si la conexión se ha establecido se crean los Streams
-            // y se inicial la comunicación siguiendo el protocolo
-            // establecido en el servidor
             NetworkStream ns = new NetworkStream(server);
             StreamReader sr = new StreamReader(ns);
             StreamWriter sw = new StreamWriter(ns);
-            // Leemos mensaje de bienvenida ya que es lo primero que envía el servidor
-            //msg = sr.ReadLine();
-            //Console.WriteLine(msg);
             while (true)
             {
-                // Lo siguiente es pedir un mensaje al usuario
                 userMsg = "HORA";
-                // Establecemos como "comando" de protocolo
-                // la palabra "exit". Si se escribe, se finaliza.
-                //if (userMsg == "exit")
-                //{
-                //    break;
-                //}
-                //Enviamos el mensaje de usuario al servidor
-                // que que el servidor está esperando que le envíen algo
                 sw.WriteLine(userMsg);
                 sw.Flush();
-                //Recibimos el mensaje del servidor
                 msg = sr.ReadLine();
-                label1.Text = msg;
-                //Console.WriteLine(msg);
+                _lblConsulta.Text = msg;
                 break;
             }
-            //Console.WriteLine("Ending connection");
             sr.Close();
             sw.Close();
             ns.Close();
-            //Indicamos fin de transmisión.
             server.Close();
 
         }
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            const string IP_SERVER = "127.0.0.1";
             string msg;
             string userMsg;
-            IPEndPoint ie = new IPEndPoint(IPAddress.Parse(IP_SERVER), 31416);
+            IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ip), port);
             Socket server = new Socket(AddressFamily.InterNetwork,
             SocketType.Stream, ProtocolType.Tcp);
 
@@ -96,6 +81,7 @@ namespace ServEx01Cliente
             }
             catch (SocketException er)
             {
+                _lblConsulta.Text = "Error. Check IP and Port.";
                 return;
             }
             NetworkStream ns = new NetworkStream(server);
@@ -107,7 +93,7 @@ namespace ServEx01Cliente
                 sw.WriteLine(userMsg);
                 sw.Flush();
                 msg = sr.ReadLine();
-                label1.Text = msg;
+                _lblConsulta.Text = msg;
                 break;
             }
             sr.Close();
@@ -118,10 +104,9 @@ namespace ServEx01Cliente
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            const string IP_SERVER = "127.0.0.1";
             string msg;
             string userMsg;
-            IPEndPoint ie = new IPEndPoint(IPAddress.Parse(IP_SERVER), 31416);
+            IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ip), port);
             Socket server = new Socket(AddressFamily.InterNetwork,
             SocketType.Stream, ProtocolType.Tcp);
 
@@ -142,7 +127,7 @@ namespace ServEx01Cliente
                 sw.WriteLine(userMsg);
                 sw.Flush();
                 msg = sr.ReadLine();
-                label1.Text = msg;
+                _lblConsulta.Text = msg;
                 break;
             }
             sr.Close();
@@ -153,10 +138,9 @@ namespace ServEx01Cliente
 
         private void Button4_Click(object sender, EventArgs e)
         {
-            const string IP_SERVER = "127.0.0.1";
             string msg;
             string userMsg;
-            IPEndPoint ie = new IPEndPoint(IPAddress.Parse(IP_SERVER), 31416);
+            IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ip), port);
             Socket server = new Socket(AddressFamily.InterNetwork,
             SocketType.Stream, ProtocolType.Tcp);
 
@@ -166,6 +150,7 @@ namespace ServEx01Cliente
             }
             catch (SocketException er)
             {
+                _lblConsulta.Text = "Error. Check IP and Port.";
                 return;
             }
             NetworkStream ns = new NetworkStream(server);
@@ -177,7 +162,7 @@ namespace ServEx01Cliente
                 sw.WriteLine(userMsg);
                 sw.Flush();
                 msg = sr.ReadLine();
-                label1.Text = msg;
+                _lblConsulta.Text = msg;
                 break;
             }
             sr.Close();
@@ -186,5 +171,42 @@ namespace ServEx01Cliente
             server.Close();
             this.Close();
         }
+
+
+        private void _btnOptions_Click(object sender, EventArgs e)
+        {
+
+            Label lblIP = new Label();
+            Label lblPort = new Label();
+            Button applyOpts = new Button();
+
+            lblIP.Text = "IP: ";
+            lblPort.Text = "Port: ";
+            applyOpts.Text = "Apply";
+            lblIP.Width = 30;
+            lblPort.Width = 30;
+            lblPort.Location = new Point(0, 25);
+            txtIP.Location = new Point(30, 0);
+            txtPort.Location = new Point(30, 25);
+            applyOpts.Location = new Point(10, 50);
+            optsForm.Controls.Add(lblIP);
+            optsForm.Controls.Add(txtIP);
+            optsForm.Controls.Add(lblPort);
+            optsForm.Controls.Add(txtPort);
+            optsForm.Controls.Add(applyOpts);
+
+            applyOpts.Click += new EventHandler(this.applyConfig);
+
+            optsForm.ShowDialog();
+        }
+
+        public void applyConfig(object sender, EventArgs e)
+        {
+
+            ip = txtIP.Text;
+            port = Int32.Parse(txtPort.Text);
+            optsForm.Close();
+        }
+
     }
 }

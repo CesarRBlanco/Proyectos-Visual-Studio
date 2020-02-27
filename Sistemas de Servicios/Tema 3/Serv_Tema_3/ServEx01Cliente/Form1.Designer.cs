@@ -28,74 +28,96 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this._btnHour = new System.Windows.Forms.Button();
+            this._btnDate = new System.Windows.Forms.Button();
+            this._btnHourDate = new System.Windows.Forms.Button();
+            this._btnExit = new System.Windows.Forms.Button();
+            this._lblConsulta = new System.Windows.Forms.Label();
+            this._btnOptions = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
-            // button1
+            // _btnHour
             // 
-            this.button1.Location = new System.Drawing.Point(47, 95);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this._btnHour.Location = new System.Drawing.Point(47, 95);
+            this._btnHour.Name = "_btnHour";
+            this._btnHour.Size = new System.Drawing.Size(75, 23);
+            this._btnHour.TabIndex = 0;
+            this._btnHour.Text = "Hour";
+            this._btnHour.UseVisualStyleBackColor = true;
+            this._btnHour.Click += new System.EventHandler(this.Button1_Click);
             // 
-            // button2
+            // _btnDate
             // 
-            this.button2.Location = new System.Drawing.Point(128, 95);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click);
+            this._btnDate.Location = new System.Drawing.Point(128, 95);
+            this._btnDate.Name = "_btnDate";
+            this._btnDate.Size = new System.Drawing.Size(75, 23);
+            this._btnDate.TabIndex = 1;
+            this._btnDate.Text = "Date";
+            this._btnDate.UseVisualStyleBackColor = true;
+            this._btnDate.Click += new System.EventHandler(this.Button2_Click);
             // 
-            // button3
+            // _btnHourDate
             // 
-            this.button3.Location = new System.Drawing.Point(209, 95);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.Button3_Click);
+            this._btnHourDate.Location = new System.Drawing.Point(209, 95);
+            this._btnHourDate.Name = "_btnHourDate";
+            this._btnHourDate.Size = new System.Drawing.Size(75, 23);
+            this._btnHourDate.TabIndex = 2;
+            this._btnHourDate.Text = "Full Date";
+            this._btnHourDate.UseVisualStyleBackColor = true;
+            this._btnHourDate.Click += new System.EventHandler(this.Button3_Click);
             // 
-            // button4
+            // _btnExit
             // 
-            this.button4.Location = new System.Drawing.Point(290, 95);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.Button4_Click);
+            this._btnExit.Location = new System.Drawing.Point(290, 95);
+            this._btnExit.Name = "_btnExit";
+            this._btnExit.Size = new System.Drawing.Size(75, 23);
+            this._btnExit.TabIndex = 3;
+            this._btnExit.Text = "Exit";
+            this._btnExit.UseVisualStyleBackColor = true;
+            this._btnExit.Click += new System.EventHandler(this.Button4_Click);
             // 
-            // label1
+            // _lblConsulta
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(167, 38);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "label1";
+            this._lblConsulta.AutoSize = true;
+            this._lblConsulta.Location = new System.Drawing.Point(172, 45);
+            this._lblConsulta.Name = "_lblConsulta";
+            this._lblConsulta.Size = new System.Drawing.Size(31, 13);
+            this._lblConsulta.TabIndex = 4;
+            this._lblConsulta.Text = "Hello";
+            // 
+            // _btnOptions
+            // 
+            this._btnOptions.Location = new System.Drawing.Point(334, 13);
+            this._btnOptions.Name = "_btnOptions";
+            this._btnOptions.Size = new System.Drawing.Size(75, 23);
+            this._btnOptions.TabIndex = 5;
+            this._btnOptions.Text = "Options";
+            this._btnOptions.UseVisualStyleBackColor = true;
+            this._btnOptions.Click += new System.EventHandler(this._btnOptions_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(421, 168);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this._btnOptions);
+            this.Controls.Add(this._lblConsulta);
+            this.Controls.Add(this._btnExit);
+            this.Controls.Add(this._btnHourDate);
+            this.Controls.Add(this._btnDate);
+            this.Controls.Add(this._btnHour);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Clock \'N\' Calendar";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -103,11 +125,13 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button _btnHour;
+        private System.Windows.Forms.Button _btnDate;
+        private System.Windows.Forms.Button _btnHourDate;
+        private System.Windows.Forms.Button _btnExit;
+        private System.Windows.Forms.Label _lblConsulta;
+        private System.Windows.Forms.Button _btnOptions;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
 
