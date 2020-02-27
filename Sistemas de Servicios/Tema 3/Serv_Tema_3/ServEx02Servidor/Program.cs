@@ -38,7 +38,7 @@ namespace ServEx02Servidor
         {
             string mensaje;
             string nombre;
-
+            string nombreSimple;
             bool safeClose = false;
 
 
@@ -57,6 +57,7 @@ namespace ServEx02Servidor
 
 
                 nombre = sr.ReadLine();
+                nombreSimple = nombre;
                 names.Add(nombre);
                 nombre = String.Format("{0}@{1}", nombre, ieCliente.Address);
                 swArray.Add(sw);
@@ -74,20 +75,25 @@ namespace ServEx02Servidor
                                 safeClose = true;
                                 for (int i = 0; i < names.Count; i++)
                                 {
-                                    if (names[i] == nombre)
+                                    if (names[i] == nombreSimple)
                                     {
                                         names.Remove(names[i]);
                                     }
                                 }
                                 swArray.Remove(sw);
                                 cliente.Close();
+                                userDisconnected(sw, nombre);
                             }
                             else if (mensaje == "#lista")
                             {
                                 mensaje = "Users: ";
-                                foreach (var persona in names)
+                                //foreach (var persona in names)
+                                //{
+                                //    mensaje = mensaje +"-"+ persona+" ";                     
+                                //}
+                                foreach (var item in swArray)
                                 {
-                                    mensaje = mensaje +"-"+ persona+" ";                     
+                                    mensaje = mensaje + "-" + item + " ";
                                 }
                                 list(sw, mensaje);
                             }
@@ -99,19 +105,27 @@ namespace ServEx02Servidor
                     }
                     catch (IOException)
                     {
-                        //Salta al acceder al socket
-                        //y no estar permitido
+                        Console.WriteLine("Sa largao");
                         break;
                     }
                 }
-                Console.WriteLine("Finished connection with {0}:{1}",
-                ieCliente.Address, ieCliente.Port);
-                if (!safeClose)
+                lock (l)
                 {
-                    names.Remove(nombre);
-                    swArray.Remove(sw);
 
 
+                    Console.WriteLine("Finished connection with {0}:{1}",
+                    ieCliente.Address, ieCliente.Port);
+                    if (!safeClose)
+                    {
+                        for (int i = 0; i < names.Count; i++)
+                        {
+                            if (names[i] == nombreSimple)
+                            {
+                                names.Remove(names[i]);
+                            }
+                        }
+                        swArray.Remove(sw);
+                    }
                 }
             }
 
@@ -145,6 +159,19 @@ namespace ServEx02Servidor
                 if (destino != sw)
                 {
                     destino.WriteLine("User \"{0}\" is now connected. Say hi!", nombre);
+                    destino.Flush();
+                }
+
+            }
+        }
+        static void userDisconnected(StreamWriter sw, string nombre)
+        {
+            foreach (var destino in swArray)
+            {
+
+                if (destino != sw)
+                {
+                    destino.WriteLine("User \"{0}\" has disconnected.", nombre);
                     destino.Flush();
                 }
 

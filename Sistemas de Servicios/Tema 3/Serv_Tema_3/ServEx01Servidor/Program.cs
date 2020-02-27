@@ -13,28 +13,35 @@ namespace ServEx01Servidor
     {
 
         static bool running = true;
+       static int port=135;
         static void Main(string[] args)
         {
-                IPEndPoint ie = new IPEndPoint(IPAddress.Any, 135);// fixme PUERTO OCUPADO e ip valida
-                Socket s = new Socket(AddressFamily.InterNetwork,
-                SocketType.Stream, ProtocolType.Tcp);
-                try
-                {
-                    s.Bind(ie);
-                }
-                catch (System.Net.Sockets.SocketException)
-                {
-                s.Bind(ie);
-                }
 
+
+            tryConnection();
+        }
+
+        public static void tryConnection()
+        {
+            IPEndPoint ie = new IPEndPoint(IPAddress.Any, port);// fixme PUERTO OCUPADO e ip valida
+            Socket s = new Socket(AddressFamily.InterNetwork,
+            SocketType.Stream, ProtocolType.Tcp);
+            try
+            {
+                s.Bind(ie);
                 s.Listen(10);
-                Console.WriteLine("Server waiting at port {0}", ie.Port);
-                while (running)
-                {
-                    clienteConecction(s);
-                }
-          
-            
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+                port++;
+                tryConnection();
+            }
+     
+            Console.WriteLine("Server waiting at port {0}", ie.Port);
+            while (running)
+            {
+                clienteConecction(s);
+            }
         }
 
         static void clienteConecction(Socket s)
