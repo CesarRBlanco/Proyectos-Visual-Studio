@@ -45,9 +45,10 @@
             this._btnHour.Name = "_btnHour";
             this._btnHour.Size = new System.Drawing.Size(75, 23);
             this._btnHour.TabIndex = 0;
+            this._btnHour.Tag = "HORA";
             this._btnHour.Text = "Hour";
             this._btnHour.UseVisualStyleBackColor = true;
-            this._btnHour.Click += new System.EventHandler(this.Button1_Click);
+            this._btnHour.Click += new System.EventHandler(this.consulta);
             // 
             // _btnDate
             // 
@@ -55,9 +56,10 @@
             this._btnDate.Name = "_btnDate";
             this._btnDate.Size = new System.Drawing.Size(75, 23);
             this._btnDate.TabIndex = 1;
+            this._btnDate.Tag = "FECHA";
             this._btnDate.Text = "Date";
             this._btnDate.UseVisualStyleBackColor = true;
-            this._btnDate.Click += new System.EventHandler(this.Button2_Click);
+            this._btnDate.Click += new System.EventHandler(this.consulta);
             // 
             // _btnHourDate
             // 
@@ -65,9 +67,10 @@
             this._btnHourDate.Name = "_btnHourDate";
             this._btnHourDate.Size = new System.Drawing.Size(75, 23);
             this._btnHourDate.TabIndex = 2;
+            this._btnHourDate.Tag = "TODO";
             this._btnHourDate.Text = "Full Date";
             this._btnHourDate.UseVisualStyleBackColor = true;
-            this._btnHourDate.Click += new System.EventHandler(this.Button3_Click);
+            this._btnHourDate.Click += new System.EventHandler(this.consulta);
             // 
             // _btnExit
             // 
@@ -75,9 +78,10 @@
             this._btnExit.Name = "_btnExit";
             this._btnExit.Size = new System.Drawing.Size(75, 23);
             this._btnExit.TabIndex = 3;
+            this._btnExit.Tag = "APAGAR";
             this._btnExit.Text = "Exit";
             this._btnExit.UseVisualStyleBackColor = true;
-            this._btnExit.Click += new System.EventHandler(this.Button4_Click);
+            this._btnExit.Click += new System.EventHandler(this.consulta);
             // 
             // _lblConsulta
             // 

@@ -39,7 +39,7 @@ namespace ServEx02Servidor
             string mensaje;
             string nombre;
 
-
+            bool safeClose = false;
 
 
             Socket cliente = (Socket)socket;
@@ -58,10 +58,8 @@ namespace ServEx02Servidor
 
                 nombre = sr.ReadLine();
                 names.Add(nombre);
-                int pos = names.IndexOf(nombre);
                 nombre = String.Format("{0}@{1}", nombre, ieCliente.Address);
                 swArray.Add(sw);
-                int posSW = swArray.IndexOf(sw);
                 userConnected(sw, nombre);
                 while (true)
                 {
@@ -70,10 +68,18 @@ namespace ServEx02Servidor
                         mensaje = sr.ReadLine();
                         lock (l)
                         {
+                            safeClose = false;
                             if (mensaje == "#salir")
                             {
-                                names.Remove(names[pos]);
-                                swArray.Remove(swArray[posSW]);
+                                safeClose = true;
+                                for (int i = 0; i < names.Count; i++)
+                                {
+                                    if (names[i] == nombre)
+                                    {
+                                        names.Remove(names[i]);
+                                    }
+                                }
+                                swArray.Remove(sw);
                                 cliente.Close();
                             }
                             else if (mensaje == "#lista")
@@ -100,8 +106,13 @@ namespace ServEx02Servidor
                 }
                 Console.WriteLine("Finished connection with {0}:{1}",
                 ieCliente.Address, ieCliente.Port);
-                names.Remove(names[pos]);
-                swArray.Remove(swArray[posSW]);
+                if (!safeClose)
+                {
+                    names.Remove(nombre);
+                    swArray.Remove(sw);
+
+
+                }
             }
 
             cliente.Close();

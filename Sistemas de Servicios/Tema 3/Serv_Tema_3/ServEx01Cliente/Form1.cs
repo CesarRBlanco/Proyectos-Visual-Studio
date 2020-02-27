@@ -31,145 +31,47 @@ namespace ServEx01Cliente
             InitializeComponent();
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void consulta(object sender, EventArgs e)
         {
-
-            string msg;
-            string userMsg;
-            IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ip), port);
-            Socket server = new Socket(AddressFamily.InterNetwork,
-            SocketType.Stream, ProtocolType.Tcp);
             try
             {
-                server.Connect(ie);
+                string msg;
+                string userMsg;
+                IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ip), port);
+                Socket server = new Socket(AddressFamily.InterNetwork,
+                SocketType.Stream, ProtocolType.Tcp);
+                try
+                {
+                    server.Connect(ie);
+                }
+                catch (SocketException er)
+                {
+                    _lblConsulta.Text = "Error. Check IP and Port.";
+                    return;
+                }
+                NetworkStream ns = new NetworkStream(server);
+                StreamReader sr = new StreamReader(ns);
+                StreamWriter sw = new StreamWriter(ns);
+                while (true)
+                {
+                    userMsg = ((Button)sender).Tag.ToString();
+                    sw.WriteLine(userMsg);
+                    sw.Flush();
+                    msg = sr.ReadLine();
+                    _lblConsulta.Text = msg;
+                    break;
+                }
+                sr.Close();
+                sw.Close();
+                ns.Close();
+                server.Close();
+            
             }
-            catch (SocketException er)
+            catch (System.ArgumentOutOfRangeException)
             {
                 _lblConsulta.Text = "Error. Check IP and Port.";
-                return;
-            }
-            NetworkStream ns = new NetworkStream(server);
-            StreamReader sr = new StreamReader(ns);
-            StreamWriter sw = new StreamWriter(ns);
-            while (true)
-            {
-                userMsg = "HORA";
-                sw.WriteLine(userMsg);
-                sw.Flush();
-                msg = sr.ReadLine();
-                _lblConsulta.Text = msg;
-                break;
-            }
-            sr.Close();
-            sw.Close();
-            ns.Close();
-            server.Close();
 
-        }
-
-        private void Button2_Click(object sender, EventArgs e)
-        {
-            string msg;
-            string userMsg;
-            IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ip), port);
-            Socket server = new Socket(AddressFamily.InterNetwork,
-            SocketType.Stream, ProtocolType.Tcp);
-
-            try
-            {
-                server.Connect(ie);
             }
-            catch (SocketException er)
-            {
-                _lblConsulta.Text = "Error. Check IP and Port.";
-                return;
-            }
-            NetworkStream ns = new NetworkStream(server);
-            StreamReader sr = new StreamReader(ns);
-            StreamWriter sw = new StreamWriter(ns);
-            while (true)
-            {
-                userMsg = "FECHA";
-                sw.WriteLine(userMsg);
-                sw.Flush();
-                msg = sr.ReadLine();
-                _lblConsulta.Text = msg;
-                break;
-            }
-            sr.Close();
-            sw.Close();
-            ns.Close();
-            server.Close();
-        }
-
-        private void Button3_Click(object sender, EventArgs e)
-        {
-            string msg;
-            string userMsg;
-            IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ip), port);
-            Socket server = new Socket(AddressFamily.InterNetwork,
-            SocketType.Stream, ProtocolType.Tcp);
-
-            try
-            {
-                server.Connect(ie);
-            }
-            catch (SocketException er)
-            {
-                return;
-            }
-            NetworkStream ns = new NetworkStream(server);
-            StreamReader sr = new StreamReader(ns);
-            StreamWriter sw = new StreamWriter(ns);
-            while (true)
-            {
-                userMsg = "TODO";
-                sw.WriteLine(userMsg);
-                sw.Flush();
-                msg = sr.ReadLine();
-                _lblConsulta.Text = msg;
-                break;
-            }
-            sr.Close();
-            sw.Close();
-            ns.Close();
-            server.Close();
-        }
-
-        private void Button4_Click(object sender, EventArgs e)
-        {
-            string msg;
-            string userMsg;
-            IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ip), port);
-            Socket server = new Socket(AddressFamily.InterNetwork,
-            SocketType.Stream, ProtocolType.Tcp);
-
-            try
-            {
-                server.Connect(ie);
-            }
-            catch (SocketException er)
-            {
-                _lblConsulta.Text = "Error. Check IP and Port.";
-                return;
-            }
-            NetworkStream ns = new NetworkStream(server);
-            StreamReader sr = new StreamReader(ns);
-            StreamWriter sw = new StreamWriter(ns);
-            while (true)
-            {
-                userMsg = "APAGAR";
-                sw.WriteLine(userMsg);
-                sw.Flush();
-                msg = sr.ReadLine();
-                _lblConsulta.Text = msg;
-                break;
-            }
-            sr.Close();
-            sw.Close();
-            ns.Close();
-            server.Close();
-            this.Close();
         }
 
 
@@ -202,11 +104,31 @@ namespace ServEx01Cliente
 
         public void applyConfig(object sender, EventArgs e)
         {
+            bool allGreen;
+            try
+            {
+                allGreen = true;
 
-            ip = txtIP.Text;
-            port = Int32.Parse(txtPort.Text);
-            optsForm.Close();
+                ip = txtIP.Text;
+                port = Int32.Parse(txtPort.Text);
+            }
+            catch (System.FormatException)
+            {
+                allGreen = false;
+                MessageBox.Show("Port field cannot be empty.", "Error Port", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            if (ip == "")
+            {
+                allGreen = false;
+                MessageBox.Show("IP field cannot be empty.", "Error IP", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            if (allGreen)
+            {
+                optsForm.Close();
+            }
         }
 
     }
 }
+// Comprobación puerto e IP y una función única para todos los botones 
