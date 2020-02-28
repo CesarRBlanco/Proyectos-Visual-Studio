@@ -44,7 +44,7 @@ namespace ServEx01Cliente
                 {
                     server.Connect(ie);
                 }
-                catch (SocketException er)
+                catch (SocketException)
                 {
                     _lblConsulta.Text = "Error. Check IP and Port.";
                     return;
@@ -71,6 +71,10 @@ namespace ServEx01Cliente
             {
                 _lblConsulta.Text = "Error. Check IP and Port.";
 
+            }
+            catch (FormatException)
+            {
+                _lblConsulta.Text = "Error. Check IP.";
             }
         }
 

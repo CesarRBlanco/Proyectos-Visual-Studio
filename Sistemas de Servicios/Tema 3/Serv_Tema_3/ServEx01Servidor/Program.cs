@@ -16,8 +16,6 @@ namespace ServEx01Servidor
        static int port=135;
         static void Main(string[] args)
         {
-
-
             tryConnection();
         }
 

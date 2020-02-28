@@ -87,15 +87,11 @@ namespace ServEx02Servidor
                             else if (mensaje == "#lista")
                             {
                                 mensaje = "Users: ";
-                                //foreach (var persona in names)
-                                //{
-                                //    mensaje = mensaje +"-"+ persona+" ";                     
-                                //}
-                                foreach (var item in swArray)
+                                foreach (var persona in names)
                                 {
-                                    mensaje = mensaje + "-" + item + " ";
+                                    mensaje = mensaje + "-" + persona + " ";
                                 }
-                                list(sw, mensaje);
+                                list(sw,mensaje);
                             }
                             else
                             {
@@ -145,6 +141,11 @@ namespace ServEx02Servidor
                         destino.WriteLine("{0}: {1}", nombre, mensaje);
                         destino.Flush();
                     }
+                }
+                else
+                {
+                    destino.WriteLine("User \"{0}\" has disconnected.", nombre);
+                    destino.Flush();
                 }
             }
         }
