@@ -112,7 +112,6 @@ namespace ServEx01Cliente
             try
             {
                 allGreen = true;
-
                 ip = txtIP.Text;
                 port = Int32.Parse(txtPort.Text);
             }
@@ -133,6 +132,7 @@ namespace ServEx01Cliente
             }
         }
 
+      
     }
 }
 // Comprobación puerto e IP y una función única para todos los botones 

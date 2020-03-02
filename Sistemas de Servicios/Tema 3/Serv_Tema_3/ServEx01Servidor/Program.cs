@@ -13,7 +13,7 @@ namespace ServEx01Servidor
     {
 
         static bool running = true;
-       static int port=135;
+        static int port = 135;
         static void Main(string[] args)
         {
             tryConnection();
@@ -34,7 +34,7 @@ namespace ServEx01Servidor
                 port++;
                 tryConnection();
             }
-     
+
             Console.WriteLine("Server waiting at port {0}", ie.Port);
             while (running)
             {

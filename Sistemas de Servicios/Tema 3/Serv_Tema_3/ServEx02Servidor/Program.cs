@@ -107,8 +107,6 @@ namespace ServEx02Servidor
                 }
                 lock (l)
                 {
-
-
                     Console.WriteLine("Finished connection with {0}:{1}",
                     ieCliente.Address, ieCliente.Port);
                     if (!safeClose)
