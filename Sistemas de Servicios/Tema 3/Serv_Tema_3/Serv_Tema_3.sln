@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServEx02Servidor", "ServEx0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServEx03Servidor", "ServEx03Servidor\ServEx03Servidor.csproj", "{97852911-887B-4279-AE2C-6B2272A7CA6C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PruebaExamen", "PruebaExamen\PruebaExamen.csproj", "{3782915D-FC9D-4325-B163-5010679A0179}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{97852911-887B-4279-AE2C-6B2272A7CA6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97852911-887B-4279-AE2C-6B2272A7CA6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97852911-887B-4279-AE2C-6B2272A7CA6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3782915D-FC9D-4325-B163-5010679A0179}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3782915D-FC9D-4325-B163-5010679A0179}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3782915D-FC9D-4325-B163-5010679A0179}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3782915D-FC9D-4325-B163-5010679A0179}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -15,12 +15,14 @@ namespace ServEx03Servidor
         private static readonly object l = new object();
         static List<StreamWriter> swArray = new List<StreamWriter>();
         static List<string> names = new List<string>();
-        static List<int> numbers= new List<int>();
+        static List<int> numbers = new List<int>();
         static Random rnd = new Random();
         static int playerReady = 0;
-
+        static bool enoughPlayers = true;
         static void Main(string[] args)
         {
+
+
             IPEndPoint ie = new IPEndPoint(IPAddress.Any, 31416);
             Socket s = new Socket(AddressFamily.InterNetwork,
             SocketType.Stream, ProtocolType.Tcp);
@@ -38,10 +40,15 @@ namespace ServEx03Servidor
 
         static void hiloCliente(object socket)
         {
-            string name,ready;
+            string mensaje;
+            string nombre;
+            string nombreSimple;
+            bool safeClose = false;
+            string name, ready;
             bool endGame = false;
             string numberString;
-            int number;
+            int number,max=0;
+
             Socket cliente = (Socket)socket;
             IPEndPoint ieCliente = (IPEndPoint)cliente.RemoteEndPoint;
             Console.WriteLine("Connected with client {0} at port {1}",
@@ -53,67 +60,166 @@ namespace ServEx03Servidor
                 string welcome = "Welcome, please insert your username:";
                 sw.WriteLine(welcome);
                 sw.Flush();
+
+
+
+                nombre = sr.ReadLine();
+                nombreSimple = nombre;
+                names.Add(nombre);
+                number = rnd.Next(1, 20);
+                numbers.Add(number);
+                numberString = number.ToString();
+                nombre = String.Format("{0}@{1}", nombre, ieCliente.Address);
                 swArray.Add(sw);
-                name = sr.ReadLine();
-                names.Add(name);
+                userConnected(sw, nombre);
 
-                //userConnected(sw, nombre);
-                try
+                while (true)
                 {
-                    lock (l)
+                    try
                     {
-                        number = rnd.Next(1, 20);
-                        numbers.Add(number);
-                        numberString = number.ToString();
-                        sw.WriteLine(numberString);
-                        sw.WriteLine("Press any key to ready.");
-                        sw.Flush();
-                    }
-        
-                    lock(l){
-                        ready = sr.ReadLine();
-                        playerReady++;
-                    }
-                }
-                catch (IOException)
-                {
-
-                }
-                lock (l)
-                {
-                    int max = numbers[0];
-                    if (playerReady == swArray.Count)
-                    {
-
-                        for (int i = 0; i < numbers.Count; i++)
+                        //lock (l)
+                        //{
+                        //    mensaje = number.ToString();
+                        //}
+                        //lee(sw, mensaje, nombre);
+                        mensaje = sr.ReadLine();
+                        lock (l)
                         {
-                            if (numbers[i] > max)
+                            safeClose = false;
+                            if (mensaje == "#salir")
                             {
-                                max = numbers[i];
+                                safeClose = true;
+                                for (int i = 0; i < names.Count; i++)
+                                {
+                                    if (names[i] == nombreSimple)
+                                    {
+                                        names.Remove(names[i]);
+                                    }
+                                }
+                                swArray.Remove(sw);
+                                cliente.Close();
+                                userDisconnected(sw, nombre);
+                            }
+                            else if (mensaje == "#ready")
+                            {
+                                playerReady++;
+                                if (playerReady == names.Count)
+                                {
+                                    for (int i = 10; i > 0; i--)
+                                    {
+                                        mensaje = i.ToString();
+                                        lee(sw, mensaje, nombre);
+                                        Thread.Sleep(500);
+                                    }
+
+                                    for (int i = 0; i < numbers.Count; i++)
+                                    {
+                                        Console.WriteLine("----" + numbers[i]);
+                                        if (numbers[i] > max)
+                                        {
+                                            max = numbers[i];
+                                        }
+                                    }
+                                    Console.WriteLine(max.ToString());
+                                    mensaje = max.ToString();
+                                    lee(sw, mensaje, nombre);
+
+                                }
+                            }
+                            else
+                            {
+                                lee(sw, mensaje, nombre);
                             }
                         }
-                        Console.WriteLine(max);
+                    }
+                    catch (IOException)
+                    {
+                        Console.WriteLine("Sa largao");
+                        break;
                     }
                 }
-
                 lock (l)
                 {
-                    if (endGame)
+
+
+                    Console.WriteLine("Finished connection with {0}:{1}",
+                    ieCliente.Address, ieCliente.Port);
+                    if (!safeClose)
                     {
                         for (int i = 0; i < names.Count; i++)
                         {
-                            if (names[i] == name)
+                            if (names[i] == nombreSimple)
                             {
                                 names.Remove(names[i]);
                             }
                         }
                         swArray.Remove(sw);
-                        cliente.Close();
                     }
                 }
             }
 
-
+            cliente.Close();
         }
+
+
+
+        static void lee(StreamWriter sw, string mensaje, string nombre)
+        {
+            foreach (var destino in swArray)
+            {
+                if (mensaje != null)
+                {
+                    //if (destino != sw)
+                    //{
+                    destino.WriteLine("{0}", mensaje);
+                    destino.Flush();
+                    //}
+                }
+                else
+                {
+                    destino.WriteLine("User \"{0}\" has disconnected.", nombre);
+                    destino.Flush();
+                }
+            }
+        }
+
+
+
+        static void userConnected(StreamWriter sw, string nombre)
+        {
+            foreach (var destino in swArray)
+            {
+
+                if (destino != sw)
+                {
+                    destino.WriteLine("User \"{0}\" is now connected. Say hi!", nombre);
+                    destino.Flush();
+                }
+
+            }
+        }
+        static void userDisconnected(StreamWriter sw, string nombre)
+        {
+            foreach (var destino in swArray)
+            {
+
+                if (destino != sw)
+                {
+                    destino.WriteLine("User \"{0}\" has disconnected.", nombre);
+                    destino.Flush();
+                }
+
+            }
+        }
+
+
+    
+
+
+
     }
+
 }
+
+
+
