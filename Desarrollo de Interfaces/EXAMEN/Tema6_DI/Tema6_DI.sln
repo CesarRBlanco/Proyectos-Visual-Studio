@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex_DI_01", "Ex_DI_01\Ex_DI_01.csproj", "{86488B67-193A-4391-94F6-DAC359B1D8D3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formulario02", "Formulario02\Formulario02.csproj", "{8D42DECB-3EE1-440C-BC4D-979A55131C51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex_01_DI", "Ex_01_DI\Ex_01_DI.csproj", "{6BA0845B-F373-4CC4-8E54-FA32D939C9D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{86488B67-193A-4391-94F6-DAC359B1D8D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{86488B67-193A-4391-94F6-DAC359B1D8D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{86488B67-193A-4391-94F6-DAC359B1D8D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{86488B67-193A-4391-94F6-DAC359B1D8D3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8D42DECB-3EE1-440C-BC4D-979A55131C51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D42DECB-3EE1-440C-BC4D-979A55131C51}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D42DECB-3EE1-440C-BC4D-979A55131C51}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D42DECB-3EE1-440C-BC4D-979A55131C51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BA0845B-F373-4CC4-8E54-FA32D939C9D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BA0845B-F373-4CC4-8E54-FA32D939C9D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BA0845B-F373-4CC4-8E54-FA32D939C9D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BA0845B-F373-4CC4-8E54-FA32D939C9D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -45,6 +45,8 @@
             this.customControl11.Size = new System.Drawing.Size(263, 120);
             this.customControl11.TabIndex = 0;
             this.customControl11.Text = "illo";
+            this.customControl11.ClickEnMarca += new System.EventHandler(this.customControl11_ClickEnMarca);
+            this.customControl11.Click += new System.EventHandler(this.customControl11_ClickEnMarca);
             // 
             // Form1
             // 

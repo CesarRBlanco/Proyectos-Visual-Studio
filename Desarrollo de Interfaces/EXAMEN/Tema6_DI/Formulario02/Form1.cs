@@ -16,5 +16,10 @@ namespace Formulario02
         {
             InitializeComponent();
         }
+
+        private void customControl11_ClickEnMarca(object sender, EventArgs e)
+        {
+            MessageBox.Show("WOrking");
+        }
     }
 }

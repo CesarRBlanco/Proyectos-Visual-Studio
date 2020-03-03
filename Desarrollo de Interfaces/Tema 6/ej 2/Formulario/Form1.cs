@@ -43,5 +43,10 @@ namespace Formulario
             MessageBox.Show("SE SUPONE QUE FUNCIONA");
 
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

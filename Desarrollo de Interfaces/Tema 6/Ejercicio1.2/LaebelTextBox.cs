@@ -102,7 +102,7 @@ namespace Ejercicio1._2
                 {
                     separacion = value;
                     recolocar();
-                    //CambiaSeparacion?.Invoke(this, new EventArgs());
+                    CambiaSeparacion?.Invoke(this, new EventArgs());
                 }
                 else
                 {
