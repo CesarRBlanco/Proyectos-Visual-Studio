@@ -24,17 +24,6 @@ namespace Ex_DI_01
             IZQUIERDA, DERECHA
         }
 
-
-        [Category("La propiedad cambió")]
-        [Description("Se lanza cuando la propiedad Posición cambia")]
-        public event System.EventHandler CambiaPosicion;
-
-        [Category("La propiedad cambió")]
-        [Description("Se lanza cuando la propiedad Separacion cambia")]
-        public event System.EventHandler CambiaSeparacion;
-
-
-
         private ePosicion posicion = ePosicion.IZQUIERDA;
         [Category("Appearance")]
         [Description("Indica si la Label se sitúa a la IZQUIERDA o DERECHA del Textbox")]
@@ -46,10 +35,9 @@ namespace Ex_DI_01
                 {
                     posicion = value;
                     recolocar();
-                    if (CambiaPosicion != null)
-                    {
-                        CambiaPosicion(this, new EventArgs());
-                    }
+                 
+                        CambiaPosicion?.Invoke(this, new EventArgs());
+                    
                 }
                 else
                 {
@@ -62,7 +50,7 @@ namespace Ex_DI_01
             }
         }
 
-    
+
 
         void recolocar()
         {
@@ -77,6 +65,7 @@ namespace Ex_DI_01
                     lbl.Location = new Point(txt.Width + Separacion, 0);
                     //Establecemos altura del componente
                     this.Height = Math.Max(txt.Height, lbl.Height);
+
                     break;
                 case ePosicion.IZQUIERDA:
                     lbl.Location = new Point(0, 0);
@@ -94,6 +83,23 @@ namespace Ex_DI_01
             recolocar();
         }
 
+        private char chrPsw;
+        [Category("Design")]
+        [Description("Contraseña")]
+        public char ChrPsw
+        {
+            set
+            {
+                chrPsw = value;
+                txt.PasswordChar = value;
+            }
+            get
+            {
+                return chrPsw;
+            }
+        }
+
+
         private int separacion = 0;
         [Category("Design")]
         [Description("Píxels de separación entre Label y Textbox")]
@@ -105,10 +111,7 @@ namespace Ex_DI_01
                 {
                     separacion = value;
                     recolocar();
-                    if (CambiaSeparacion != null)
-                    {
-                        CambiaSeparacion(this, new EventArgs());
-                    }
+                    CambiaSeparacion?.Invoke(this, new EventArgs());
                 }
                 else
                 {
@@ -142,6 +145,7 @@ namespace Ex_DI_01
             set
             {
                 txt.Text = value;
+
             }
             get
             {
@@ -149,17 +153,28 @@ namespace Ex_DI_01
             }
         }
 
-        private void txt_KeyPress(object sender, KeyPressEventArgs e)
+
+        [Category("Cambio")]
+        [Description("Se lanza al cambiar el texto la Posicion del control")]
+        public event EventHandler CambiaPosicion;
+
+        [Category("Cambio")]
+        [Description("Se lanza al cambiar el texto la Separacion del control")]
+        public event EventHandler CambiaSeparacion;
+
+        [Category("Cambio")]
+        [Description("Se lanza al cambiar el texto la Separacion del control")]
+        public event EventHandler TxtChanged;
+
+
+        private void txt_KeyUp(object sender, KeyEventArgs e)
         {
-            this.OnKeyPress(e);
+            this.OnKeyUp(e);
         }
 
-        private void txt_KeyUp(object sender,KeyEventArgs e)
+        private void Txt_TextChanged(object sender, EventArgs e)
         {
-            MessageBox.Show("asd","asd",MessageBoxButtons.YesNo,MessageBoxIcon.Error);
+            TxtChanged?.Invoke(this,e);
         }
-
-
-
     }
 }

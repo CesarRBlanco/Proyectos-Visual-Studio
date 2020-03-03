@@ -29,18 +29,40 @@ namespace Ex_DI_01
             if (userControl11.Posicion == UserControl1.ePosicion.IZQUIERDA)
             {
                 userControl11.Posicion = UserControl1.ePosicion.DERECHA;
+                userControl11.Separacion = +5;
             }
             else
             {
                 userControl11.Posicion = UserControl1.ePosicion.IZQUIERDA;
+                userControl11.Separacion = +5;
             }
-            this.Text = userControl11.Posicion.ToString();
+        
             
         }
 
-        private void UserControl11_KeyUp(object sender, KeyEventArgs e)
+        private void Button1_CambiaPosicion(object sender,EventArgs e)
         {
-            this.Text = "hola";
+            this.Text = userControl11.Posicion.ToString() ;
+        }
+
+
+        private void UserControl12_CambiaSeparacion(object sender, EventArgs e)
+        {
+        
+            Console.WriteLine("Separacion: " + userControl11.Separacion);
+
+        }
+
+        private void UserControl12_KeyUp(object sender, KeyEventArgs e)
+        {
+            Console.WriteLine("Tecla: " + e.KeyCode);
+
+        }
+
+        private void UserControl12_TxtChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine("Texto Cambiado");
+
         }
     }
 }
