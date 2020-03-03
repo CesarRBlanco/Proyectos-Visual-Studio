@@ -28,17 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.customControl11 = new Formulario02.CustomControl1();
             this.SuspendLayout();
             // 
             // customControl11
             // 
-            this.customControl11.Location = new System.Drawing.Point(285, 79);
-            this.customControl11.Marca = Formulario02.eMarca.Cruz;
+            this.customControl11.ColorFinal = System.Drawing.Color.Black;
+            this.customControl11.ColorInicial = System.Drawing.Color.Yellow;
+            this.customControl11.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.customControl11.Gradient = true;
+            this.customControl11.Image = ((System.Drawing.Image)(resources.GetObject("customControl11.Image")));
+            this.customControl11.Location = new System.Drawing.Point(85, 111);
+            this.customControl11.Marca = Formulario02.eMarca.Imagen;
             this.customControl11.Name = "customControl11";
-            this.customControl11.Size = new System.Drawing.Size(112, 17);
+            this.customControl11.Size = new System.Drawing.Size(263, 120);
             this.customControl11.TabIndex = 0;
-            this.customControl11.Text = "customControl11";
+            this.customControl11.Text = "illo";
             // 
             // Form1
             // 
