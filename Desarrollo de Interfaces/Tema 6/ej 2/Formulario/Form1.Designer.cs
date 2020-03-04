@@ -37,13 +37,14 @@
             this.etiquetaAviso2.ColorFinal = System.Drawing.Color.Red;
             this.etiquetaAviso2.ColorInicial = System.Drawing.Color.Aqua;
             this.etiquetaAviso2.Gradiente = true;
-            this.etiquetaAviso2.Image = null;
+            this.etiquetaAviso2.Image = global::Formulario.Properties.Resources._1;
             this.etiquetaAviso2.Location = new System.Drawing.Point(233, 36);
-            this.etiquetaAviso2.Marca = Formulario.eMarca.Nada;
+            this.etiquetaAviso2.Marca = Formulario.eMarca.Imagen;
             this.etiquetaAviso2.Name = "etiquetaAviso2";
-            this.etiquetaAviso2.Size = new System.Drawing.Size(78, 13);
+            this.etiquetaAviso2.Size = new System.Drawing.Size(91, 13);
             this.etiquetaAviso2.TabIndex = 0;
             this.etiquetaAviso2.Text = "etiquetaAviso2";
+            this.etiquetaAviso2.ClickEnMarca += new System.EventHandler(this.EtiquetaAviso1_ClickEnMarca_1);
             // 
             // Form1
             // 
@@ -55,9 +56,6 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "HOLA";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.Click += new System.EventHandler(this.Form1_Click);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.ResumeLayout(false);
 
         }

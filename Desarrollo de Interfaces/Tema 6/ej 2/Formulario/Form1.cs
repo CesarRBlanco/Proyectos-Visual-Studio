@@ -19,34 +19,11 @@ namespace Formulario
 
      
 
-        private void Form1_Paint(object sender, PaintEventArgs e)
-        {
-        }
-        private void Form1_Click(object sender, EventArgs e)
-        {
-            //this.OnClick(e);
-        }
-        private void EtiquetaAviso1_Click_2(object sender, EventArgs e)
-        {
-
-        }
-
-        private void EtiquetaAviso1_MouseClick_1(object sender, MouseEventArgs e)
-        {
-            this.OnMouseClick(e);
-        }
-
-   
-
         private void EtiquetaAviso1_ClickEnMarca_1(object sender, EventArgs e)
         {
             MessageBox.Show("SE SUPONE QUE FUNCIONA");
 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
