@@ -47,7 +47,7 @@ namespace ServEx03Servidor
             string name, ready;
             bool endGame = false;
             string numberString;
-            int number,max=0;
+            int number, max = 0;
 
             Socket cliente = (Socket)socket;
             IPEndPoint ieCliente = (IPEndPoint)cliente.RemoteEndPoint;
@@ -82,59 +82,79 @@ namespace ServEx03Servidor
                         //    mensaje = number.ToString();
                         //}
                         //lee(sw, mensaje, nombre);
+
                         mensaje = sr.ReadLine();
                         lock (l)
                         {
-                            safeClose = false;
-                            if (mensaje == "#salir")
+                            for (int i = 10; i > 0; i--)
                             {
-                                safeClose = true;
-                                for (int i = 0; i < names.Count; i++)
-                                {
-                                    if (names[i] == nombreSimple)
-                                    {
-                                        names.Remove(names[i]);
-                                    }
-                                }
-                                swArray.Remove(sw);
-                                cliente.Close();
-                                userDisconnected(sw, nombre);
-                            }
-                            else if (mensaje == "#ready")
-                            {
-                                playerReady++;
-                                if (playerReady == names.Count)
-                                {
-                                    for (int i = 10; i > 0; i--)
-                                    {
-                                        mensaje = i.ToString();
-                                        lee(sw, mensaje, nombre);
-                                        Thread.Sleep(500);
-                                    }
-
-                                    for (int i = 0; i < numbers.Count; i++)
-                                    {
-                                        Console.WriteLine("----" + numbers[i]);
-                                        if (numbers[i] > max)
-                                        {
-                                            max = numbers[i];
-                                        }
-                                    }
-                                    Console.WriteLine(max.ToString());
-                                    mensaje = max.ToString();
-                                    lee(sw, mensaje, nombre);
-
-                                }
-                            }
-                            else
-                            {
+                                mensaje = i.ToString();
                                 lee(sw, mensaje, nombre);
+                                Thread.Sleep(500);
                             }
+
+                            for (int i = 0; i < numbers.Count; i++)
+                            {
+                                Console.WriteLine("----" + numbers[i]);
+                                if (numbers[i] > max)
+                                {
+                                    max = numbers[i];
+                                }
+                            }
+                            Console.WriteLine(max.ToString());
+                            mensaje = max.ToString();
+                            lee(sw, mensaje, nombre);
+
+                            //safeClose = false;
+                            //if (mensaje == "#salir")
+                            //{
+                            //    safeClose = true;
+                            //    for (int i = 0; i < names.Count; i++)
+                            //    {
+                            //        if (names[i] == nombreSimple)
+                            //        {
+                            //            names.Remove(names[i]);
+                            //        }
+                            //    }
+                            //    swArray.Remove(sw);
+                            //    cliente.Close();
+                            //    userDisconnected(sw, nombre);
+                            //}
+                            //else 
+                            //{
+                            //    playerReady++;
+                            //    if (playerReady == names.Count)
+                            //    {
+                            //        for (int i = 10; i > 0; i--)
+                            //        {
+                            //            mensaje = i.ToString();
+                            //            lee(sw, mensaje, nombre);
+                            //            Thread.Sleep(500);
+                            //        }
+
+                            //        for (int i = 0; i < numbers.Count; i++)
+                            //        {
+                            //            Console.WriteLine("----" + numbers[i]);
+                            //            if (numbers[i] > max)
+                            //            {
+                            //                max = numbers[i];
+                            //            }
+                            //        }
+                            //        Console.WriteLine(max.ToString());
+                            //        mensaje = max.ToString();
+                            //        lee(sw, mensaje, nombre);
+
+                            //    }
+                            //}
+                            //else
+                            //{
+                            //    lee(sw, mensaje, nombre);
+                            //}
                         }
                     }
                     catch (IOException)
                     {
-                        Console.WriteLine("Sa largao");
+
                         break;
                     }
                 }
@@ -192,7 +212,7 @@ namespace ServEx03Servidor
 
                 if (destino != sw)
                 {
-                    destino.WriteLine("User \"{0}\" is now connected. Say hi!", nombre);
+                    destino.WriteLine("User \"{0}\" has joined the game.", nombre);
                     destino.Flush();
                 }
 
@@ -213,7 +233,7 @@ namespace ServEx03Servidor
         }
 
 
-    
+
 
 
 

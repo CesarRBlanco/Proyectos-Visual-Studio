@@ -15,15 +15,28 @@ namespace ServEx02Servidor
         private static readonly object l = new object();
         static List<StreamWriter> swArray = new List<StreamWriter>();
         static List<string> names = new List<string>();
+        static int port = 31416;
         static void Main(string[] args)
         {
+            tryConnection();
+        }
 
-
-            IPEndPoint ie = new IPEndPoint(IPAddress.Any, 31416);
+        public static void tryConnection()
+        {
+            IPEndPoint ie = new IPEndPoint(IPAddress.Any, port);
             Socket s = new Socket(AddressFamily.InterNetwork,
             SocketType.Stream, ProtocolType.Tcp);
-            s.Bind(ie);
-            s.Listen(10);
+            try
+            {
+                s.Bind(ie);
+                s.Listen(10);
+            }
+            catch (System.Net.Sockets.SocketException)
+            {
+                port++;
+                tryConnection();
+            }
+
             Console.WriteLine("Server waiting at port {0}", ie.Port);
             while (true)
             {
@@ -55,13 +68,15 @@ namespace ServEx02Servidor
                 sw.Flush();
 
 
-
-                nombre = sr.ReadLine();
-                nombreSimple = nombre;
-                names.Add(nombre);
-                nombre = String.Format("{0}@{1}", nombre, ieCliente.Address);
-                swArray.Add(sw);
-                userConnected(sw, nombre);
+                lock (l)
+                {
+                    nombre = sr.ReadLine();
+                    nombreSimple = nombre;
+                    names.Add(nombre);  //Locks
+                    nombre = String.Format("{0}@{1}", nombre, ieCliente.Address);
+                    swArray.Add(sw);
+                    userConnected(sw, nombre);
+                }
                 while (true)
                 {
                     try
@@ -73,13 +88,7 @@ namespace ServEx02Servidor
                             if (mensaje == "#salir")
                             {
                                 safeClose = true;
-                                for (int i = 0; i < names.Count; i++)
-                                {
-                                    if (names[i] == nombreSimple)
-                                    {
-                                        names.Remove(names[i]);
-                                    }
-                                }
+                                names.Remove(nombreSimple);
                                 swArray.Remove(sw);
                                 cliente.Close();
                                 userDisconnected(sw, nombre);
@@ -91,7 +100,7 @@ namespace ServEx02Servidor
                                 {
                                     mensaje = mensaje + "-" + persona + " ";
                                 }
-                                list(sw,mensaje);
+                                list(sw, mensaje);
                             }
                             else
                             {
@@ -111,13 +120,7 @@ namespace ServEx02Servidor
                     ieCliente.Address, ieCliente.Port);
                     if (!safeClose)
                     {
-                        for (int i = 0; i < names.Count; i++)
-                        {
-                            if (names[i] == nombreSimple)
-                            {
-                                names.Remove(names[i]);
-                            }
-                        }
+                        names.Remove(nombreSimple);
                         swArray.Remove(sw);
                     }
                 }
