@@ -16,11 +16,7 @@ namespace Ex_01_DI
     public partial class UserControl1 : UserControl
     {
 
-        public enum ePosicion
-        {
-            IZQUIERDA, DERECHA
-        }
-
+       
 
         public UserControl1()
         {
@@ -29,11 +25,15 @@ namespace Ex_01_DI
             TextTxt = "";
             recolocar();
         }
+        public enum ePosicion
+        {
+            IZQUIERDA, DERECHA
+        }
 
 
         private ePosicion posicion = ePosicion.IZQUIERDA;
         [Category("Appearance")]
-        [Description("Indica si la Label se sitúa a la IZQUIERDA o DERECHA del Textbox")]
+        [Description("Indica si admitira solo valores ")]
         public ePosicion Posicion
         {
             set

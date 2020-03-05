@@ -54,7 +54,7 @@ namespace Ex_01_DI
 
         private void labelTextbox_TxtChanged(object sender, EventArgs e)
         {
-            Console.WriteLine("Tesxto changing");
+            Console.WriteLine("Tesxto changing"+labelTextbox.TextTxt);
         }
     }
 }
