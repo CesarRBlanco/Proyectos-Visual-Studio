@@ -28,6 +28,10 @@ namespace PruebaExamen
             textBox1.Location = new Point(10, 10);
             this.Height = textBox1.Height + 20;
             textBox1.Width = this.Width - 20;
+            //Graphics g= new Graphics();
+
+
+
         }
 
 
