@@ -33,14 +33,13 @@
             // 
             // userControl11
             // 
-            this.userControl11.Location = new System.Drawing.Point(216, 212);
+            this.userControl11.Location = new System.Drawing.Point(212, 116);
             this.userControl11.Multilinea = false;
             this.userControl11.Name = "userControl11";
             this.userControl11.Size = new System.Drawing.Size(150, 40);
             this.userControl11.TabIndex = 0;
             this.userControl11.Texto = "";
-            this.userControl11.Tipo = PruebaExamen.UserControl1.eTipo.Numerico;
-            this.userControl11.DetectText += new System.EventHandler(this.userControl11_DetectText_1);
+            this.userControl11.Tipo = PruebaExamen.UserControl1.eTipo.Textual;
             // 
             // Form1
             // 

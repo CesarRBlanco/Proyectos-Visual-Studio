@@ -12,6 +12,7 @@ namespace PruebaExamen
 {
 
 
+
     public partial class UserControl1 : UserControl
     {
         public enum eTipo
@@ -20,6 +21,7 @@ namespace PruebaExamen
             Textual
         }
 
+        public Color colorCuadro = new Color();
 
 
         public UserControl1()
@@ -28,11 +30,21 @@ namespace PruebaExamen
             textBox1.Location = new Point(10, 10);
             this.Height = textBox1.Height + 20;
             textBox1.Width = this.Width - 20;
-            //Graphics g= new Graphics();
-
+            colorCuadro = Color.Red;
 
 
         }
+
+
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            SolidBrush sB = new SolidBrush(colorCuadro);
+            Graphics pe = e.Graphics;
+            pe.FillRectangle(sB, 5, 5, this.Width - 10, this.Height - 10);
+        }
+
 
 
 
@@ -88,7 +100,7 @@ namespace PruebaExamen
 
         public event EventHandler DetectText;
 
-       
+
 
 
         private void UserControl1_Load(object sender, EventArgs e)
@@ -98,7 +110,30 @@ namespace PruebaExamen
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            DetectText?.Invoke(this, new EventArgs()) ;
+            comprobar();
+        }
+
+        private void comprobar()
+        {
+            foreach (char character in textBox1.Text)
+            {
+                if (tipo == eTipo.Textual)
+                {
+
+
+                    if (Char.IsDigit(character))
+                    {
+                        colorCuadro = Color.Red;
+                        this.Refresh();
+                        return;
+                    }
+                    else
+                    {
+                        colorCuadro = Color.Green;
+                        this.Refresh();
+                    }
+                }
+            }
         }
     }
 }
